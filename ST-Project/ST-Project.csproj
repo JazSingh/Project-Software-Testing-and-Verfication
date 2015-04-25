@@ -44,6 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameState\Dungeon.cs" />
+    <Compile Include="GameState\GameState.cs" />
+    <Compile Include="GameState\Item.cs" />
+    <Compile Include="GameState\Monster.cs" />
+    <Compile Include="GameState\Node.cs" />
+    <Compile Include="GameState\Pack.cs" />
+    <Compile Include="GameState\Player.cs" />
     <Compile Include="Visualization\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,7 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameManager\" />
-    <Folder Include="GameState\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
