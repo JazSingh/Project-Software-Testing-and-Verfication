@@ -19,21 +19,23 @@ namespace ST_Project.GameState
 
         public bool use(Dungeon d, Item i)
         {
-
+            return true;
         }
         public bool add(Item i)
         {
             //TODO
+            return true;
         }
 
         public bool save(string filename)
         {
             //TODO
+            return true;
         }
 
         public bool load(string filename)
         {
-
+            return true;
         }
 
         public void doCombatRound(Dungeon d, Pack p)

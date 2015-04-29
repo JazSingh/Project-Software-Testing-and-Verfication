@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ST_Project
 {
-    public partial class Form1 : Form
+    public partial class Dungeon : Form
     {
-        public Form1()
+        public Dungeon()
         {
             InitializeComponent();
         }

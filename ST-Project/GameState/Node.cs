@@ -11,8 +11,9 @@ namespace ST_Project.GameState
         int ID;
         Node[] adj;
         int numNeighbours;
+        Stack<Pack> packs;
 
-        Public Node()
+        public Node()
         {
 
         }

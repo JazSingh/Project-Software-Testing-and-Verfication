@@ -8,5 +8,9 @@ namespace ST_Project.GameState
 {
     class GameState
     {
+        public GameState()
+        {
+
+        }
     }
 }

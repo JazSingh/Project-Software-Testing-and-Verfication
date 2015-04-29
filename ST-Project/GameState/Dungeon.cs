@@ -8,7 +8,6 @@ namespace ST_Project.GameState
 {
     class Dungeon
     {
-        // dungeon
         public Dungeon(int n)
         {
 
@@ -16,12 +15,12 @@ namespace ST_Project.GameState
 
         public int ShortestPath(Node u, Node v)
         {
-
+            return 0;
         }
 
         public int Destroy(Node u)
         {
-
+            return 0;
         }
     }
 }
