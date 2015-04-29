@@ -8,6 +8,7 @@ namespace ST_Project.GameState
 {
     class Dungeon
     {
+        // dungeon
         public Dungeon(int n)
         {
 
