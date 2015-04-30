@@ -54,6 +54,7 @@
     <Compile Include="GameState\Node.cs" />
     <Compile Include="GameState\Pack.cs" />
     <Compile Include="GameState\Player.cs" />
+    <Compile Include="GameState\Oracle.cs" />
     <Compile Include="Visualization\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
