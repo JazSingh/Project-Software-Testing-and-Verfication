@@ -8,14 +8,27 @@ namespace ST_Project.GameState
 {
     class Node
     {
-        int ID;
-        Node[] adj;
+        int identifier;
+        int[] adj;
         int numNeighbours;
         Stack<Pack> packs;
 
-        public Node()
+        public Node(int i)
         {
+            identifier = i;
+            adj = new int[4];
+            numNeighbours = 0;
+            packs = new Stack<Pack>();
+        }
 
+        public void AddNeighbour(int node)
+        {
+            adj[numNeighbours++] = node; 
+        }
+
+        public int ID
+        {
+            get { return identifier; }
         }
     }
 }

@@ -56,7 +56,7 @@ namespace ST_Project.GameState
         private void CreateSpanningTree(int partition)
         {
             //Create list with indices of nodes in the partition
-            List<int> partitionList = new List();
+            List<int> partitionList = new List<int>();
             int lo = interval * partition;
             int hi = lo + interval;
             for(int i = lo; i < hi; i++)
@@ -67,7 +67,7 @@ namespace ST_Project.GameState
             int v;
             u = partitionList[Orcale.GetNumber(partitionList.Count-1)];
             partitionList.Remove(u);
-            while(!partitionList.isEmpty())
+            while(partitionList.Count != 0)
             {
                 v = partitionList[Orcale.GetNumber(partitionList.Count-1)];
                 partitionList.Remove(v);
