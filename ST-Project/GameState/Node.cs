@@ -18,14 +18,4 @@ namespace ST_Project.GameState
 
         }
     }
-
-    class StartingNode : Node
-    {
-
-    }
-
-    class ExitNode : Node
-    {
-
-    }
 }
