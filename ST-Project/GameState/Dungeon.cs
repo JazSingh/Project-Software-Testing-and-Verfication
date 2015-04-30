@@ -41,7 +41,10 @@ namespace ST_Project.GameState
             while (i < dungeonSize)
             {
                 if (i == b * interval)
+                {
                     nodes[i] = new Node(i);
+                    b++;
+                }
                 else if (Orcale.Decide())
                     nodes[i] = new Node(i);
                 i++;
@@ -52,14 +55,18 @@ namespace ST_Project.GameState
         //Create a spanning tree for the nodes in a partition
         private void CreateSpanningTree(int partition)
         {
+            //Create list with indices of nodes in the partition
             List<int> partitionList = new List();
             int lo = interval * partition;
             int hi = lo + interval;
             for(int i = lo; i < hi; i++)
                 if(nodes[i] != null)
                     partitionList.Add(i);
-            bool[] inTree = new bool[partitionList.Length];
-            
+
+            int u = partitionList[0];
+            partitionList.Remove(u);
+            while(!partitionList.isEmpty())
+                int v = partitionList[Orcale.GetNumber(partitionList.Length)]          
             //TODO
         }
 
