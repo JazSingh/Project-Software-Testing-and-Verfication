@@ -63,11 +63,25 @@ namespace ST_Project.GameState
                 if(nodes[i] != null)
                     partitionList.Add(i);
 
-            int u = partitionList[0];
+            int u;
+            int v;
+            u = partitionList[Orcale.GetNumber(partitionList.Count-1)];
             partitionList.Remove(u);
             while(!partitionList.isEmpty())
-                int v = partitionList[Orcale.GetNumber(partitionList.Length)]          
-            //TODO
+            {
+                v = partitionList[Orcale.GetNumber(partitionList.Count-1)];
+                partitionList.Remove(v);
+                nodes[u].AddNeighbour(nodes[v].ID);
+                nodes[v].AddNeighbour(nodes[u].ID);
+                u = v;
+            }     
+        }
+
+        //Pre: p2-p1 = 1
+        //Post: There is a path from a node u in p1 to a node v in p2
+        private void ConnectParition(int p1, int p2)
+        {
+
         }
 
         //BFS
@@ -80,6 +94,14 @@ namespace ST_Project.GameState
         public int Destroy(Node u)
         {
             return 0;
+        }
+
+        public override string ToString()
+        {
+            string s = string.Empty;
+            foreach(Node n in nodes)
+                s += n.ToString() + Environment.NewLine;
+            return s;
         }
     }
 }
