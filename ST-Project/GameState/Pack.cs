@@ -10,10 +10,29 @@ namespace ST_Project.GameState
     {
         private Stack<Monster> monsters; // group of monsters who form the pack
         private Monster current; // monster who will get damaged when the player attacks the pack
+        private Item item;
+        private int score;
 
-        public Pack()
+        public Pack(int i)
         {
             monsters = new Stack<Monster>();
+
+            // NEEDS IMPROVEMENTS!!!
+            score = i; 
+            Random r = new Random();
+            int val = r.Next(0, 19);
+            if (val < 3)
+                item = new Healt_Potion(100);
+            else if (val > 2 && val < 6)
+                item = new Time_Crystal(10);
+            else if (val > 5 && val < 9)
+                item = new Magic_Scroll(10, 20);
+            //////////////////////////////////////
+        }
+
+        public int get_Score()
+        {
+            return score;
         }
 
         public void Add_Monster(Monster i)
@@ -43,8 +62,8 @@ namespace ST_Project.GameState
             return false; // pack is still alive
         }
 
-        // Magic Scroll-variant of hitting a pack.
-        public bool hit_pack_with_magic_scroll(int i)
+        // Time Crystal-variant of hitting a pack.
+        public bool hit_pack_Time_Crystal_variant(int i)
         {
             Stack<Monster> survivors = new Stack<Monster>();
 
