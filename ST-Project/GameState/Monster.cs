@@ -9,5 +9,27 @@ namespace ST_Project.GameState
     class Monster
     {
        private int HP;
+       private int damage;
+
+       public Monster()
+       {
+           HP = 3;          // health-points
+           damage = 1;      // damage dealt by monster when hitting player
+       }
+
+       // decreases it's current HP and returns a boolean value depending on whether the monster is killed or not.
+       public bool gets_hit(int i)
+       {
+           HP -= i;
+           if (HP <= 0)
+               return true;
+           return false;
+       }
+
+       // returns damage-points the monster can deal each round it attacks
+       public int hits()
+       {
+           return damage;
+       }
     }
 }
