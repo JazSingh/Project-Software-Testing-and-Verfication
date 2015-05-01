@@ -135,7 +135,6 @@ namespace ST_Project.GameState
             }
         }
 
-        //BFS
         public Stack<Node> ShortestPath(Node u, Node v)
         {
             Stack<Node> path = new Stack<Node>();
@@ -176,8 +175,6 @@ namespace ST_Project.GameState
             return path;
         }
 
-
-        
         public void Destroy(Node u)
         {
             int[] neighs = u.GetNeighbours();

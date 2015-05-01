@@ -55,11 +55,11 @@
     <Compile Include="GameState\Pack.cs" />
     <Compile Include="GameState\Player.cs" />
     <Compile Include="GameState\Oracle.cs" />
-    <Compile Include="Visualization\Form1.cs">
+    <Compile Include="Visualization\Hoofdscherm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Visualization\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Visualization\Hoofdscherm.Designer.cs">
+      <DependentUpon>Hoofdscherm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,8 +72,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Visualization\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Visualization\Hoofdscherm.resx">
+      <DependentUpon>Hoofdscherm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

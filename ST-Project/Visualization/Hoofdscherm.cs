@@ -18,5 +18,10 @@ namespace ST_Project
             InitializeComponent();
             Dungeon d = new Dungeon(5);
         }
+
+        private void DungeonRPG_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
