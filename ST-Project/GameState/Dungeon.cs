@@ -9,7 +9,6 @@ namespace ST_Project.GameState
     class Dungeon
     {
         private Node[] nodes;
-        private bool[] bridges;
         private int difficulty;
         private int dungeonSize;
         private int interval;
@@ -17,10 +16,12 @@ namespace ST_Project.GameState
         public Dungeon(int n)
         {
             difficulty = n;
-            int k = Orcale.GiveNumver(3,5);
-            int dungeonSize = k * n + n + 2;
-            int interval = dungeonSize / (difficulty + 1);
+            int k = Oracle.GiveNumber(4,6);
+            dungeonSize = k * n + n + 2;
+            interval = (int) Math.Ceiling((double) dungeonSize / (difficulty + 1));
             nodes = new Node[dungeonSize];
+            GenerateDungeon();
+            Console.WriteLine(ToString());
         }
 
         private void GenerateDungeon()
@@ -30,7 +31,16 @@ namespace ST_Project.GameState
             nodes[dungeonSize-1] = new Node(dungeonSize-1);
             //Determine position of all bridges to create partitions
             //Determine nodes in each partition
+            CreateNodes();
             //Create Spanning Tree
+            for (int i = 0; i < difficulty + 1; i++)
+                CreateSpanningTree(i);
+
+            int rightPartition = difficulty;
+            int leftPartition = difficulty-1;
+
+            while (rightPartition > 0)
+                ConnectParition(leftPartition--, rightPartition--);
             //Add edges
         }
 
@@ -45,7 +55,7 @@ namespace ST_Project.GameState
                     nodes[i] = new Node(i);
                     b++;
                 }
-                else if (Orcale.Decide())
+                else if (Oracle.Decide())
                     nodes[i] = new Node(i);
                 i++;
             }
@@ -59,17 +69,19 @@ namespace ST_Project.GameState
             List<int> partitionList = new List<int>();
             int lo = interval * partition;
             int hi = lo + interval;
+            if (hi > dungeonSize) hi = dungeonSize;
             for(int i = lo; i < hi; i++)
                 if(nodes[i] != null)
                     partitionList.Add(i);
 
+            if (partitionList.Count == 0) return;
             int u;
             int v;
-            u = partitionList[Orcale.GetNumber(partitionList.Count-1)];
+            u = partitionList[Oracle.GiveNumber(partitionList.Count-1)];
             partitionList.Remove(u);
             while(partitionList.Count != 0)
             {
-                v = partitionList[Orcale.GetNumber(partitionList.Count-1)];
+                v = partitionList[Oracle.GiveNumber(partitionList.Count-1)];
                 partitionList.Remove(v);
                 nodes[u].AddNeighbour(nodes[v].ID);
                 nodes[v].AddNeighbour(nodes[u].ID);
@@ -81,7 +93,20 @@ namespace ST_Project.GameState
         //Post: There is a path from a node u in p1 to a node v in p2
         private void ConnectParition(int p1, int p2)
         {
+            int min_p1 = p1 * interval;
+            int max_p1 = min_p1 + interval - 1;
 
+            int v = p2 * interval; //bridge node index of p2
+            
+            List<int> nodeList = new List<int>();
+            for (int i = min_p1; i <= max_p1; i++)
+                if (nodes[i] != null)
+                    nodeList.Add(i);
+
+            int u = nodeList[Oracle.GiveNumber(nodeList.Count)];
+
+            nodes[u].AddNeighbour(nodes[v].ID);
+            nodes[v].AddNeighbour(nodes[u].ID);
         }
 
         //BFS
@@ -99,8 +124,13 @@ namespace ST_Project.GameState
         public override string ToString()
         {
             string s = string.Empty;
-            foreach(Node n in nodes)
-                s += n.ToString() + Environment.NewLine;
+            s += "DungeonSize: " + dungeonSize + Environment.NewLine;
+            s += "Interval: " + interval + Environment.NewLine;
+
+            for (int i = 0; i < dungeonSize; i++)
+                if(nodes[i] != null)
+                 s += nodes[i].ToString() + Environment.NewLine;
+
             return s;
         }
     }

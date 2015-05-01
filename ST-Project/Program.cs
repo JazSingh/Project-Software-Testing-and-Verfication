@@ -16,7 +16,7 @@ namespace ST_Project
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Dungeon());
+            Application.Run(new DungeonRPG());
         }
     }
 }

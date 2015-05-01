@@ -30,5 +30,13 @@ namespace ST_Project.GameState
         {
             get { return identifier; }
         }
+
+        public override string ToString()
+        {
+            string s = identifier.ToString() + ": ";
+            for (int i = 0; i < numNeighbours; i++)
+                s += adj[i] + " ";
+            return s;
+        }
     }
 }

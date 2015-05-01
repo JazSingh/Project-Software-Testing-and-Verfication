@@ -1,6 +1,6 @@
 ﻿namespace ST_Project
 {
-    partial class Dungeon
+    partial class DungeonRPG
     {
         /// <summary>
         /// Required designer variable.
