@@ -1,6 +1,6 @@
 ﻿namespace ST_Project
 {
-    partial class DungeonRPG
+    partial class Hoofdscherm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,13 +30,16 @@
         {
             this.SuspendLayout();
             // 
-            // DungeonRPG
+            // Hoofdscherm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2528, 1310);
+            this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.Name = "DungeonRPG";
+            this.MaximizeBox = false;
+            this.Name = "Hoofdscherm";
             this.Text = "Dungeon";
             this.Load += new System.EventHandler(this.DungeonRPG_Load);
             this.ResumeLayout(false);

@@ -11,9 +11,9 @@ using ST_Project.GameState;
 
 namespace ST_Project
 {
-    public partial class DungeonRPG : Form
+    public partial class Hoofdscherm : Form
     {
-        public DungeonRPG()
+        public Hoofdscherm()
         {
             InitializeComponent();
             Dungeon d = new Dungeon(5);
