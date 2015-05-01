@@ -36,12 +36,16 @@ namespace ST_Project.GameState
             for (int i = 0; i < difficulty + 1; i++)
                 CreateSpanningTree(i);
 
+            //Connect paritions
             int rightPartition = difficulty;
             int leftPartition = difficulty-1;
 
             while (rightPartition > 0)
                 ConnectParition(leftPartition--, rightPartition--);
-            //Add edges
+
+            //add random edges in each parition;
+            for (int i = 0; i <= difficulty; i++)
+                AddRandomEdges(i);
         }
 
         private void CreateNodes()
@@ -103,10 +107,32 @@ namespace ST_Project.GameState
                 if (nodes[i] != null)
                     nodeList.Add(i);
 
-            int u = nodeList[Oracle.GiveNumber(nodeList.Count)];
+            int u = nodeList[Oracle.GiveNumber(nodeList.Count-1)];
 
             nodes[u].AddNeighbour(nodes[v].ID);
             nodes[v].AddNeighbour(nodes[u].ID);
+        }
+
+        private void AddRandomEdges(int partition)
+        {
+            int min = partition * interval;
+            int max = min + interval;
+            if(max > dungeonSize - 1) max = dungeonSize - 1;
+
+            for (int i = min; i <= max; i++)
+            {
+                for (int j = i; j <= max; j++)
+                {
+                    if (i != j && nodes[i] != null && nodes[j] != null 
+                        && !nodes[i].IsNeighbour(j) 
+                        && !nodes[i].IsFull() && !nodes[j].IsFull()
+                        && Oracle.Decide() && Oracle.Decide())
+                    {
+                        nodes[i].AddNeighbour(j);
+                        nodes[j].AddNeighbour(i);
+                    }
+                }
+            }
         }
 
         //BFS

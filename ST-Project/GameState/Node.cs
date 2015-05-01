@@ -23,7 +23,29 @@ namespace ST_Project.GameState
 
         public void AddNeighbour(int node)
         {
-            adj[numNeighbours++] = node; 
+            if(!IsNeighbour(node) && numNeighbours < 4)
+                adj[numNeighbours++] = node; 
+        }
+
+        public bool IsNeighbour(int node)
+        {
+            for(int i = 0; i < numNeighbours; i++)
+                if(adj[i] == node) return true;
+            return false;
+        }
+
+        public int[] GetNeighbours()
+        {
+            if(numNeighbours == 0) return null;
+            int[] neighs = new int[numNeighbours];
+            for (int i = 0; i < numNeighbours; i++)
+                neighs[i] = adj[i];
+            return neighs;
+        }
+
+        public bool IsFull()
+        {
+            return numNeighbours == 4;
         }
 
         public int ID
