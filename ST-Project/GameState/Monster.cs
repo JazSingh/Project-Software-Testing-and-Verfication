@@ -17,7 +17,9 @@ namespace ST_Project.GameState
            damage = 1;      // damage dealt by monster when hitting player
        }
 
-       // decreases it's current HP and returns a boolean value depending on whether the monster is killed or not.
+       // decreases it's current HP and returns a boolean value:
+       // true if the monster is killed.
+       // false if the monster is still alive.
        public bool gets_hit(int i)
        {
            HP -= i;
