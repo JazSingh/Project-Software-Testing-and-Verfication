@@ -8,7 +8,7 @@ namespace ST_Project.GameState
 {
     class Dungeon
     {
-        private Node[] nodes;
+        public Node[] nodes;
         private int difficulty;
         private int dungeonSize;
         private int interval;
@@ -136,10 +136,46 @@ namespace ST_Project.GameState
         }
 
         //BFS
-        public int ShortestPath(Node u, Node v)
+        public Stack<Node> ShortestPath(Node u, Node v)
         {
-            return 0;
+            Stack<Node> path = new Stack<Node>();
+
+            Queue<int> queue = new Queue<int>();
+            bool[] visited = new bool[nodes.Length];
+            int[] prev = new int[nodes.Length];
+
+
+            int node = u.ID;
+            prev[node] = -1;
+            queue.Enqueue(node);
+
+            while (queue.Count > 0 && node != v.ID)
+            {
+                node = queue.Dequeue();
+                visited[node] = true;
+                
+                foreach(int i in nodes[node].GetNeighbours())
+                {
+                    if (!visited[i])
+                    {
+                        queue.Enqueue(i);
+                        visited[i] = true;
+                        prev[i] = node;
+                    } 
+                }
+            }
+
+            int previous = node;
+
+            while (previous != -1)
+            {
+                path.Push(nodes[previous]);
+                previous = prev[previous];
+            }
+
+            return path;
         }
+
 
         
         public void Destroy(Node u)

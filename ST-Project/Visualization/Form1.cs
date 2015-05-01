@@ -17,9 +17,15 @@ namespace ST_Project
         {
             InitializeComponent();
             Dungeon d = new Dungeon(5);
-            Console.WriteLine();
-            d.Destroy(d.GetNode(0));
-            Console.WriteLine(d.ToString());
+
+            Stack<Node> path = d.ShortestPath(d.nodes[0], d.nodes[d.nodes.Length-1]);
+
+            Console.WriteLine("Path:");
+            while (path.Count > 0)
+            {
+                Console.WriteLine(path.Pop().ID);
+            }
+
         }
     }
 }
