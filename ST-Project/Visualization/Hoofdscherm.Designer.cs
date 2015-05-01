@@ -30,13 +30,15 @@
         {
             this.SuspendLayout();
             // 
-            // Dungeon
+            // DungeonRPG
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1264, 681);
-            this.Name = "Dungeon";
+            this.ClientSize = new System.Drawing.Size(2528, 1310);
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Name = "DungeonRPG";
             this.Text = "Dungeon";
+            this.Load += new System.EventHandler(this.DungeonRPG_Load);
             this.ResumeLayout(false);
 
         }
