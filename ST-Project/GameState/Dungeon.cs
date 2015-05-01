@@ -142,9 +142,31 @@ namespace ST_Project.GameState
         }
 
         
-        public int Destroy(Node u)
+        public void Destroy(Node u)
         {
-            return 0;
+            int[] neighs = u.GetNeighbours();
+            foreach (int neigh in neighs)
+                nodes[neigh].RemoveNeighbour(u.ID);
+            nodes[u.ID] = null;
+
+            bool[] reachable = new bool[dungeonSize];
+            ReachableNodes(nodes[dungeonSize - 1], ref reachable);
+
+            for (int i = 0; i < dungeonSize; i++)
+                if (nodes[i] != null && !reachable[i])
+                    nodes[i] = null;
+        }
+
+        private void ReachableNodes(Node u, ref bool[] visited)
+        {
+            visited[u.ID] = true;
+            foreach (int v in u.GetNeighbours())
+                if (!visited[v]) ReachableNodes(nodes[v], ref visited);
+        }
+
+        public Node GetNode(int i)
+        {
+            return nodes[i];
         }
 
         public override string ToString()

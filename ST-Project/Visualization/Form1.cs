@@ -17,6 +17,9 @@ namespace ST_Project
         {
             InitializeComponent();
             Dungeon d = new Dungeon(5);
+            Console.WriteLine();
+            d.Destroy(d.GetNode(0));
+            Console.WriteLine(d.ToString());
         }
     }
 }

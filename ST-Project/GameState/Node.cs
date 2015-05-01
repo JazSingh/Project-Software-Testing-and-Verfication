@@ -48,6 +48,20 @@ namespace ST_Project.GameState
             return numNeighbours == 4;
         }
 
+        public bool RemoveNeighbour(int v)
+        {
+            int index = -1;
+            for (int i = 0; i < numNeighbours; i++)
+                if (adj[i] == v) index = i;
+            if (index == -1) return false;
+
+            adj[index] = -1;
+            for (int i = index; i < numNeighbours; i++)
+                adj[i] = adj[i + 1];
+            numNeighbours--;
+            return true;
+        }
+
         public int ID
         {
             get { return identifier; }
