@@ -12,7 +12,7 @@ namespace ST_Project.GameState
         public bool health_potion, time_crystal, magic_scroll;
     }
 
-    public class Healt_Potion : Item
+    class Healt_Potion : Item
     {
         public Healt_Potion(int i)
         {
