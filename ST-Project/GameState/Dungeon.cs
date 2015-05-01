@@ -136,15 +136,73 @@ namespace ST_Project.GameState
         }
 
         //BFS
-        public int ShortestPath(Node u, Node v)
+        public Stack<Node> ShortestPath(Node u, Node v)
         {
-            return 0;
+            Stack<Node> path = new Stack<Node>();
+
+            Queue<int> queue = new Queue<int>();
+            bool[] visited = new bool[nodes.Length];
+            int[] prev = new int[nodes.Length];
+
+
+            int node = u.ID;
+            prev[node] = -1;
+            queue.Enqueue(node);
+
+            while (queue.Count > 0 && node != v.ID)
+            {
+                node = queue.Dequeue();
+                visited[node] = true;
+                
+                foreach(int i in nodes[node].GetNeighbours())
+                {
+                    if (!visited[i])
+                    {
+                        queue.Enqueue(i);
+                        visited[i] = true;
+                        prev[i] = node;
+                    } 
+                }
+            }
+
+            int previous = node;
+
+            while (previous != -1)
+            {
+                path.Push(nodes[previous]);
+                previous = prev[previous];
+            }
+
+            return path;
         }
 
+
         
-        public int Destroy(Node u)
+        public void Destroy(Node u)
         {
-            return 0;
+            int[] neighs = u.GetNeighbours();
+            foreach (int neigh in neighs)
+                nodes[neigh].RemoveNeighbour(u.ID);
+            nodes[u.ID] = null;
+
+            bool[] reachable = new bool[dungeonSize];
+            ReachableNodes(nodes[dungeonSize - 1], ref reachable);
+
+            for (int i = 0; i < dungeonSize; i++)
+                if (nodes[i] != null && !reachable[i])
+                    nodes[i] = null;
+        }
+
+        private void ReachableNodes(Node u, ref bool[] visited)
+        {
+            visited[u.ID] = true;
+            foreach (int v in u.GetNeighbours())
+                if (!visited[v]) ReachableNodes(nodes[v], ref visited);
+        }
+
+        public Node GetNode(int i)
+        {
+            return nodes[i];
         }
 
         public override string ToString()
