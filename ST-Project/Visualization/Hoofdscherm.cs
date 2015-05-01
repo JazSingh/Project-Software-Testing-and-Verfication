@@ -16,12 +16,33 @@ namespace ST_Project
         public DungeonRPG()
         {
             InitializeComponent();
-            Dungeon d = new Dungeon(5);
         }
 
         private void DungeonRPG_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void dif_Click(object sender, EventArgs e)
+        {
+            string[] source = sender.ToString().Split(' ');
+            int difficulty = int.Parse(source[2]);
+            Dungeon d = new Dungeon(difficulty);
+        }
+
+        private void newgame_b_Click(object sender, EventArgs e)
+        {
+            diff.Visible = true;
+            dif1.Visible = true;
+            dif2.Visible = true;
+            dif3.Visible = true;
+            dif4.Visible = true;
+            dif5.Visible = true;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
