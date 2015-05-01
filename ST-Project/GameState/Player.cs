@@ -8,23 +8,37 @@ namespace ST_Project.GameState
 {
     class Player
     {
-        private int HPmax;
-        private int HP;
+        private int HPmax, HP, damage;
+        private Item current;
         private List<Item> Items;
 
         public Player()
         {
-            //TODO
+            HPmax = 250;
+            HP = 250;
+            damage = 8;
+            Items = new List<Item>();
         }
 
-        public bool use(Dungeon d, Item i)
+        public void use(Dungeon d, Item i)
         {
-            return true;
+            current = i;
+            if (current.health_potion)
+            {
+                HP += current.health;
+                if (HP > HPmax)
+                    HP = HPmax;
+                current = null;
+            }
+
+            //
+            // Time-crystal and magic-scrol only have effect when fighting
+            //
+
         }
-        public bool add(Item i)
+        public void add(Item i)
         {
-            //TODO
-            return true;
+            Items.Add(i);
         }
 
         public bool save(string filename)
@@ -40,7 +54,33 @@ namespace ST_Project.GameState
 
         public void doCombatRound(Dungeon d, Pack p)
         {
+            // NEEDS IMPROVEMENTS
 
+            // if player needs to attack
+            if (current != null)
+            {
+                if (current.time_crystal)
+                {
+                    p.hit_pack_Time_Crystal_variant(damage);
+                    current.duration--;
+                }
+                else if (current.magic_scroll)
+                {
+                    p.hit_pack(damage + current.damage);
+                    current.duration--;
+                }
+                if (current.duration < 1)
+                    current = null;
+            }
+            else
+            {
+                p.hit_pack(damage);
+            }
+
+            // if pack needs to attack player
+            HP -= p.hit_player();
+            if (HP <= 0)
+                Console.WriteLine("Game Over");
         }
     }
 }
