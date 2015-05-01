@@ -16,7 +16,7 @@ namespace ST_Project
         public DungeonRPG()
         {
             InitializeComponent();
-            Dungeon d = new Dungeon(2);
+            Dungeon d = new Dungeon(5);
         }
     }
 }
