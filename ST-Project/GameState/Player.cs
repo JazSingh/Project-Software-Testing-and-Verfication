@@ -8,7 +8,7 @@ namespace ST_Project.GameState
 {
     class Player
     {
-        private int HPmax, HP, damage;
+        private int HPmax, HP, damage, score;
         private Item current;
         private List<Item> Items;
 
@@ -17,12 +17,14 @@ namespace ST_Project.GameState
             HPmax = 250;
             HP = 250;
             damage = 8;
+            score = 0;
             Items = new List<Item>();
         }
 
         public void use(Dungeon d, Item i)
         {
             current = i;
+           
             if (current.health_potion)
             {
                 HP += current.health;

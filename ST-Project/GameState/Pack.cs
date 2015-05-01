@@ -22,7 +22,7 @@ namespace ST_Project.GameState
             Random r = new Random();
             int val = r.Next(0, 19);
             if (val < 3)
-                item = new Healt_Potion(100);
+                item = new Health_Potion(100);
             else if (val > 2 && val < 6)
                 item = new Time_Crystal(10);
             else if (val > 5 && val < 9)
