@@ -7,14 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ST_Project.GameState;
 
 namespace ST_Project
 {
-    public partial class Dungeon : Form
+    public partial class DungeonRPG : Form
     {
-        public Dungeon()
+        public DungeonRPG()
         {
             InitializeComponent();
+            Dungeon d = new Dungeon(2);
         }
     }
 }
