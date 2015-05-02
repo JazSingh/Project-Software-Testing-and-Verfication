@@ -40,9 +40,14 @@ namespace ST_Project
             dif5.Visible = true;
         }
 
+        OpenFileDialog ofd = new OpenFileDialog();
+
         private void button2_Click(object sender, EventArgs e)
         {
-            
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                // NEEDS IMPLEMENTATION HERE!
+            }
         }
     }
 }
