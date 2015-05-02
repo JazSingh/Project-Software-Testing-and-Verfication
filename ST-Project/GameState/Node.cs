@@ -9,7 +9,7 @@ namespace ST_Project.GameState
     class Node
     {
         int identifier;
-        int[] adj;
+        public int[] adj;
         int numNeighbours;
         Stack<Pack> packs;
 

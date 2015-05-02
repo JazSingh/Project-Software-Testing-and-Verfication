@@ -10,8 +10,8 @@ namespace ST_Project.GameState
     {
         public Node[] nodes;
         private int difficulty;
-        private int dungeonSize;
-        private int interval;
+        public int dungeonSize;
+        public int interval;
 
         public Dungeon(int n)
         {
