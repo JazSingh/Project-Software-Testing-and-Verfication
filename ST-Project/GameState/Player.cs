@@ -84,5 +84,24 @@ namespace ST_Project.GameState
             if (HP <= 0)
                 Console.WriteLine("Game Over");
         }
+
+        public override string ToString()
+        {
+            string s = string.Empty;
+
+            s += "HpMax: " + HPmax + Environment.NewLine;
+            s += "HP: " + HP + Environment.NewLine;
+            s += "Damage: " + damage + Environment.NewLine;
+            s += "Score: " + score + Environment.NewLine;
+            s += "Current Item: " + current.ToString() + Environment.NewLine;
+            s += "Items: " + Environment.NewLine;
+
+            foreach(Item i in Items)
+            {
+                s += i.ToString() + Environment.NewLine;
+            }
+
+                return s;
+        }
     }
 }
