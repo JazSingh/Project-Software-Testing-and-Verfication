@@ -18,6 +18,18 @@ namespace ST_Project.GameState
         public ItemType type;
 
         public int duration, health, damage;
+
+
+        public override string ToString()
+        {
+            string s = string.Empty;
+            s += "Type: " + type.ToString("F") + Environment.NewLine;
+            s += "Duration: " + duration + Environment.NewLine;
+            s += "Health: " + health + Environment.NewLine;
+            s += "Damage " + damage + Environment.NewLine;
+
+            return s;
+        }
         
     }
 
