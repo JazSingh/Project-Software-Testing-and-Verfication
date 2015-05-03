@@ -25,7 +25,7 @@ namespace ST_Project.GameState
         {
             current = i;
            
-            if (current.health_potion)
+            if (current.type == Item.ItemType.HealthPotion)
             {
                 HP += current.health;
                 if (HP > HPmax)
@@ -61,12 +61,12 @@ namespace ST_Project.GameState
             // if player needs to attack
             if (current != null)
             {
-                if (current.time_crystal)
+                if (current.type == Item.ItemType.TimeCrystal)
                 {
                     p.hit_pack_Time_Crystal_variant(damage);
                     current.duration--;
                 }
-                else if (current.magic_scroll)
+                else if (current.type == Item.ItemType.MagicScroll)
                 {
                     p.hit_pack(damage + current.damage);
                     current.duration--;

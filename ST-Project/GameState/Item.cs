@@ -6,10 +6,19 @@ using System.Threading.Tasks;
 
 namespace ST_Project.GameState
 {
+
+
     abstract class Item
     {
+        public enum ItemType
+        {
+            HealthPotion, TimeCrystal, MagicScroll
+        };
+
+        public ItemType type;
+
         public int duration, health, damage;
-        public bool health_potion, time_crystal, magic_scroll;
+        
     }
 
     class Health_Potion : Item
@@ -17,7 +26,7 @@ namespace ST_Project.GameState
         public Health_Potion(int i)
         {
             health = i;
-            health_potion = true;
+            type = ItemType.HealthPotion;
         }
     }
 
@@ -26,7 +35,7 @@ namespace ST_Project.GameState
         public Time_Crystal(int i)
         {
             duration = i;
-            time_crystal = true;
+            type = ItemType.TimeCrystal;
         }
     }
 
@@ -36,7 +45,7 @@ namespace ST_Project.GameState
         {
             duration = dur;
             damage = dam;
-            magic_scroll = true;
+            type = ItemType.MagicScroll;
         }
     }
 }
