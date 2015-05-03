@@ -33,5 +33,15 @@ namespace ST_Project.GameState
        {
            return damage;
        }
+
+       public override string ToString()
+       {
+           string s = string.Empty;
+
+           s += "HP: " + HP + Environment.NewLine;
+           s += "Damage: " + damage;
+
+           return s;
+       }
     }
 }
