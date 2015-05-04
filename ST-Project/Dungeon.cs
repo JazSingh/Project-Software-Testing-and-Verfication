@@ -105,7 +105,6 @@ namespace ST_Project
                         if (i != n && nodes[i] != null
                             && !nodes[i].IsFull())
                         {
-                            Console.WriteLine("Fix {0} --> {1}", n, i);
                             nodes[n].AddNeighbour(i);
                             nodes[i].AddNeighbour(n);
                             return;

@@ -40,10 +40,11 @@
             // 
             // newgame_b
             // 
-            this.newgame_b.Font = new System.Drawing.Font("Lucida Sans", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.newgame_b.Location = new System.Drawing.Point(548, 123);
+            this.newgame_b.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.newgame_b.Location = new System.Drawing.Point(1096, 237);
+            this.newgame_b.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.newgame_b.Name = "newgame_b";
-            this.newgame_b.Size = new System.Drawing.Size(179, 69);
+            this.newgame_b.Size = new System.Drawing.Size(358, 133);
             this.newgame_b.TabIndex = 0;
             this.newgame_b.Text = "New Game";
             this.newgame_b.UseVisualStyleBackColor = true;
@@ -51,10 +52,11 @@
             // 
             // button2
             // 
-            this.button2.Font = new System.Drawing.Font("Lucida Sans", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(548, 349);
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(1096, 671);
+            this.button2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(179, 69);
+            this.button2.Size = new System.Drawing.Size(358, 133);
             this.button2.TabIndex = 1;
             this.button2.Text = "Load Game";
             this.button2.UseVisualStyleBackColor = true;
@@ -63,10 +65,11 @@
             // diff
             // 
             this.diff.BackColor = System.Drawing.SystemColors.Window;
-            this.diff.Font = new System.Drawing.Font("Lucida Sans", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.diff.Location = new System.Drawing.Point(357, 247);
+            this.diff.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.diff.Location = new System.Drawing.Point(714, 475);
+            this.diff.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.diff.Name = "diff";
-            this.diff.Size = new System.Drawing.Size(135, 53);
+            this.diff.Size = new System.Drawing.Size(270, 102);
             this.diff.TabIndex = 2;
             this.diff.Text = "Difficulty:";
             this.diff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -75,10 +78,11 @@
             // dif1
             // 
             this.dif1.BackColor = System.Drawing.Color.Lime;
-            this.dif1.Font = new System.Drawing.Font("Lucida Sans", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dif1.Location = new System.Drawing.Point(509, 247);
+            this.dif1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dif1.Location = new System.Drawing.Point(1018, 475);
+            this.dif1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.dif1.Name = "dif1";
-            this.dif1.Size = new System.Drawing.Size(87, 51);
+            this.dif1.Size = new System.Drawing.Size(174, 98);
             this.dif1.TabIndex = 3;
             this.dif1.Text = "1";
             this.dif1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -88,11 +92,12 @@
             // dif5
             // 
             this.dif5.BackColor = System.Drawing.Color.Black;
-            this.dif5.Font = new System.Drawing.Font("Lucida Sans", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dif5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dif5.ForeColor = System.Drawing.Color.White;
-            this.dif5.Location = new System.Drawing.Point(881, 247);
+            this.dif5.Location = new System.Drawing.Point(1762, 475);
+            this.dif5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.dif5.Name = "dif5";
-            this.dif5.Size = new System.Drawing.Size(87, 51);
+            this.dif5.Size = new System.Drawing.Size(174, 98);
             this.dif5.TabIndex = 4;
             this.dif5.Text = "5";
             this.dif5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -102,10 +107,11 @@
             // dif4
             // 
             this.dif4.BackColor = System.Drawing.Color.Red;
-            this.dif4.Font = new System.Drawing.Font("Lucida Sans", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dif4.Location = new System.Drawing.Point(788, 247);
+            this.dif4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dif4.Location = new System.Drawing.Point(1576, 475);
+            this.dif4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.dif4.Name = "dif4";
-            this.dif4.Size = new System.Drawing.Size(87, 51);
+            this.dif4.Size = new System.Drawing.Size(174, 98);
             this.dif4.TabIndex = 5;
             this.dif4.Text = "4";
             this.dif4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -115,10 +121,11 @@
             // dif3
             // 
             this.dif3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.dif3.Font = new System.Drawing.Font("Lucida Sans", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dif3.Location = new System.Drawing.Point(695, 247);
+            this.dif3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dif3.Location = new System.Drawing.Point(1390, 475);
+            this.dif3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.dif3.Name = "dif3";
-            this.dif3.Size = new System.Drawing.Size(87, 51);
+            this.dif3.Size = new System.Drawing.Size(174, 98);
             this.dif3.TabIndex = 6;
             this.dif3.Text = "3";
             this.dif3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -128,21 +135,22 @@
             // dif2
             // 
             this.dif2.BackColor = System.Drawing.Color.Yellow;
-            this.dif2.Font = new System.Drawing.Font("Lucida Sans", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dif2.Location = new System.Drawing.Point(602, 247);
+            this.dif2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dif2.Location = new System.Drawing.Point(1204, 475);
+            this.dif2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.dif2.Name = "dif2";
-            this.dif2.Size = new System.Drawing.Size(87, 51);
+            this.dif2.Size = new System.Drawing.Size(174, 98);
             this.dif2.TabIndex = 7;
             this.dif2.Text = "2";
             this.dif2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.dif2.Visible = false;
             this.dif2.Click += new System.EventHandler(this.dif_Click);
             // 
-            // DungeonRPG
+            // Hoofdscherm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.ClientSize = new System.Drawing.Size(0, 0);
             this.Controls.Add(this.dif2);
             this.Controls.Add(this.dif3);
             this.Controls.Add(this.dif4);
@@ -151,7 +159,10 @@
             this.Controls.Add(this.diff);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.newgame_b);
-            this.Name = "DungeonRPG";
+            this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Name = "Hoofdscherm";
             this.Text = "Hoofdscherm";
             this.Load += new System.EventHandler(this.DungeonRPG_Load);
             this.ResumeLayout(false);

@@ -16,7 +16,8 @@ namespace ST_Project
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Hoofdscherm());
+            GameManager gm = new GameManager();
+            Application.Run(gm.hs);
         }
     }
 }
