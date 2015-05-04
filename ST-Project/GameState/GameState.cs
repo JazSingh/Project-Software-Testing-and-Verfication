@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ST_Project.GameState
+namespace ST_Project
 {
-    class GameState
+    public class GameState
     {
-        public GameState()
-        {
+        Dungeon d;
 
+        public GameState(int i)
+        {
+            d = new Dungeon(i);
         }
     }
 }

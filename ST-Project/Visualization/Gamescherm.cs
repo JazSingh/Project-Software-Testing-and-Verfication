@@ -1,4 +1,4 @@
-﻿using ST_Project.GameState;
+﻿using ST_Project;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,10 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ST_Project.Visualization
+namespace ST_Project
 {
     public partial class Gamescherm : Form
     {
+        GameState game;
         Dungeon d;
 
         public Gamescherm(int i)
@@ -136,16 +137,17 @@ namespace ST_Project.Visualization
                 // draw node
                 Brush color = Brushes.White;
                 if (k.Key == 0)
-                    color = Brushes.Green;
+                    color = Brushes.Green;              // color of start-node
                 else if (k.Key != 0 && k.Key % d.interval == 0)
-                    color = Brushes.Orange;
+                    color = Brushes.Orange;             // color of Bridge
                 else if (k.Key == d.nodes.Length - 1)
-                    color = Brushes.Red;
+                    color = Brushes.Red;                // color of end-node
+
                 gr.FillEllipse(color, k.Value.Item1, k.Value.Item2, w, h);
                 gr.DrawString(k.Key.ToString(), drawFont, Brushes.Black, k.Value.Item1, k.Value.Item2);
             }
 
-                Invalidate();
+            Invalidate();
         }
     }
 }

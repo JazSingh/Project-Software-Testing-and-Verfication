@@ -1,6 +1,6 @@
 using System;
 
-namespace ST_Project.GameState
+namespace ST_Project
 {
     static class Oracle
     {

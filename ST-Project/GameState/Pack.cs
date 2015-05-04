@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ST_Project.GameState
+namespace ST_Project
 {
     class Pack
     {
