@@ -10,11 +10,13 @@ namespace ST_Project
     {
         Dungeon d;
         Player p;
+        int time;
 
         public GameState(int i)
         {
             d = new Dungeon(i);
             p = new Player();
+            time = 0;
         }
     }
 }

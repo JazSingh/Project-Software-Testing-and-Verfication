@@ -14,7 +14,6 @@ namespace ST_Project
         public GameManager(int i)
         {
             state = new GameState(i);
-
         }
     }
 }

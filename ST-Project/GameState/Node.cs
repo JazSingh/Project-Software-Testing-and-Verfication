@@ -23,6 +23,16 @@ namespace ST_Project
             items = new List<Item>();
         }
 
+        public void Add_Item(Item i)
+        {
+            items.Add(i);
+        }
+
+        public List<Item> get_Items()
+        {
+            return items;
+        }
+
         public int Amount_of_packs()
         {
             return packs.Count;

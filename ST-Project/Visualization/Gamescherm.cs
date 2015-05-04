@@ -26,7 +26,6 @@ namespace ST_Project
 
         public void teken(object sender, PaintEventArgs e)
         {
-
             Dictionary<int, Tuple<int, int>> locations = new Dictionary<int, Tuple<int, int>>();
             Graphics gr = e.Graphics;
 
