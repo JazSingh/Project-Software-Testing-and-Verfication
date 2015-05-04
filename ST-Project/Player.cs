@@ -94,7 +94,12 @@ namespace ST_Project
             s += "HP: " + HP + Environment.NewLine;
             s += "Damage: " + damage + Environment.NewLine;
             s += "Score: " + score + Environment.NewLine;
-            s += "Current Item: " + current.ToString() + Environment.NewLine;
+            s += "Current Item: ";
+            if (current == null)
+                s += "none";
+            else
+                s += current.ToString();
+            s += Environment.NewLine;
             s += "Items: " + Environment.NewLine;
 
             foreach(Item i in Items)

@@ -8,7 +8,7 @@ namespace ST_Project
 {
 
 
-    abstract class Item
+   public abstract class Item
     {
         public enum ItemType
         {
@@ -33,7 +33,7 @@ namespace ST_Project
         
     }
 
-    class Health_Potion : Item
+   public class Health_Potion : Item
     {
         public Health_Potion(int i)
         {
@@ -42,7 +42,7 @@ namespace ST_Project
         }
     }
 
-    class Time_Crystal : Item
+    public class Time_Crystal : Item
     {
         public Time_Crystal(int i)
         {
@@ -51,7 +51,7 @@ namespace ST_Project
         }
     }
 
-    class Magic_Scroll : Item
+    public class Magic_Scroll : Item
     {
         public Magic_Scroll(int dur, int dam)
         {

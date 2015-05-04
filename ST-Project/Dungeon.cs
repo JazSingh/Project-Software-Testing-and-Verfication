@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ST_Project
 {
-    class Dungeon
+    public class Dungeon
     {
         public Node[] nodes;
         public int difficulty;
@@ -16,12 +16,12 @@ namespace ST_Project
         public Dungeon(int n)
         {
             difficulty = n;
-            int k = 7; //Oracle.GiveNumber(4,6);
+            int k = 5; //Oracle.GiveNumber(4,6);
             dungeonSize = k * n + n + 2;
             interval = (int) Math.Ceiling((double) dungeonSize / (difficulty + 1));
             nodes = new Node[dungeonSize];
             GenerateDungeon();
-            Console.WriteLine(ToString());
+            //Console.WriteLine(ToString());
         }
 
         private void GenerateDungeon()
