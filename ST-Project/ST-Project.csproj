@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameState\GameManager.cs" />
     <Compile Include="GameState\Dungeon.cs" />
     <Compile Include="GameState\GameState.cs" />
     <Compile Include="GameState\Item.cs" />

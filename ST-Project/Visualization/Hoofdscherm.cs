@@ -7,8 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ST_Project.GameState;
-using ST_Project.Visualization;
 
 namespace ST_Project
 {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ST_Project.GameState
+namespace ST_Project
 {
     class Node
     {
@@ -12,6 +12,7 @@ namespace ST_Project.GameState
         public int[] adj;
         int numNeighbours;
         Stack<Pack> packs;
+        List<Item> items;
 
         public Node(int i)
         {
@@ -19,6 +20,22 @@ namespace ST_Project.GameState
             adj = new int[4];
             numNeighbours = 0;
             packs = new Stack<Pack>();
+            items = new List<Item>();
+        }
+
+        public void Add_Item(Item i)
+        {
+            items.Add(i);
+        }
+
+        public List<Item> get_Items()
+        {
+            return items;
+        }
+
+        public int Amount_of_packs()
+        {
+            return packs.Count;
         }
 
         public void AddNeighbour(int node)
