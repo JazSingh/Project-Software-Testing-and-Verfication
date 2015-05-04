@@ -47,25 +47,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameState\GameManager.cs" />
-    <Compile Include="GameState\Dungeon.cs" />
-    <Compile Include="GameState\GameState.cs" />
-    <Compile Include="GameState\Item.cs" />
-    <Compile Include="GameState\Monster.cs" />
-    <Compile Include="GameState\Node.cs" />
-    <Compile Include="GameState\Pack.cs" />
-    <Compile Include="GameState\Player.cs" />
-    <Compile Include="GameState\Oracle.cs" />
-    <Compile Include="Visualization\Gamescherm.cs">
+    <Compile Include="GameManager.cs" />
+    <Compile Include="Dungeon.cs" />
+    <Compile Include="GameState.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="Monster.cs" />
+    <Compile Include="Node.cs" />
+    <Compile Include="Pack.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="Oracle.cs" />
+    <Compile Include="Gamescherm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Visualization\Gamescherm.Designer.cs">
+    <Compile Include="Gamescherm.Designer.cs">
       <DependentUpon>Gamescherm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Visualization\Hoofdscherm.cs">
+    <Compile Include="Hoofdscherm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Visualization\Hoofdscherm.Designer.cs">
+    <Compile Include="Hoofdscherm.Designer.cs">
       <DependentUpon>Hoofdscherm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -79,10 +79,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Visualization\Gamescherm.resx">
+    <EmbeddedResource Include="Gamescherm.resx">
       <DependentUpon>Gamescherm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Visualization\Hoofdscherm.resx">
+    <EmbeddedResource Include="Hoofdscherm.resx">
       <DependentUpon>Hoofdscherm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -98,9 +98,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="GameManager\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
