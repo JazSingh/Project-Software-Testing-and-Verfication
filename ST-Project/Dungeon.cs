@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ST_Project
 {
-    class Dungeon
+    public class Dungeon
     {
         public Node[] nodes;
         public int difficulty;
@@ -21,7 +21,7 @@ namespace ST_Project
             interval = (int) Math.Ceiling((double) dungeonSize / (difficulty + 1));
             nodes = new Node[dungeonSize];
             GenerateDungeon();
-            Console.WriteLine(ToString());
+            //Console.WriteLine(ToString());
         }
 
         private void GenerateDungeon()

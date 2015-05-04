@@ -17,11 +17,13 @@ namespace ST_Project
             d = new Dungeon(i);
             p = new Player();
             time = 0;
+            Console.WriteLine(d.ToString());
+            Console.WriteLine(p.ToString());
         }
 
-        public string save()
+        public Dungeon GetDungeon()
         {
-            return p.ToString() + Environment.NewLine + d.ToString();
+            return d;
         }
     }
 }
