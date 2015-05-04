@@ -46,7 +46,7 @@ namespace ST_Project
 
         public bool save(string filename)
         {
-            //TODO
+            string save = ToString();
             return true;
         }
 
