@@ -30,7 +30,7 @@ namespace ST_Project
             Graphics gr = e.Graphics;
 
             int x = 100;
-            int y = 100;
+            int y = 200;
             int h = 30;
             int w = 30;
             int x_dist = 0;
@@ -69,42 +69,42 @@ namespace ST_Project
                             {
                                 int my_x = 0;
                                 int my_y = 0;
-                                Brush c = Brushes.White;
                                 switch (buurtje) // decides location of node
                                 {
                                     case 1:
                                         {
                                             my_x = xx + (int)(0.25 * x_dist);
                                             my_y = y - y_dist;
-                                            c = Brushes.Green;
                                             break;
                                         }
                                     case 2:
                                         {
                                             my_x = xx + (int)(0.25 * x_dist);
                                             my_y = y + y_dist;
-                                            c = Brushes.Orange;
                                             break;
                                         }
                                     case 3:
                                         {
                                             my_x = xx + (int)(0.75 * x_dist);
                                             my_y = y - y_dist;
-                                            c = Brushes.Red;
                                             break;
                                         }
                                     case 4:
                                         {
                                             my_x = xx + (int)(0.75 * x_dist);
                                             my_y = y + y_dist;
-                                            c = Brushes.Purple;
                                             break;
                                         }
                                     case 5:
                                         {
-                                            my_x = xx + (int)(0.50 * x_dist);
+                                            my_x = xx + (int)(0.60 * x_dist);
                                             my_y = y + y_dist*2;
-                                            c = Brushes.Pink;
+                                            break;
+                                        }
+                                    case 6:
+                                        {
+                                            my_x = xx + (int)(0.60 * x_dist);
+                                            my_y = y - y_dist * 2;
                                             break;
                                         }
                                     default: { Console.WriteLine("WTF!"); break; }
