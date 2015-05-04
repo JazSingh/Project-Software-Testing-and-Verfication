@@ -19,9 +19,9 @@ namespace ST_Project
             time = 0;
         }
 
-        public void set_position(int i)
+        public string save()
         {
-            p.set_position(i);
+            return p.ToString() + Environment.NewLine + d.ToString();
         }
     }
 }

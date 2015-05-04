@@ -89,7 +89,7 @@ namespace ST_Project
         public override string ToString()
         {
             string s = string.Empty;
-
+            s += "Player:" + Environment.NewLine;
             s += "HpMax: " + HPmax + Environment.NewLine;
             s += "HP: " + HP + Environment.NewLine;
             s += "Damage: " + damage + Environment.NewLine;
