@@ -18,5 +18,10 @@ namespace ST_Project
             p = new Player();
             time = 0;
         }
+
+        public string save()
+        {
+            return p.ToString() + Environment.NewLine + d.ToString();
+        }
     }
 }
