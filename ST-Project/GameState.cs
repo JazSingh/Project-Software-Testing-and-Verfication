@@ -25,5 +25,10 @@ namespace ST_Project
         {
             return d;
         }
+
+        public Player GetPlayer()
+        {
+            return p;
+        }
     }
 }

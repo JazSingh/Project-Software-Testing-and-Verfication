@@ -10,10 +10,12 @@ namespace ST_Project
     class GameManager
     {
         GameState state;
+        Hoofdscherm hoofdScherm;
 
-        public GameManager(int i)
+        public GameManager(int i, Hoofdscherm h)
         {
             state = new GameState(i);
+            hoofdScherm = h;
         }
 
         /*public void MoveToNode(int t)
@@ -27,6 +29,13 @@ namespace ST_Project
 
         public void Attack(Pack p)
         {
+
+        }
+
+        public void Save()
+        {
+            
+            string filename;
 
         }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ST_Project
 {
-    class Monster
+    public class Monster
     {
        private int HP;
        private int damage;

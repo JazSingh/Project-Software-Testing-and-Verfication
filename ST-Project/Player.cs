@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ST_Project
 {
-    class Player
+    public class Player
     {
         private int HPmax, HP, damage, score, position;
         private Item current;
@@ -46,7 +46,7 @@ namespace ST_Project
 
         public bool save(string filename)
         {
-            //TODO
+            string save = ToString();
             return true;
         }
 
