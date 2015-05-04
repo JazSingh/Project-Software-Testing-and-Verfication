@@ -16,7 +16,7 @@ namespace ST_Project.GameState
         public Dungeon(int n)
         {
             difficulty = n;
-            int k = Oracle.GiveNumber(4,6);
+            int k = 4; //Oracle.GiveNumber(4,6);
             dungeonSize = k * n + n + 2;
             interval = (int) Math.Ceiling((double) dungeonSize / (difficulty + 1));
             nodes = new Node[dungeonSize];
@@ -36,6 +36,7 @@ namespace ST_Project.GameState
             for (int i = 0; i < difficulty + 1; i++)
                 CreateSpanningTree(i);
 
+            FixLooseEnds();
             //Connect paritions
             int rightPartition = difficulty;
             int leftPartition = difficulty-1;
@@ -91,6 +92,22 @@ namespace ST_Project.GameState
                 nodes[v].AddNeighbour(nodes[u].ID);
                 u = v;
             }     
+        }
+
+        public void FixLooseEnds()
+        {
+            //Find node from end that only has the exit node as neighbour
+            //Connect with other node from that partition
+            foreach(int n in nodes[dungeonSize-1].GetNeighbours())
+                if(nodes[n].NumNeighbours == 1)
+                    for(int i = dungeonSize - 2; i >= difficulty * interval; i--)
+                        if(i != n && nodes[i] != null
+                            && !nodes[i].IsFull())
+                        {
+                            Console.WriteLine("Fix {0} --> {1}", n, i);
+                            nodes[n].AddNeighbour(i);
+                            nodes[i].AddNeighbour(n);
+                        }
         }
 
         //Pre: p2-p1 = 1

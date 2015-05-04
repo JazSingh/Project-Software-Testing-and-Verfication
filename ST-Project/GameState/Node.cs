@@ -67,6 +67,11 @@ namespace ST_Project.GameState
             get { return identifier; }
         }
 
+        public int NumNeighbours
+        {
+            get { return numNeighbours; }
+        }
+
         public override string ToString()
         {
             string s = identifier.ToString() + ": ";
