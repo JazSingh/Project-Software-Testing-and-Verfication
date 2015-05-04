@@ -16,7 +16,7 @@ namespace ST_Project
         public Dungeon(int n)
         {
             difficulty = n;
-            int k = 4; //Oracle.GiveNumber(4,6);
+            int k = 7; //Oracle.GiveNumber(4,6);
             dungeonSize = k * n + n + 2;
             interval = (int) Math.Ceiling((double) dungeonSize / (difficulty + 1));
             nodes = new Node[dungeonSize];
