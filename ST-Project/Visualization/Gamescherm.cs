@@ -24,7 +24,7 @@ namespace ST_Project
             this.DoubleBuffered = true;
         }
 
-        private void teken(object sender, PaintEventArgs e)
+        public void teken(object sender, PaintEventArgs e)
         {
 
             Dictionary<int, Tuple<int, int>> locations = new Dictionary<int, Tuple<int, int>>();
@@ -148,6 +148,11 @@ namespace ST_Project
             }
 
             Invalidate();
+        }
+
+        private void Gamescherm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

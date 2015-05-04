@@ -12,6 +12,7 @@ namespace ST_Project
         public int[] adj;
         int numNeighbours;
         Stack<Pack> packs;
+        List<Item> items;
 
         public Node(int i)
         {
@@ -19,6 +20,7 @@ namespace ST_Project
             adj = new int[4];
             numNeighbours = 0;
             packs = new Stack<Pack>();
+            items = new List<Item>();
         }
 
         public int Amount_of_packs()

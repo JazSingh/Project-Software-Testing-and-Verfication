@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace ST_Project
 {
-    public class GameState
-    {
-        Dungeon d;
-        Player p;
 
-        public GameState(int i)
+    class GameManager
+    {
+        GameState state;
+
+        public GameManager(int i)
         {
-            d = new Dungeon(i);
-            p = new Player();
+            state = new GameState(i);
+
         }
     }
 }
