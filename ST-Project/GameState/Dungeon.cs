@@ -222,9 +222,10 @@ namespace ST_Project
         public override string ToString()
         {
             string s = string.Empty;
+            s += "DUNGEON:" + Environment.NewLine;
             s += "DungeonSize: " + dungeonSize + Environment.NewLine;
             s += "Interval: " + interval + Environment.NewLine;
-
+            s += "Nodes:" + Environment.NewLine;
             for (int i = 0; i < dungeonSize; i++)
                 if(nodes[i] != null)
                  s += nodes[i].ToString() + Environment.NewLine;
