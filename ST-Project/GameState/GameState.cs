@@ -18,5 +18,10 @@ namespace ST_Project
             p = new Player();
             time = 0;
         }
+
+        public void set_position(int i)
+        {
+            p.set_position(i);
+        }
     }
 }

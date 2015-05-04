@@ -33,7 +33,12 @@ namespace ST_Project
             int y = 100;
             int h = 30;
             int w = 30;
-            int x_dist = 420-(60*(d.difficulty-1));
+            int x_dist = 0;
+            switch(d.difficulty)
+            {
+                case 5: { x_dist = 420-(60 * (d.difficulty-1)); break; }
+                default: { x_dist = 420-(60 * (d.difficulty)); break; }
+            }
             int y_dist = 80;
 
             Node u = d.nodes[0];

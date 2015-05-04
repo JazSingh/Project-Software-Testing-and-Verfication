@@ -8,7 +8,7 @@ namespace ST_Project
 {
     class Player
     {
-        private int HPmax, HP, damage, score;
+        private int HPmax, HP, damage, score, position;
         private Item current;
         private List<Item> Items;
 
@@ -18,6 +18,7 @@ namespace ST_Project
             HP = 250;
             damage = 8;
             score = 0;
+            position = 0; // ID of current node the player's in
             Items = new List<Item>();
         }
 
@@ -102,6 +103,16 @@ namespace ST_Project
             }
 
                 return s;
+        }
+
+        internal void set_position(int i)
+        {
+            position = i;
+        }
+
+        internal int get_position()
+        {
+            return position;
         }
     }
 }
