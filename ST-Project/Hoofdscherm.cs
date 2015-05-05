@@ -30,10 +30,8 @@ namespace ST_Project
         {
             string[] source = sender.ToString().Split(' ');
             int difficulty = int.Parse(source[2]);
-            //Dungeon d = new Dungeon(difficulty);
-            //Gamescherm g = new Gamescherm(difficulty);
-            //g.Show();
             parent.DiffSelectNotify(difficulty);
+            Visible = false;
         }
 
         private void newgame_b_Click(object sender, EventArgs e)

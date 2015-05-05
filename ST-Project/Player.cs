@@ -119,5 +119,46 @@ namespace ST_Project
         {
             return position;
         }
+
+        public int getNRPotions()
+        {
+            int result = 0;
+            foreach(Item i in Items)
+            {
+                if (i.type == Item.ItemType.HealthPotion)
+                    result++;
+            }
+
+            return result;
+        }
+
+        public int getNRCrystals()
+        {
+            int result = 0;
+            foreach (Item i in Items)
+            {
+                if (i.type == Item.ItemType.TimeCrystal)
+                    result++;
+            }
+
+            return result;
+        }
+
+        public int getNRScrolls()
+        {
+            int result = 0;
+            foreach (Item i in Items)
+            {
+                if (i.type == Item.ItemType.MagicScroll)
+                    result++;
+            }
+
+            return result;
+        }
+
+        public int getHealth()
+        {
+            return HP;
+        }
     }
 }

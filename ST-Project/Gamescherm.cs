@@ -22,13 +22,25 @@ namespace ST_Project
             InitializeComponent();
             this.parent = gs;
             Paint += teken;
-            //this.DoubleBuffered = true;
-            this.Height = 720;
-            this.Width = 1280;
             locations = new Dictionary<int, Tuple<int, int>>();
+            this.UpdateLabels();
         }
 
         public void teken(object sender, PaintEventArgs e)
+        {
+            drawDungeon(e);
+            UpdateLabels();
+        }
+
+        private void UpdateLabels()
+        {
+            NRpotions.Text = parent.GetPlayer().getNRPotions().ToString();
+            NRcrystals.Text = parent.GetPlayer().getNRCrystals().ToString();
+            NRscrolls.Text = parent.GetPlayer().getNRScrolls().ToString();
+            NRhealth.Text = parent.GetPlayer().getHealth().ToString();
+        }
+
+        private void drawDungeon(PaintEventArgs e)
         {
             if (locations.Count == 0)
             { setupDungeon(e); }
@@ -48,9 +60,10 @@ namespace ST_Project
             int y_pos = k.Item2 + (int)(0.5 * h);
 
             // draw Edges
-            for (int t = 0; t < adjs.Length;t++)
+            for (int t = 0; t < parent.GetDungeon().GetNode(pos).NumNeighbours; t++)
             {
                 int buur = adjs[t];
+                
                 int x_end = locations[buur].Item1 + (int)(0.5 * w);
                 int y_end = locations[buur].Item2 + (int)(0.5 * h);
                 gr.DrawLine(Pens.Black, x_pos, y_pos, x_end, y_end);
@@ -64,12 +77,11 @@ namespace ST_Project
                     color = Brushes.Red;                // color of end-node
 
                 gr.FillEllipse(color, locations[buur].Item1, locations[buur].Item2, w, h);
-                //gr.DrawString(buur.ToString(), drawFont, Brushes.Black, locations[buur].Item1, locations[buur].Item2);
             }
-            
+
             // draw Current Node
             gr.FillEllipse(Brushes.Green, locations[pos].Item1, locations[pos].Item2, w, h);
-            
+
             Invalidate();
         }
 
@@ -194,12 +206,11 @@ namespace ST_Project
                     parent.PlayerMoved(buren[t]);
                 }
             }
-
         }
 
         private void Gamescherm_Load(object sender, EventArgs e)
         {
-
+            Invalidate();
         }
     }
 }
