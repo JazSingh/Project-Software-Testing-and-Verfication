@@ -9,7 +9,7 @@ namespace ST_Project
     public class Node
     {
         int identifier;
-        public int[] adj;
+        int[] adj;
         int numNeighbours;
         Stack<Pack> packs;
         List<Item> items;
@@ -23,6 +23,10 @@ namespace ST_Project
             numNeighbours = 0;
             packs = new Stack<Pack>();
             items = new List<Item>();
+        }
+        public int[] get_Adj()
+        {
+            return adj;
         }
 
         public void SetCapacity(int bridgeLvl)
@@ -153,6 +157,11 @@ namespace ST_Project
             }
 
             return s;
+        }
+
+        public int[] getadj()
+        {
+            return adj;
         }
     }
 }

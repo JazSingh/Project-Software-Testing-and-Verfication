@@ -13,28 +13,95 @@ namespace ST_Project
     public partial class Gamescherm : Form
     {
         GameManager parent;
+        Dictionary<int, Tuple<int, int>> locations;
+        int w = 30;
+        int h = 30;
 
         public Gamescherm(int i, GameManager gs)
         {
             InitializeComponent();
             this.parent = gs;
             Paint += teken;
-            this.DoubleBuffered = true;
-            this.Height = 720;
-            this.Width = 1280;
+            locations = new Dictionary<int, Tuple<int, int>>();
+            this.UpdateLabels();
         }
 
         public void teken(object sender, PaintEventArgs e)
         {
-            Dictionary<int, Tuple<int, int>> locations = new Dictionary<int, Tuple<int, int>>();
+            drawDungeon(e);
+            UpdateLabels();
+        }
+
+        private void UpdateLabels()
+        {
+            NRpotions.Text = parent.GetPlayer().getNRPotions().ToString();
+            NRcrystals.Text = parent.GetPlayer().getNRCrystals().ToString();
+            NRscrolls.Text = parent.GetPlayer().getNRScrolls().ToString();
+            NRhealth.Text = parent.GetPlayer().getHealth().ToString();
+        }
+
+        private void drawDungeon(PaintEventArgs e)
+        {
+            if (locations.Count == 0)
+            { setupDungeon(e); }
+
+            Graphics gr = e.Graphics;
+            int h = 30;
+            int w = 30;
+            Font drawFont = new Font("Arial", 16);
+
+            // look for current position of player
+            int pos = parent.GetPlayer().get_position();
+            int[] adjs = parent.GetState().GetDungeon().GetNode(pos).get_Adj();
+
+            Tuple<int, int> k = locations[pos];
+
+            int x_pos = k.Item1 + (int)(0.5 * w);
+            int y_pos = k.Item2 + (int)(0.5 * h);
+
+            // draw Edges
+            for (int t = 0; t < parent.GetDungeon().GetNode(pos).NumNeighbours; t++)
+            {
+                int buur = adjs[t];
+                
+                int x_end = locations[buur].Item1 + (int)(0.5 * w);
+                int y_end = locations[buur].Item2 + (int)(0.5 * h);
+                gr.DrawLine(Pens.Black, x_pos, y_pos, x_end, y_end);
+
+                // draw Neighbours
+
+                Brush color = Brushes.Black;
+                if (buur != 0 && buur % parent.GetDungeon().interval == 0)
+                    color = Brushes.Orange;             // color of Bridge
+                else if (buur == parent.GetDungeon().nodes.Length - 1)
+                    color = Brushes.Red;                // color of end-node
+
+                gr.FillEllipse(color, locations[buur].Item1, locations[buur].Item2, w, h);
+            }
+
+            // draw Current Node
+            gr.FillEllipse(Brushes.Green, locations[pos].Item1, locations[pos].Item2, w, h);
+
+            Invalidate();
+        }
+
+        private bool isNeighbour(int[] adjs, int p)
+        {
+            for (int t = 0; t < adjs.Length; t++)
+                if (adjs[t] == p)
+                    return true;
+            return false;
+        }
+
+        private void setupDungeon(PaintEventArgs e)
+        {
+
             Graphics gr = e.Graphics;
 
             int x = 100;
             int y = 200;
-            int h = 30;
-            int w = 30;
             int x_dist = 0;
-            switch(parent.GetDungeon().difficulty)
+            switch (parent.GetDungeon().difficulty)
             {
                 case 5: { x_dist = 420 - (60 * (parent.GetDungeon().difficulty - 1)); break; }
                 default: { x_dist = 420 - (60 * (parent.GetDungeon().difficulty)); break; }
@@ -59,7 +126,7 @@ namespace ST_Project
                 {
                     if (t % parent.GetDungeon().interval == 0)
                     {
-                        locations.Add(t, new Tuple<int, int>(x+(int)(0.5*w), y+(int)(0.5*h)));
+                        locations.Add(t, new Tuple<int, int>(x + (int)(0.5 * w), y + (int)(0.5 * h)));
                         int xx = x;
                         x += x_dist;
                         int buurtje = 1;
@@ -98,7 +165,7 @@ namespace ST_Project
                                     case 5:
                                         {
                                             my_x = xx + (int)(0.60 * x_dist);
-                                            my_y = y + y_dist*2;
+                                            my_y = y + y_dist * 2;
                                             break;
                                         }
                                     case 6:
@@ -117,46 +184,33 @@ namespace ST_Project
                     }
                 }
             }
+        }
 
-            // draw Edges
-            foreach (KeyValuePair<int, Tuple<int, int>> k in locations)
+        private void CheckMove(object sender, MouseEventArgs e)
+        {
+            int x = e.X;
+            int y = e.Y;
+
+            int pos = parent.GetPlayer().get_position();
+
+            int[] buren = parent.GetState().GetDungeon().GetNode(pos).get_Adj();
+            for (int t =0;t<buren.Length;t++)
             {
-                int key = k.Key;
-                int x_pos = k.Value.Item1+(int)(0.5*w);
-                int y_pos = k.Value.Item2+(int)(0.5*h);
+                int b_x = locations[buren[t]].Item1 + (int)(0.5 * w);
+                int b_y = locations[buren[t]].Item2 + (int)(0.5 * h);
 
-                for (int t = 0; t < parent.GetDungeon().nodes[key].adj.Length; t++)
+                if (Math.Abs(b_x - x) < 0.5*w &&
+                    Math.Abs(b_y - y) < 0.5*h)
                 {
-                    int buur = parent.GetDungeon().nodes[key].adj[t];
-
-                    if (parent.GetDungeon().nodes[key].adj[t] > key)
-                    {
-                        int x_end = locations[buur].Item1 + (int)(0.5 * w);
-                        int y_end = locations[buur].Item2 + (int)(0.5 * h);
-
-                        gr.DrawLine(Pens.Black, x_pos, y_pos, x_end, y_end);
-                    }
+                    Console.WriteLine("Verplaats speler naar buur " + buren[t]);
+                    parent.PlayerMoved(buren[t]);
                 }
-
-                // draw node
-                Brush color = Brushes.White;
-                if (k.Key == 0)
-                    color = Brushes.Green;              // color of start-node
-                else if (k.Key != 0 && k.Key % parent.GetDungeon().interval == 0)
-                    color = Brushes.Orange;             // color of Bridge
-                else if (k.Key == parent.GetDungeon().nodes.Length - 1)
-                    color = Brushes.Red;                // color of end-node
-
-                gr.FillEllipse(color, k.Value.Item1, k.Value.Item2, w, h);
-                gr.DrawString(k.Key.ToString(), drawFont, Brushes.Black, k.Value.Item1, k.Value.Item2);
             }
-
-            Invalidate();
         }
 
         private void Gamescherm_Load(object sender, EventArgs e)
         {
-
+            Invalidate();
         }
     }
 }
