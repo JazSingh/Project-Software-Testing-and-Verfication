@@ -25,6 +25,13 @@ namespace ST_Project
             Console.WriteLine("Total hp player and pots: " + SumPlayerPotsHP());
         }
 
+        public GameState(Dungeon dungeon, Player player)
+        {
+            d = dungeon;
+            p = player;
+            d.SpawnMonsters();
+        }
+
         public Dungeon GetDungeon()
         {
             return d;

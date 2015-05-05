@@ -30,6 +30,11 @@ namespace ST_Project
             //Console.WriteLine(ToString());
         }
 
+        public Dungeon()
+        {
+
+        }
+
         private void GenerateDungeon()
         {
             //Initialize start and exit node
@@ -290,6 +295,7 @@ namespace ST_Project
         public override string ToString()
         {
             string s = string.Empty;
+            s += "DUNGEON" + Environment.NewLine;
             s += "DungeonSize: " + dungeonSize + Environment.NewLine;
             s += "Interval: " + interval + Environment.NewLine;
 

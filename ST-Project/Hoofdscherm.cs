@@ -50,7 +50,42 @@ namespace ST_Project
         {
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                // NEEDS IMPLEMENTATION HERE!
+                string filename = ofd.FileName;
+                string[] filelines = File.ReadAllLines(filename);
+
+                //PLAYER
+                int hpmax = Convert.ToInt32(filelines[1].Split(' ')[1]);
+                int hp = Convert.ToInt32(filelines[2].Split(' ')[1]);
+                int damage = Convert.ToInt32(filelines[3].Split(' ')[1]);
+                int score = Convert.ToInt32(filelines[4].Split(' ')[1]);
+                Item i;
+                List<Item> items = new List<Item>();
+                string type = filelines[6].Split(' ')[1];
+                if (type == "none")
+                    i = null;
+                else
+                {
+                    switch (type)
+                    {
+                        case "HealthPotion": i = new Health_Potion(); break;
+                        case "TimeCrystal": i = new Time_Crystal(); break;
+                        case "MagicScroll": i = new Magic_Scroll(); break;
+                        default: i = null; break;
+                    }
+                    // TODO invullen Item waardes geven
+
+                }
+
+                Player p = new Player(hpmax, hp, damage, score, i, items);
+
+                //DUNGEON
+
+                //TODO dungeon uitlezen
+                Dungeon d = null;
+
+                //New GameState
+
+                GameState gs = new GameState(d, p);
             }
         }
     }

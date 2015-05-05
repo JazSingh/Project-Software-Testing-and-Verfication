@@ -22,6 +22,16 @@ namespace ST_Project
             Items = new List<Item>();
         }
 
+        public Player(int hpm, int hp, int dmg, int scr, Item i, List<Item> itms)
+        {
+            HPmax = hpm;
+            HP = hp;
+            damage = dmg;
+            score = scr;
+            current = i;
+            Items = itms;
+        }
+
         public void use(Dungeon d, Item i)
         {
             current = i;
@@ -94,18 +104,18 @@ namespace ST_Project
         public override string ToString()
         {
             string s = string.Empty;
-            s += "Player:" + Environment.NewLine;
+            s += "PLAYER" + Environment.NewLine;
             s += "HpMax: " + HPmax + Environment.NewLine;
             s += "HP: " + HP + Environment.NewLine;
             s += "Damage: " + damage + Environment.NewLine;
             s += "Score: " + score + Environment.NewLine;
-            s += "Current Item: ";
+            s += "Current Item:" + Environment.NewLine;
             if (current == null)
-                s += "none";
+                s += "Type: none";
             else
                 s += current.ToString();
             s += Environment.NewLine;
-            s += "Items: " + Environment.NewLine;
+            s += "Items: " + Items.Count + Environment.NewLine;
 
             foreach(Item i in Items)
             {
