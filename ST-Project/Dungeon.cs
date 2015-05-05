@@ -223,17 +223,24 @@ namespace ST_Project
                 if (!visited[v]) ReachableNodes(nodes[v], ref visited);
         }
 
-        public void DropHealthPot()
+        public void DropItem(ItemType t)
         {
+            Item k;
+            switch(t)
+            {
+                case ItemType.HealthPotion: k = new Health_Potion(); break;
+                case ItemType.TimeCrystal: k = new Time_Crystal(); break;
+                default: k = new Magic_Scroll(); break;
+            }
+
             List<int> dropNodes = new List<int>();
-            for(int i = 1; i < dungeonSize - 2; i++)
-                if(nodes[i] != null)
+            for (int i = 1; i < dungeonSize - 2; i++)
+                if (nodes[i] != null)
                     dropNodes.Add(i);
 
-            int selected = Oracle.GiveNumber(dropNodes.Count);
-            nodes[selected].Add_Item(new Health_Potion());
+            int selected = dropNodes[Oracle.GiveNumber(dropNodes.Count-1)];
+            nodes[selected].Add_Item(k);
         }
-
         public void SpawnMonsters()
         {
             //spawn 1 on every bridge

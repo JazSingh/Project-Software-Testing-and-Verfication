@@ -13,8 +13,8 @@ namespace ST_Project
 
        public Monster()
        {
-           HP = 3;          // health-points
-           damage = 1;      // damage dealt by monster when hitting player
+           HP = 15;          // health-points
+           damage = 3;      // damage dealt by monster when hitting player
        }
 
        // decreases it's current HP and returns a boolean value:

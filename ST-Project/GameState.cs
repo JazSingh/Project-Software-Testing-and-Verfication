@@ -18,6 +18,7 @@ namespace ST_Project
             p = new Player();
             time = 0;
             d.SpawnMonsters();
+            DropItems();
             Console.WriteLine(d.ToString());
             Console.WriteLine(p.ToString());
             Console.WriteLine("Total hp monsters: " + d.SumMonsterHealth());
@@ -40,10 +41,15 @@ namespace ST_Project
 
         }
 
-        private void DropHealthPot()
+        private bool DropHealthPot()
         {
-            if (SumPlayerPotsHP() >= d.SumMonsterHealth() && Oracle.Decide())
-                d.DropHealthPot();
+            bool dropped = false;
+            if (SumPlayerPotsHP()< d.SumMonsterHealth() && Oracle.Decide())
+            {
+                d.DropItem(ItemType.HealthPotion);
+                dropped = true;
+            }
+            return dropped;
         }
 
         public void SetPosition(int i)
@@ -51,5 +57,22 @@ namespace ST_Project
             p.set_position(i);
         }
 
+        private void DropItems()
+        {
+            int i = 1;
+            int k = Oracle.GiveNumber(d.difficulty, d.difficulty + 2);
+
+            while (i <= k)
+            {
+                int r = Oracle.GiveNumber(2);
+                switch (r)
+                {
+                    case 0: d.DropItem(ItemType.MagicScroll); break;
+                    case 1: d.DropItem(ItemType.TimeCrystal); break;
+                    default: if (SumPlayerPotsHP() < d.SumMonsterHealth()) d.DropItem(ItemType.HealthPotion); break;
+                }
+                i++;
+            }
+        }
     }
 }
