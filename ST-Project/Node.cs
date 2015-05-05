@@ -145,6 +145,8 @@ namespace ST_Project
             string s = "Node " + identifier.ToString() + ": ";
             for (int i = 0; i < numNeighbours; i++)
                 s += adj[i] + " ";
+
+            /*
             s += Environment.NewLine + "Packs:" + Environment.NewLine;
             foreach (Pack p in packs)
             {
@@ -155,7 +157,8 @@ namespace ST_Project
             {
                 s += i.ToString();
             }
-
+            */
+             
             return s;
         }
 
