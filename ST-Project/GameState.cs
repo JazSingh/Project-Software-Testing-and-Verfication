@@ -51,5 +51,15 @@ namespace ST_Project
             p.set_position(i);
         }
 
+        public bool CheckFinished()
+        {
+            if (GetPlayer().get_position() == GetDungeon().nodes.Length - 1)
+            {
+                Console.WriteLine("Reached end node!");
+                return true;
+            }
+            return false;
+        }
+
     }
 }

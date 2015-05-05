@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -202,6 +203,10 @@ namespace ST_Project
                 {
                     Console.WriteLine("Verplaats speler naar buur " + buren[t]);
                     parent.PlayerMoved(buren[t]);
+                    if(parent.GetState().CheckFinished())
+                    {
+                        Save("test");
+                    }
                 }
             }
         }
@@ -210,6 +215,33 @@ namespace ST_Project
         {
             Invalidate();
         }
+
+        private void Save(string filename)
+        {
+            string stateString = parent.GetPlayer().ToString() + Environment.NewLine + parent.GetDungeon().ToString();
+            SaveFileDialog sfd = new SaveFileDialog();
+
+            sfd.FileName = filename;
+            sfd.DefaultExt = ".text";
+            sfd.Filter = "Text documents (.txt)|*.txt";
+            sfd.OverwritePrompt = true;
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                if (sfd.CheckFileExists)
+                {
+                    Console.WriteLine("naam bestaat al");
+                    File.Delete(sfd.FileName);
+                }
+
+                StreamWriter writer = new StreamWriter(sfd.OpenFile());
+                
+                writer.WriteLine(stateString);
+                writer.Dispose();
+                writer.Close();
+            }
+        }
+
     }
 }
 
