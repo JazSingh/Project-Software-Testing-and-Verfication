@@ -101,11 +101,10 @@
             // 
             // Health_lbl
             // 
-            this.Health_lbl.AutoSize = true;
             this.Health_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Health_lbl.Location = new System.Drawing.Point(116, 420);
             this.Health_lbl.Name = "Health_lbl";
-            this.Health_lbl.Size = new System.Drawing.Size(66, 33);
+            this.Health_lbl.Size = new System.Drawing.Size(76, 33);
             this.Health_lbl.TabIndex = 6;
             this.Health_lbl.Text = "HP:";
             // 
@@ -148,6 +147,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Gamescherm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gamescherm";
             this.Load += new System.EventHandler(this.Gamescherm_Load);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckMove);

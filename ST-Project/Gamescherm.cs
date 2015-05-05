@@ -23,13 +23,13 @@ namespace ST_Project
             this.parent = gs;
             Paint += teken;
             locations = new Dictionary<int, Tuple<int, int>>();
-            this.UpdateLabels();
         }
 
         public void teken(object sender, PaintEventArgs e)
         {
             drawDungeon(e);
             UpdateLabels();
+            Invalidate();
         }
 
         private void UpdateLabels()
@@ -81,8 +81,6 @@ namespace ST_Project
 
             // draw Current Node
             gr.FillEllipse(Brushes.Green, locations[pos].Item1, locations[pos].Item2, w, h);
-
-            Invalidate();
         }
 
         private bool isNeighbour(int[] adjs, int p)
