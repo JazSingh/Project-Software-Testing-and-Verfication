@@ -25,5 +25,15 @@ namespace ST_Project
         {
             return d;
         }
+
+        public Player GetPlayer()
+        {
+            return p;
+        }
+
+        public void set_position(int t)
+        {
+            p.set_position(t);
+        }
     }
 }

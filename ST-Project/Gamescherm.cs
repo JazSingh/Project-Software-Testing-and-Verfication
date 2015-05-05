@@ -123,11 +123,11 @@ namespace ST_Project
                 int x_pos = k.Value.Item1+(int)(0.5*w);
                 int y_pos = k.Value.Item2+(int)(0.5*h);
 
-                for (int t = 0; t < game.GetDungeon().nodes[key].adj.Length; t++)
+                for (int t = 0; t < game.GetDungeon().nodes[key].getadj().Length; t++)
                 {
-                    int buur = game.GetDungeon().nodes[key].adj[t];
+                    int buur = game.GetDungeon().nodes[key].getadj()[t];
 
-                    if (game.GetDungeon().nodes[key].adj[t] > key)
+                    if (game.GetDungeon().nodes[key].getadj()[t] > key)
                     {
                         int x_end = locations[buur].Item1 + (int)(0.5 * w);
                         int y_end = locations[buur].Item2 + (int)(0.5 * h);
@@ -154,7 +154,8 @@ namespace ST_Project
 
         private void Gamescherm_Load(object sender, EventArgs e)
         {
-
+            Invalidate();
+            InitializeComponent();
         }
     }
 }

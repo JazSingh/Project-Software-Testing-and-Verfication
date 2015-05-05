@@ -16,14 +16,26 @@ namespace ST_Project
             state = new GameState(i);
         }
 
-        /*public void MoveToNode(int t)
+        public void MoveToNode(int t)
         {
-            int i = state.get_player().get_position();
+            int i = state.GetPlayer().get_position();
+            bool buur = false;
+
             if (i != t)
             {
-                state.getDungeon().nodes[i].getadj();
+                int[] buren = state.GetDungeon().nodes[i].getadj();
+                for (int s = 0;s<buren.Length;s++)
+                {
+                    if (buren[s] == t)
+                        buur = true;
+                }
+
+                if (buur)
+                {
+                    state.set_position(t);
+                }
             }
-        }*/
+        }
 
         public void Attack(Pack p)
         {

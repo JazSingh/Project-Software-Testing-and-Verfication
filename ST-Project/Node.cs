@@ -9,7 +9,7 @@ namespace ST_Project
     public class Node
     {
         int identifier;
-        public int[] adj;
+        int[] adj;
         int numNeighbours;
         Stack<Pack> packs;
         List<Item> items;
@@ -106,6 +106,11 @@ namespace ST_Project
             }
 
             return s;
+        }
+
+        public int[] getadj()
+        {
+            return adj;
         }
     }
 }
