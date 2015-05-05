@@ -30,5 +30,20 @@ namespace ST_Project
         {
             return p;
         }
+
+        public int GetPosition()
+        {
+            return p.get_position();
+        }
+
+        public void SetPosition(int i)
+        {
+            p.set_position(i);
+        }
+
+        internal void set_position(int t)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

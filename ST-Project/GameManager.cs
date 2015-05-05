@@ -19,31 +19,26 @@ namespace ST_Project
             hs.Show();
         }
 
-        public void MoveToNode(int t)
+        //Methods called from View
+        public void PlayerMoved(int newNode)
         {
             int i = state.GetPlayer().get_position();
             bool buur = false;
 
-            if (i != t)
+            if (i != newNode)
             {
                 int[] buren = state.GetDungeon().nodes[i].getadj();
-                for (int s = 0;s<buren.Length;s++)
+                for (int s = 0; s < buren.Length; s++)
                 {
-                    if (buren[s] == t)
+                    if (buren[s] == newNode)
                         buur = true;
                 }
 
                 if (buur)
                 {
-                    state.set_position(t);
+                    state.SetPosition(newNode);
                 }
             }
-        }
-
-        //Methods called from View
-        public void PlayerMoved(int newNode)
-        {
-            
         }
 
         //Hoofdscherm diff select
