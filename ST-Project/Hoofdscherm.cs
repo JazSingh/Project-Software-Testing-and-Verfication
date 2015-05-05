@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -81,6 +82,14 @@ namespace ST_Project
                 //DUNGEON
 
                 //TODO dungeon uitlezen
+
+                Node[] nodes = null;
+                int difficulty = 0;
+                int size = 0;
+                int interval = 0;
+
+
+                //Dungeon d = new Dungeon(nodes, difficulty, size, interval);
                 Dungeon d = null;
 
                 //New GameState

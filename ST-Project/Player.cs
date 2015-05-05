@@ -22,6 +22,7 @@ namespace ST_Project
             Items = new List<Item>();
         }
 
+        // Load Constructor
         public Player(int hpm, int hp, int dmg, int scr, Item i, List<Item> itms)
         {
             HPmax = hpm;

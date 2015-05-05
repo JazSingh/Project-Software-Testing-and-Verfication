@@ -30,9 +30,13 @@ namespace ST_Project
             //Console.WriteLine(ToString());
         }
 
-        public Dungeon()
+        // Load constructor
+        public Dungeon(Node[] nds, int diff, int size, int interv)
         {
-
+            nodes = nds;
+            difficulty = diff;
+            dungeonSize = size;
+            interval = interv;
         }
 
         private void GenerateDungeon()
