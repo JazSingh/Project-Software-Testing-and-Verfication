@@ -40,10 +40,9 @@
             // 
             this.potions_lbl.AutoSize = true;
             this.potions_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.potions_lbl.Location = new System.Drawing.Point(344, 912);
-            this.potions_lbl.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.potions_lbl.Location = new System.Drawing.Point(172, 474);
             this.potions_lbl.Name = "potions_lbl";
-            this.potions_lbl.Size = new System.Drawing.Size(281, 44);
+            this.potions_lbl.Size = new System.Drawing.Size(145, 24);
             this.potions_lbl.TabIndex = 0;
             this.potions_lbl.Text = "Health Potions";
             // 
@@ -51,10 +50,9 @@
             // 
             this.scrolls_lbl.AutoSize = true;
             this.scrolls_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.scrolls_lbl.Location = new System.Drawing.Point(1098, 912);
-            this.scrolls_lbl.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.scrolls_lbl.Location = new System.Drawing.Point(549, 474);
             this.scrolls_lbl.Name = "scrolls_lbl";
-            this.scrolls_lbl.Size = new System.Drawing.Size(260, 44);
+            this.scrolls_lbl.Size = new System.Drawing.Size(135, 24);
             this.scrolls_lbl.TabIndex = 1;
             this.scrolls_lbl.Text = "Magic Scrolls";
             // 
@@ -62,20 +60,18 @@
             // 
             this.crystal_lbl.AutoSize = true;
             this.crystal_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.crystal_lbl.Location = new System.Drawing.Point(726, 912);
-            this.crystal_lbl.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.crystal_lbl.Location = new System.Drawing.Point(363, 474);
             this.crystal_lbl.Name = "crystal_lbl";
-            this.crystal_lbl.Size = new System.Drawing.Size(267, 44);
+            this.crystal_lbl.Size = new System.Drawing.Size(135, 24);
             this.crystal_lbl.TabIndex = 2;
             this.crystal_lbl.Text = "Time Crystals";
             // 
             // NRpotions
             // 
             this.NRpotions.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NRpotions.Location = new System.Drawing.Point(344, 1033);
-            this.NRpotions.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.NRpotions.Location = new System.Drawing.Point(172, 537);
             this.NRpotions.Name = "NRpotions";
-            this.NRpotions.Size = new System.Drawing.Size(304, 42);
+            this.NRpotions.Size = new System.Drawing.Size(152, 22);
             this.NRpotions.TabIndex = 3;
             this.NRpotions.Text = "0";
             this.NRpotions.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -83,10 +79,9 @@
             // NRcrystals
             // 
             this.NRcrystals.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NRcrystals.Location = new System.Drawing.Point(726, 1033);
-            this.NRcrystals.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.NRcrystals.Location = new System.Drawing.Point(363, 537);
             this.NRcrystals.Name = "NRcrystals";
-            this.NRcrystals.Size = new System.Drawing.Size(304, 42);
+            this.NRcrystals.Size = new System.Drawing.Size(152, 22);
             this.NRcrystals.TabIndex = 4;
             this.NRcrystals.Text = "0";
             this.NRcrystals.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -94,19 +89,18 @@
             // NRscrolls
             // 
             this.NRscrolls.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NRscrolls.Location = new System.Drawing.Point(1098, 1033);
-            this.NRscrolls.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.NRscrolls.Location = new System.Drawing.Point(549, 537);
             this.NRscrolls.Name = "NRscrolls";
-            this.NRscrolls.Size = new System.Drawing.Size(304, 42);
+            this.NRscrolls.Size = new System.Drawing.Size(152, 22);
             this.NRscrolls.TabIndex = 5;
             this.NRscrolls.Text = "0";
             this.NRscrolls.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Gamescherm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2528, 1310);
+            this.ClientSize = new System.Drawing.Size(677, 381);
             this.Controls.Add(this.NRscrolls);
             this.Controls.Add(this.NRcrystals);
             this.Controls.Add(this.NRpotions);
@@ -115,11 +109,11 @@
             this.Controls.Add(this.potions_lbl);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.MaximizeBox = false;
             this.Name = "Gamescherm";
             this.Text = "Gamescherm";
             this.Load += new System.EventHandler(this.Gamescherm_Load);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckMove);
             this.ResumeLayout(false);
             this.PerformLayout();
 
