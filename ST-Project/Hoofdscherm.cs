@@ -12,9 +12,13 @@ namespace ST_Project
 {
     public partial class Hoofdscherm : Form
     {
-        public Hoofdscherm()
+        GameManager parent;
+        public Hoofdscherm(GameManager parent)
         {
             InitializeComponent();
+            this.parent = parent;
+            this.Height = 720;
+            this.Width = 1280;
         }
 
         private void DungeonRPG_Load(object sender, EventArgs e)
@@ -27,8 +31,9 @@ namespace ST_Project
             string[] source = sender.ToString().Split(' ');
             int difficulty = int.Parse(source[2]);
             //Dungeon d = new Dungeon(difficulty);
-            Gamescherm g = new Gamescherm(difficulty);
-            g.Show();
+            //Gamescherm g = new Gamescherm(difficulty);
+            //g.Show();
+            parent.DiffSelectNotify(difficulty);
         }
 
         private void newgame_b_Click(object sender, EventArgs e)

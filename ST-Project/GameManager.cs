@@ -7,13 +7,16 @@ using System.Threading.Tasks;
 namespace ST_Project
 {
 
-    class GameManager
+    public class GameManager
     {
-        GameState state;
+        public GameState state;
+        public Gamescherm gs;
+        public Hoofdscherm hs;
 
-        public GameManager(int i)
+        public GameManager()
         {
-            state = new GameState(i);
+            Hoofdscherm hs = new Hoofdscherm(this);
+            hs.Show();
         }
 
         public void MoveToNode(int t)
@@ -37,9 +40,35 @@ namespace ST_Project
             }
         }
 
-        public void Attack(Pack p)
+        //Methods called from View
+        public void PlayerMoved(int newNode)
         {
+            
+        }
 
+        //Hoofdscherm diff select
+        public void DiffSelectNotify(int diff)
+        {
+            state = new GameState(diff);
+            gs = new Gamescherm(diff, this);
+            gs.Show();
+            gs.Invalidate();
+        }
+
+        //Convience methods
+        public Dungeon GetDungeon()
+        {
+            return state.GetDungeon();
+        }
+
+        public GameState GetState()
+        {
+            return state;
+        }
+
+        public Player GetPlayer()
+        {
+            return state.GetPlayer();
         }
     }
 }

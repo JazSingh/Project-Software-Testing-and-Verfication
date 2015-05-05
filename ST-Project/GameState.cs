@@ -30,10 +30,5 @@ namespace ST_Project
         {
             return p;
         }
-
-        public void set_position(int t)
-        {
-            p.set_position(t);
-        }
     }
 }

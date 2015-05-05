@@ -99,15 +99,17 @@ namespace ST_Project
             //Find node from end that only has the exit node as neighbour
             //Connect with other node from that partition
             foreach(int n in nodes[dungeonSize-1].GetNeighbours())
-                if(nodes[n].NumNeighbours == 1)
-                    for(int i = dungeonSize - 2; i >= difficulty * interval; i--)
-                        if(i != n && nodes[i] != null
+                if (nodes[n].NumNeighbours == 1)
+                {
+                    for (int i = dungeonSize - 2; i >= difficulty * interval; i--)
+                        if (i != n && nodes[i] != null
                             && !nodes[i].IsFull())
                         {
-                            Console.WriteLine("Fix {0} --> {1}", n, i);
                             nodes[n].AddNeighbour(i);
                             nodes[i].AddNeighbour(n);
+                            return;
                         }
+                }
         }
 
         //Pre: p2-p1 = 1
