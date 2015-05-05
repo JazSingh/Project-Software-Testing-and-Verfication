@@ -14,6 +14,8 @@ namespace ST_Project
         Stack<Pack> packs;
         List<Item> items;
 
+        private int MaxCapacity = 9;
+
         public Node(int i)
         {
             identifier = i;
@@ -21,6 +23,16 @@ namespace ST_Project
             numNeighbours = 0;
             packs = new Stack<Pack>();
             items = new List<Item>();
+        }
+
+        public void SetCapacity(int bridgeLvl)
+        {
+            MaxCapacity *= bridgeLvl;
+        }
+
+        public int GetCapacity()
+        {
+            return MaxCapacity;
         }
 
         public void Add_Item(Item i)
@@ -33,9 +45,25 @@ namespace ST_Project
             return items;
         }
 
+        public bool AddPack()
+        {
+            Pack p = new Pack();
+            if (TotalMonsters() + p.GetNumMonsters() > MaxCapacity) return false;
+            packs.Push(p);
+            return true;
+        }
+
         public int Amount_of_packs()
         {
             return packs.Count;
+        }
+
+        public int TotalMonsters()
+        {
+            int s = 0;
+            foreach (Pack p in packs)
+                s += p.GetNumMonsters();
+            return s;
         }
 
         public void AddNeighbour(int node)
@@ -77,6 +105,25 @@ namespace ST_Project
                 adj[i] = adj[i + 1];
             numNeighbours--;
             return true;
+        }
+
+        public int SumMonsterHealth()
+        {
+            int sum = 0;
+            foreach (Pack p in packs)
+                sum += p.GetPackHealth();
+            return sum;
+        }
+
+        public int SumHealPots()
+        {
+            int sum = 0;
+            foreach (Item i in items)
+            {
+                if (i.type == ItemType.HealthPotion)
+                    sum += i.health;
+            }
+            return sum;
         }
 
         public int ID

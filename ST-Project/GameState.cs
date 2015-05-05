@@ -17,8 +17,11 @@ namespace ST_Project
             d = new Dungeon(i);
             p = new Player();
             time = 0;
+            d.SpawnMonsters();
             Console.WriteLine(d.ToString());
             Console.WriteLine(p.ToString());
+            Console.WriteLine("Total hp monsters: " + d.SumMonsterHealth());
+            Console.WriteLine("Total hp player and pots: " + SumPlayerPotsHP());
         }
 
         public Dungeon GetDungeon()
@@ -30,5 +33,18 @@ namespace ST_Project
         {
             return p;
         }
+
+        private int SumPlayerPotsHP()
+        {
+            return p.GetHP() + d.SumHealPots();
+
+        }
+
+        private void DropHealthPot()
+        {
+            if (SumPlayerPotsHP() >= d.SumMonsterHealth() && Oracle.Decide())
+                d.DropHealthPot();
+        }
+
     }
 }

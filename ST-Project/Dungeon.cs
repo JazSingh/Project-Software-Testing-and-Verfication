@@ -13,6 +13,9 @@ namespace ST_Project
         public int dungeonSize;
         public int interval;
 
+        private int initialPackDrops;
+
+
         public Dungeon(int n)
         {
             difficulty = n;
@@ -20,6 +23,9 @@ namespace ST_Project
             dungeonSize = k * n + n + 2;
             interval = (int) Math.Ceiling((double) dungeonSize / (difficulty + 1));
             nodes = new Node[dungeonSize];
+            initialPackDrops = 0;
+            for (int i = 1; i <= n; i++)
+                initialPackDrops += i;
             GenerateDungeon();
             //Console.WriteLine(ToString());
         }
@@ -58,6 +64,7 @@ namespace ST_Project
                 if (i == b * interval)
                 {
                     nodes[i] = new Node(i);
+                    nodes[i].SetCapacity(b);
                     b++;
                 }
                 else if (Oracle.Decide())
@@ -103,11 +110,11 @@ namespace ST_Project
                 {
                     for (int i = dungeonSize - 2; i >= difficulty * interval; i--)
                         if (i != n && nodes[i] != null
-                            && !nodes[i].IsFull())
+                            && !nodes[i].IsFull()
+                            && nodes[n].NumNeighbours == 1)
                         {
                             nodes[n].AddNeighbour(i);
                             nodes[i].AddNeighbour(n);
-                            return;
                         }
                 }
         }
@@ -216,9 +223,61 @@ namespace ST_Project
                 if (!visited[v]) ReachableNodes(nodes[v], ref visited);
         }
 
+        public void DropHealthPot()
+        {
+            List<int> dropNodes = new List<int>();
+            for(int i = 1; i < dungeonSize - 2; i++)
+                if(nodes[i] != null)
+                    dropNodes.Add(i);
+
+            int selected = Oracle.GiveNumber(dropNodes.Count);
+            nodes[selected].Add_Item(new Health_Potion());
+        }
+
+        public void SpawnMonsters()
+        {
+            //spawn 1 on every bridge
+            int dropped = 0;
+            for (int i = 1; i <= difficulty; i++)
+                nodes[i * interval].AddPack();
+            dropped = difficulty;
+                //drop on random nodes
+            for (int i = 1; i < dungeonSize - 2; i++)
+                if (initialPackDrops - dropped > 0 
+                    && nodes[i] != null 
+                    && Oracle.Decide() && nodes[i].AddPack())
+                    dropped++;
+            //fill bridges with amount that is left
+            int j = difficulty;
+            while(initialPackDrops - dropped > 0)
+            {
+                if (nodes[j * interval].AddPack())
+                    dropped++;
+                j = j == 1 ? difficulty : j - 1;
+            }
+        }
+
         public Node GetNode(int i)
         {
             return nodes[i];
+        }
+
+        public int SumMonsterHealth()
+        {
+            int sum = 0;
+            for (int i = 0; i < dungeonSize; i++)
+                if (nodes[i] != null)
+                    sum += nodes[i].SumMonsterHealth();
+            return sum;
+        }
+
+        public int SumHealPots()
+        {
+            int sum = 0;
+            for (int i = 0; i < dungeonSize; i++)
+                if (nodes[i] != null)
+                    sum += nodes[i].SumHealPots();
+            return sum;
         }
 
         public override string ToString()

@@ -34,6 +34,11 @@ namespace ST_Project
            return damage;
        }
 
+       public int GetHP()
+       {
+           return HP;
+       }
+
        public override string ToString()
        {
            string s = string.Empty;
