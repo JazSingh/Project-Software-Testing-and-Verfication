@@ -130,7 +130,7 @@ namespace ST_Project
             int result = 0;
             foreach(Item i in Items)
             {
-                if (i.type == Item.ItemType.HealthPotion)
+                if (i.type == ItemType.HealthPotion)
                     result++;
             }
 
@@ -142,7 +142,7 @@ namespace ST_Project
             int result = 0;
             foreach (Item i in Items)
             {
-                if (i.type == Item.ItemType.TimeCrystal)
+                if (i.type == ItemType.TimeCrystal)
                     result++;
             }
 
@@ -154,7 +154,7 @@ namespace ST_Project
             int result = 0;
             foreach (Item i in Items)
             {
-                if (i.type == Item.ItemType.MagicScroll)
+                if (i.type == ItemType.MagicScroll)
                     result++;
             }
 

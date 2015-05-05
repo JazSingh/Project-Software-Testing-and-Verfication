@@ -46,5 +46,10 @@ namespace ST_Project
                 d.DropHealthPot();
         }
 
+        public void SetPosition(int i)
+        {
+            p.set_position(i);
+        }
+
     }
 }
