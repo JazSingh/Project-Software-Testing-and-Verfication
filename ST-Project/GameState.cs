@@ -40,10 +40,5 @@ namespace ST_Project
         {
             p.set_position(i);
         }
-
-        internal void set_position(int t)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
