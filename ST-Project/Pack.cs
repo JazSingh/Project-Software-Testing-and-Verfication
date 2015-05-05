@@ -13,20 +13,26 @@ namespace ST_Project
         private Item item;
         private int score;
 
-        public Pack(int i)
+        private const int packSize = 3;
+
+        public Pack()
         {
             monsters = new Stack<Monster>();
 
+            monsters.Push(new Monster());
+            monsters.Push(new Monster());
+            monsters.Push(new Monster());
+
             // NEEDS IMPROVEMENTS!!!
-            score = i; 
+            score = 9; 
             Random r = new Random();
             int val = r.Next(0, 19);
             if (val < 3)
-                item = new Health_Potion(100);
+                item = new Health_Potion();
             else if (val > 2 && val < 6)
-                item = new Time_Crystal(10);
+                item = new Time_Crystal();
             else if (val > 5 && val < 9)
-                item = new Magic_Scroll(10, 20);
+                item = new Magic_Scroll();
             //////////////////////////////////////
         }
 
@@ -35,9 +41,25 @@ namespace ST_Project
             return score;
         }
 
+        public int GetNumMonsters()
+        {
+            return current == null? monsters.Count : (monsters.Count + 1);
+        }
+
         public void Add_Monster(Monster i)
         {
             monsters.Push(i);
+        }
+
+        public int GetPackHealth()
+        {
+            int sum = current == null ? 0 : current.GetHP();
+            foreach (Monster m in monsters)
+            {
+               sum += m.GetHP();
+            }
+
+            return sum;
         }
 
         // realizes damage dealt by the player and
@@ -109,8 +131,8 @@ namespace ST_Project
         {
             string s = string.Empty;
             s += "Score: " + score + Environment.NewLine;
-            s += "Item: " + item.ToString() + Environment.NewLine;
-            s += "Current: " + current.ToString() + Environment.NewLine;
+            s += "Item: " + (item == null ? "" : item.ToString()) + Environment.NewLine;
+            s += "Current: " + (current == null ? "" : current.ToString()) + Environment.NewLine;
             s += "Monsters: " + Environment.NewLine;
 
             foreach (Monster m in monsters)

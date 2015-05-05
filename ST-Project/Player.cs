@@ -26,7 +26,7 @@ namespace ST_Project
         {
             current = i;
            
-            if (current.type == Item.ItemType.HealthPotion)
+            if (current.type == ItemType.HealthPotion)
             {
                 HP += current.health;
                 if (HP > HPmax)
@@ -55,6 +55,11 @@ namespace ST_Project
             return true;
         }
 
+        public int GetHP()
+        {
+            return HP;
+        }
+
         public void doCombatRound(Dungeon d, Pack p)
         {
             // NEEDS IMPROVEMENTS
@@ -62,12 +67,12 @@ namespace ST_Project
             // if player needs to attack
             if (current != null)
             {
-                if (current.type == Item.ItemType.TimeCrystal)
+                if (current.type == ItemType.TimeCrystal)
                 {
                     p.hit_pack_Time_Crystal_variant(damage);
                     current.duration--;
                 }
-                else if (current.type == Item.ItemType.MagicScroll)
+                else if (current.type == ItemType.MagicScroll)
                 {
                     p.hit_pack(damage + current.damage);
                     current.duration--;
@@ -110,12 +115,12 @@ namespace ST_Project
                 return s;
         }
 
-        internal void set_position(int i)
+        public void set_position(int i)
         {
             position = i;
         }
 
-        internal int get_position()
+        public int get_position()
         {
             return position;
         }
@@ -125,7 +130,7 @@ namespace ST_Project
             int result = 0;
             foreach(Item i in Items)
             {
-                if (i.type == Item.ItemType.HealthPotion)
+                if (i.type == ItemType.HealthPotion)
                     result++;
             }
 
@@ -137,7 +142,7 @@ namespace ST_Project
             int result = 0;
             foreach (Item i in Items)
             {
-                if (i.type == Item.ItemType.TimeCrystal)
+                if (i.type == ItemType.TimeCrystal)
                     result++;
             }
 
@@ -149,7 +154,7 @@ namespace ST_Project
             int result = 0;
             foreach (Item i in Items)
             {
-                if (i.type == Item.ItemType.MagicScroll)
+                if (i.type == ItemType.MagicScroll)
                     result++;
             }
 

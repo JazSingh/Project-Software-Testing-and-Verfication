@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace ST_Project
 {
-
+    public enum ItemType
+    {
+        HealthPotion, TimeCrystal, MagicScroll
+    };
 
    public abstract class Item
     {
-        public enum ItemType
-        {
-            HealthPotion, TimeCrystal, MagicScroll
-        };
-
         public ItemType type;
 
         public int duration, health, damage;
@@ -35,28 +33,28 @@ namespace ST_Project
 
    public class Health_Potion : Item
     {
-        public Health_Potion(int i)
+        public Health_Potion()
         {
-            health = i;
+            health = 25;
             type = ItemType.HealthPotion;
         }
     }
 
     public class Time_Crystal : Item
     {
-        public Time_Crystal(int i)
+        public Time_Crystal()
         {
-            duration = i;
+            duration = 5;
             type = ItemType.TimeCrystal;
         }
     }
 
     public class Magic_Scroll : Item
     {
-        public Magic_Scroll(int dur, int dam)
+        public Magic_Scroll()
         {
-            duration = dur;
-            damage = dam;
+            duration = 5;
+            damage = 10;
             type = ItemType.MagicScroll;
         }
     }
