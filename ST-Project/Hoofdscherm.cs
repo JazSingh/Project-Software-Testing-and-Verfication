@@ -42,7 +42,6 @@ namespace ST_Project
 
         OpenFileDialog ofd = new OpenFileDialog();
 
-
         private void button2_Click(object sender, EventArgs e)
         {
             if (ofd.ShowDialog() == DialogResult.OK)
@@ -125,6 +124,11 @@ namespace ST_Project
             }
 
             return it;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            parent.ShowHighScores();
         }
     }
 }
