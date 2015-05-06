@@ -63,6 +63,7 @@ namespace ST_Project
                     state.SetPosition(newNode);
                 }
             }
+            gs.Invalidate();
         }
 
         //Hoofdscherm diff select

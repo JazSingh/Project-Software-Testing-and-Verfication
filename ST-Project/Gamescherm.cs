@@ -30,7 +30,6 @@ namespace ST_Project
         {
             drawDungeon(e);
             UpdateLabels();
-            Invalidate();
         }
 
         private void UpdateLabels()
