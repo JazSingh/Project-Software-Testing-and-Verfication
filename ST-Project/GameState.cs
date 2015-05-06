@@ -33,6 +33,12 @@ namespace ST_Project
             d.SpawnMonsters();
         }
 
+        public void Save(string filename)
+        {
+            d = new Dungeon(d.difficulty + 1);
+            p.save(d, filename);
+        }
+
         public Dungeon GetDungeon()
         {
             return d;
@@ -46,7 +52,11 @@ namespace ST_Project
         private int SumPlayerPotsHP()
         {
             return p.GetHP() + d.SumHealPots();
+        }
 
+        public void NextLevel()
+        {
+            d = new Dungeon(d.difficulty + 1);
         }
 
         private bool DropHealthPot()

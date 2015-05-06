@@ -64,7 +64,7 @@ namespace ST_Project
             for (int t = 0; t < parent.GetDungeon().GetNode(pos).NumNeighbours; t++)
             {
                 int buur = adjs[t];
-                
+
                 int x_end = locations[buur].Item1 + (int)(0.5 * w);
                 int y_end = locations[buur].Item2 + (int)(0.5 * h);
                 gr.DrawLine(Pens.Black, x_pos, y_pos, x_end, y_end);
@@ -193,19 +193,19 @@ namespace ST_Project
             int pos = parent.GetPlayer().get_position();
 
             int[] buren = parent.GetState().GetDungeon().GetNode(pos).get_Adj();
-            for (int t =0;t<buren.Length;t++)
+            for (int t = 0; t < buren.Length; t++)
             {
                 int b_x = locations[buren[t]].Item1 + (int)(0.5 * w);
                 int b_y = locations[buren[t]].Item2 + (int)(0.5 * h);
 
-                if (Math.Abs(b_x - x) < 0.5*w &&
-                    Math.Abs(b_y - y) < 0.5*h)
+                if (Math.Abs(b_x - x) < 0.5 * w &&
+                    Math.Abs(b_y - y) < 0.5 * h)
                 {
                     Console.WriteLine("Verplaats speler naar buur " + buren[t]);
                     parent.PlayerMoved(buren[t]);
-                    if(parent.GetState().CheckFinished())
+                    if (parent.GetState().CheckFinished())
                     {
-                        Save("test");
+                        parent.NotifyFinished();
                     }
                 }
             }
@@ -216,30 +216,34 @@ namespace ST_Project
             Invalidate();
         }
 
-        private void Save(string filename)
+        public bool Save()
         {
-            string stateString = parent.GetPlayer().ToString() + Environment.NewLine + parent.GetDungeon().ToString();
-            SaveFileDialog sfd = new SaveFileDialog();
-
-            sfd.FileName = filename;
-            sfd.DefaultExt = ".text";
-            sfd.Filter = "Text documents (.txt)|*.txt";
-            sfd.OverwritePrompt = true;
-
-            if (sfd.ShowDialog() == DialogResult.OK)
+            this.Hide();
+            string filename = "filename";
+            bool saved = false;
+            DialogResult r = MessageBox.Show("Do you wish to save your progress?", "LEVEL COMPLETED!", MessageBoxButtons.YesNo);
+            if (r == DialogResult.Yes)
             {
-                if (sfd.CheckFileExists)
-                {
-                    Console.WriteLine("naam bestaat al");
-                    File.Delete(sfd.FileName);
-                }
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.FileName = filename;
+                sfd.DefaultExt = ".text";
+                sfd.Filter = "Text documents (.txt)|*.txt";
+                sfd.OverwritePrompt = true;
 
-                StreamWriter writer = new StreamWriter(sfd.OpenFile());
-                
-                writer.WriteLine(stateString);
-                writer.Dispose();
-                writer.Close();
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    parent.Save(sfd.FileName);
+                    saved = true;
+                }
             }
+            this.Show();
+            return saved;
+        }
+
+        public void ShowUitgespeeld()
+        {
+            this.Hide();
+            MessageBox.Show("Je hebt het spel uitgespeeld!", "GEFELICITEERD!", MessageBoxButtons.OK);
         }
 
     }
