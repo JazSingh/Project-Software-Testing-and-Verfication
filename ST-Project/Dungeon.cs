@@ -302,6 +302,7 @@ namespace ST_Project
             s += "DUNGEON" + Environment.NewLine;
             s += "DungeonSize: " + dungeonSize + Environment.NewLine;
             s += "Interval: " + interval + Environment.NewLine;
+            s += "Difficulty: " + difficulty + Environment.NewLine;
 
             for (int i = 0; i < dungeonSize; i++)
                 if(nodes[i] != null)

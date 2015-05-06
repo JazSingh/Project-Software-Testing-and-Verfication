@@ -20,6 +20,30 @@ namespace ST_Project
         }
 
         //Methods called from View
+        public void NotifyFinished()
+        {
+            if (state.GetDungeon().difficulty == 5)
+            {
+                gs.ShowUitgespeeld();
+                gs.Close();
+                hs = new Hoofdscherm(this);
+                hs.Show();
+                return;
+            }
+
+            if (!gs.Save())
+                state.NextLevel();
+            gs.Close();
+            gs = new Gamescherm(state.GetDungeon().difficulty, this);
+            state.SetPosition(0);
+            gs.Show();
+        }
+
+        public void Save(string filename)
+        {
+            state.Save(filename);
+        }
+
         public void PlayerMoved(int newNode)
         {
             int i = state.GetPlayer().get_position();

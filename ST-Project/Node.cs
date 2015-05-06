@@ -24,6 +24,14 @@ namespace ST_Project
             packs = new Stack<Pack>();
             items = new List<Item>();
         }
+
+        public Node(int ident, int[] adje)
+        {
+            identifier = ident;
+            adj = adje;
+            numNeighbours = adj.Length;
+        }
+
         public int[] get_Adj()
         {
             return adj;

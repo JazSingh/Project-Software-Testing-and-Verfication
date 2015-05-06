@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace ST_Project
 {
@@ -44,9 +45,10 @@ namespace ST_Project
             Items.Add(i);
         }
 
-        public bool save(string filename)
+        public bool save(Dungeon d, string filename)
         {
-            string save = ToString();
+            string save = ToString() + Environment.NewLine + d.ToString();
+            File.WriteAllText(filename, save);
             return true;
         }
 
