@@ -36,6 +36,8 @@
             this.dif4 = new System.Windows.Forms.Label();
             this.dif3 = new System.Windows.Forms.Label();
             this.dif2 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // newgame_b
@@ -138,11 +140,21 @@
             this.dif2.Visible = false;
             this.dif2.Click += new System.EventHandler(this.dif_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::ST_Project.Properties.Resources.background;
+            this.pictureBox1.Location = new System.Drawing.Point(71, 57);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(221, 446);
+            this.pictureBox1.TabIndex = 8;
+            this.pictureBox1.TabStop = false;
+            // 
             // Hoofdscherm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1077, 526);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.dif2);
             this.Controls.Add(this.dif3);
             this.Controls.Add(this.dif4);
@@ -157,6 +169,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Hoofdscherm";
             this.Load += new System.EventHandler(this.DungeonRPG_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -172,6 +185,7 @@
         private System.Windows.Forms.Label dif4;
         private System.Windows.Forms.Label dif3;
         private System.Windows.Forms.Label dif2;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
