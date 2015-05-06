@@ -73,7 +73,6 @@ namespace ST_Project
                 return true;
             }
             return false;
-            
         }
 
         //Hoofdscherm diff select

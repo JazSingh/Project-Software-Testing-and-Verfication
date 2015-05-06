@@ -31,7 +31,6 @@ namespace ST_Project
             drawDungeon(e);
             UpdateLabels();
             check_fight();
-            Invalidate();
         }
 
         private void check_fight()

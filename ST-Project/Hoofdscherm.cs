@@ -77,7 +77,7 @@ namespace ST_Project
 
                 }
 
-                Player p = new Player(hpmax, hp, damage, score, item, items);
+                //Player p = new Player(hpmax, hp, damage, score, item, items);
 
                 //DUNGEON
 
@@ -110,7 +110,7 @@ namespace ST_Project
 
                 Dungeon d = new Dungeon(nodes, difficulty, size, interval);
 
-                GameState gs = new GameState(d, p);
+               // GameState gs = new GameState(d, p);
             }
         }
     }
