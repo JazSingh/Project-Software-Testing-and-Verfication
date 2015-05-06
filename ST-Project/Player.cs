@@ -12,10 +12,6 @@ namespace ST_Project
         private int HPmax, HP, damage, score, position;
         private Item current;
         private List<Item> Items;
-        private int hpmax;
-        private int hp;
-        private Item item;
-        private List<Item> items;
 
         public Player()
         {
@@ -27,15 +23,15 @@ namespace ST_Project
             Items = new List<Item>();
         }
 
-        public Player(int hpmax, int hp, int damage, int score, Item item, List<Item> items)
+        public Player(int hpmax, int hp, int dmg, int scr, Item item, List<Item> items)
         {
             // TODO: Complete member initialization
-            this.HPmax = hpmax;
-            this.HP = hp;
-            this.damage = damage;
-            this.score = score;
-            this.current = item;
-            this.items = items;
+            HPmax = hpmax;
+            HP = hp;
+            damage = dmg;
+            score = scr;
+            current = item;
+            Items = items;
         }
 
         public void use(Dungeon d, Item i)
@@ -123,7 +119,7 @@ namespace ST_Project
             else
                 s += current.ToString();
             s += Environment.NewLine;
-            s += "Items: " + Environment.NewLine;
+            s += "Items: " + Items.Count + Environment.NewLine;
 
             foreach(Item i in Items)
             {

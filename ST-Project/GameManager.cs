@@ -84,6 +84,14 @@ namespace ST_Project
             gs.Invalidate();
         }
 
+        public void GameLoadNotify(GameState st, int diff)
+        {
+            state = st;
+            gs = new Gamescherm(diff, this);
+            gs.Show();
+            gs.Invalidate();
+        }
+
         //Convience methods
         public Dungeon GetDungeon()
         {

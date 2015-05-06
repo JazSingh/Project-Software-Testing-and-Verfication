@@ -21,7 +21,7 @@ namespace ST_Project
         public override string ToString()
         {
             string s = string.Empty;
-            s += "Type: " + type.ToString("F") + Environment.NewLine;
+            s += type.ToString("F");
             return s;
         }
         

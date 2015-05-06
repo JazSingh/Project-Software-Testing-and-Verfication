@@ -63,13 +63,13 @@ namespace ST_Project
                 int score = Convert.ToInt32(filelines[4].Split(' ')[1]);
                 Item item;
                 List<Item> items = new List<Item>();
-                string type = filelines[6].Split(' ')[1];
+                string type = filelines[5].Split(' ')[2];
                 item = GenerateItem(type);
-                int numitems = Convert.ToInt32(filelines[7].Split(' ')[1]);
+                int numitems = Convert.ToInt32(filelines[6].Split(' ')[1]);
 
                 for (int i = 0; i < numitems; i++)
                 {
-                    string typ = filelines[8].Split(' ')[1];
+                    string typ = filelines[7+i];
 
                     items.Add(GenerateItem(typ));
                 }
@@ -80,7 +80,7 @@ namespace ST_Project
 
                 #region dungeon
 
-                int index = 9;
+                int index = 8;
                 while (filelines[index] != "DUNGEON")
                 {
                     index++;
@@ -98,9 +98,9 @@ namespace ST_Project
 
                     int identifier = Convert.ToInt32(nodeline[1]);
                     int[] adj = new int[nodeline.Length - 1];
-                    for (int j = 1; j < nodeline.Length; j++)
+                    for (int j = 2; j < nodeline.Length-1; j++)
                     {
-                        adj[j - 1] = Convert.ToInt32(nodeline[j]);
+                        adj[j - 2] = Convert.ToInt32(nodeline[j]);
                     }
                     Node n = new Node(identifier, adj);
                     nodes[i] = n;
@@ -112,6 +112,8 @@ namespace ST_Project
                 #endregion
 
                 GameState gs = new GameState(d, p);
+
+                parent.GameLoadNotify(gs, difficulty);
             }
         }
 
