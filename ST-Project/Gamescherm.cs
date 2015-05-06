@@ -102,6 +102,19 @@ namespace ST_Project
             return false;
         }
 
+        public void GameOver()
+        {
+            int hspos = parent.NewHighscore();
+            if (hspos == -1)
+            {
+                MessageBox.Show("No New Highscore", "GAME OVER", MessageBoxButtons.OK);
+            }
+            else
+            {
+                parent.SetHighScore();
+            }
+        }
+
         private void setupDungeon(PaintEventArgs e)
         {
 
@@ -265,13 +278,13 @@ namespace ST_Project
 
         private void use_pot_Click(object sender, EventArgs e)
         {
-            parent.UsePotion();
+            //parent.UsePotion();
             UpdateLabels();
         }
 
         private void use_crystal_Click(object sender, EventArgs e)
         {
-            parent.UseCrystal();
+            //parent.UseCrystal();
             UpdateLabels();
         }
 

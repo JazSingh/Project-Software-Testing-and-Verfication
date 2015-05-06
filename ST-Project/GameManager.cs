@@ -23,15 +23,6 @@ namespace ST_Project
         //Methods called from View
         public void NotifyFinished()
         {
-            if (state.GetDungeon().difficulty == 5)
-            {
-                gs.ShowUitgespeeld();
-                gs.Close();
-                hs = new Hoofdscherm(this);
-                hs.Show();
-                return;
-            }
-
             if (!gs.Save())
                 state.NextLevel();
             gs.Close();
@@ -72,9 +63,60 @@ namespace ST_Project
         {
             if (state.Fight())
             {
+                if (state.PlayerDead())
+                    gs.GameOver();
                 return true;
             }
+            if (state.PlayerDead())
+                gs.GameOver();
             return false;
+        }
+
+        public void SetHighScore(int name)
+        {
+            int sc = state.GetPlayer().getScore();
+
+        }
+
+        public int NewHighscore()
+        {
+            int sc = state.GetPlayer().getScore();
+            Tuple<string, int>[] highs= ReadHighscores();
+            for (int i = 0; i < 10; i++)
+                if (highs[i].Item2 < sc)
+                    return i;
+            return -1;
+        }
+
+        public void WriteHighscore(string name)
+        {
+            int sc = state.GetPlayer().getScore();
+            Tuple<string, int> newhs = new Tuple<string, int>(name, sc);
+            int index = NewHighscore();
+            Tuple<string, int>[] hss = ReadHighscores();
+            hss[index] = newhs;
+
+            WriteHighscoresToFile(hss);
+            gs.Close();
+            hs = new Hoofdscherm(this);
+            hs.Show();
+        }
+
+        public void WriteHighscoresToFile(Tuple<string, int>[] hs)
+        {
+            string k = string.Empty;
+
+            for (int i = 0; i < 10; i++)
+                k += string.Format("{0} {1}{2}", hs[i].Item1, hs[i].Item2, Environment.NewLine);
+
+            File.WriteAllText("highscores.txt", k);
+        }
+
+        public void SetHighScore()
+        {
+            gs.Close();
+            NewHighscore nhs = new NewHighscore(this);
+            nhs.Show();
         }
 
         //Hoofdscherm diff select
@@ -134,6 +176,16 @@ namespace ST_Project
             hsc.Invalidate();
         }
 
+
+        public void UsePotion()
+        {
+            state.UsePotion();
+        }
+
+        public void UseCrystal()
+        {
+            state.UseCrystal();
+        }
 
         public void UseScroll()
         {
