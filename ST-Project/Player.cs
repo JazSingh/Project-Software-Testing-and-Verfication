@@ -26,6 +26,17 @@ namespace ST_Project
             Items.Add(new Magic_Scroll());
         }
 
+        public Player(int hpmax, int hp, int dmg, int scr, Item item, List<Item> items)
+        {
+            // TODO: Complete member initialization
+            HPmax = hpmax;
+            HP = hp;
+            damage = dmg;
+            score = scr;
+            current = item;
+            Items = items;
+        }
+
         public void use(Dungeon d, Item i)
         {
             current = i;
@@ -122,7 +133,7 @@ namespace ST_Project
             else
                 s += current.ToString();
             s += Environment.NewLine;
-            s += "Items: " + Environment.NewLine;
+            s += "Items: " + Items.Count + Environment.NewLine;
 
             foreach(Item i in Items)
             {

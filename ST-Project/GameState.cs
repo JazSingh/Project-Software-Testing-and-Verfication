@@ -31,6 +31,7 @@ namespace ST_Project
             d = dungeon;
             p = player;
             d.SpawnMonsters();
+            DropItems();
         }
 
         public void Save(string filename)
