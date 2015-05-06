@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace ST_Project
 {
@@ -98,6 +99,30 @@ namespace ST_Project
         public Player GetPlayer()
         {
             return state.GetPlayer();
+        }
+
+        private Tuple<string, int>[] ReadHighscores()
+        {
+            Tuple<string, int>[] scores = new Tuple<string, int>[10];
+            string[] lines = File.ReadAllLines("highscores.txt");
+
+            for (int i = 0; i < 10; i++)
+            {
+                string[] split = lines[i].Split();
+                int score = int.Parse(split[split.Length - 1]);
+                string name = string.Empty;
+                for (int j = 0; j < split.Length - 1; j++)
+                    name += split[j];
+                scores[i] = new Tuple<string, int>(name, score);
+            }
+            return scores;
+        }
+
+        public void ShowHighScores()
+        {
+            Highscore hsc = new Highscore(this, ReadHighscores());
+            hsc.Show();
+            hsc.Invalidate();
         }
 
 

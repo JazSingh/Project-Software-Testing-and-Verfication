@@ -113,5 +113,10 @@ namespace ST_Project
                // GameState gs = new GameState(d, p);
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            parent.ShowHighScores();
+        }
     }
 }
