@@ -119,6 +119,13 @@ namespace ST_Project
                 Console.WriteLine("Game Over");
         }
 
+        public void AwardScore(int scr)
+        {
+            Console.WriteLine("Score was: " + score);
+            score += scr;
+            Console.WriteLine("Score is: " + score);
+        }
+
         public override string ToString()
         {
             string s = string.Empty;

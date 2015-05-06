@@ -124,16 +124,47 @@ namespace ST_Project
             int pos = p.get_position();
             Node node = d.GetNode(pos);
             Pack pack = node.popPack();
+            
             Console.WriteLine("before combat-round: "+pack.GetNumMonsters());
 
             p.doCombatRound(GetDungeon(), pack);
             if (!pack.isDead())
                 node.pushPack(pack);
             else
-            { Console.WriteLine("Pack is killed."); return true; }
+            { 
+                Console.WriteLine("Pack is killed.");
+                int score = pack.get_Score();
+                GivePackReward(score);
+                return true; 
+            }
             Console.WriteLine("after combat-round: "+pack.GetNumMonsters());
             return false;
             
+        }
+
+        private void GivePackReward(int scr)
+        {
+            int score = scr;
+            int nodeId = p.get_position();
+            int interval = d.interval;
+            if(d.GetNode(nodeId).IsBridge(interval))
+            {
+                // meer punten C:
+                int level = nodeId / interval;
+                score *= level;
+                Console.WriteLine("BONUS PUNTEN! Bridge Level: " + level + " Score: " + score);
+
+                // ITEMS GEVEN??
+
+            }
+            else
+            {
+                // minder punten :C
+                Console.WriteLine("NORMALE PUNTEN. Score: " + score);
+
+                // ITEMS GEVEN??
+            }
+            p.AwardScore(score);
         }
 
         public void UsePotion()
