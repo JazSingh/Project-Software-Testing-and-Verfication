@@ -42,6 +42,7 @@
             this.use_scroll = new System.Windows.Forms.Button();
             this.score_lbl = new System.Windows.Forms.Label();
             this.NRScore = new System.Windows.Forms.Label();
+            this.found_lbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // potions_lbl
@@ -184,11 +185,22 @@
             this.NRScore.TabIndex = 13;
             this.NRScore.Text = "0";
             // 
+            // found_lbl
+            // 
+            this.found_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.found_lbl.Location = new System.Drawing.Point(638, 352);
+            this.found_lbl.Name = "found_lbl";
+            this.found_lbl.Size = new System.Drawing.Size(451, 33);
+            this.found_lbl.TabIndex = 14;
+            this.found_lbl.Text = "Je hebt meer Items gevonden!";
+            this.found_lbl.Visible = false;
+            // 
             // Gamescherm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.found_lbl);
             this.Controls.Add(this.NRScore);
             this.Controls.Add(this.score_lbl);
             this.Controls.Add(this.use_scroll);
@@ -232,6 +244,7 @@
         private System.Windows.Forms.Button use_scroll;
         private System.Windows.Forms.Label score_lbl;
         private System.Windows.Forms.Label NRScore;
+        private System.Windows.Forms.Label found_lbl;
 
     }
 }

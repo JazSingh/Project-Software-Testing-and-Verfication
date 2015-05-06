@@ -84,6 +84,17 @@ namespace ST_Project
         public void SetPosition(int i)
         {
             p.set_position(i);
+            CheckItemsFound(i);
+        }
+
+        private void CheckItemsFound(int i)
+        {
+            List<Item> items = d.GetNode(i).get_Items();
+            foreach(Item j in items)
+            {
+                p.add(j);
+                Console.WriteLine("Item gevonden!");
+            }
         }
 
         public bool CheckFinished()
@@ -145,6 +156,7 @@ namespace ST_Project
                 { 
                     p.use(d, items[t]); items.Remove(items[t]);
                     UpdateTime();
+                    break;
                 }
 
             }
@@ -159,6 +171,7 @@ namespace ST_Project
                 { 
                     p.use(d, items[t]); items.Remove(items[t]);
                     UpdateTime();
+                    break;
                 }
             }
         }
@@ -172,6 +185,7 @@ namespace ST_Project
                 {
                     p.use(d, items[t]); items.Remove(items[t]);
                     UpdateTime();
+                    break;
                 }
             }
         }
