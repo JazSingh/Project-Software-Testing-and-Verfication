@@ -88,6 +88,11 @@ namespace ST_Project
             return HP;
         }
 
+        public bool IsAlive()
+        {
+            return HP > 0;
+        }
+
         public void doCombatRound(Dungeon d, Pack p)
         {
             // NEEDS IMPROVEMENTS
@@ -115,7 +120,7 @@ namespace ST_Project
 
             // if pack needs to attack player
             HP -= p.hit_player();
-            if (HP <= 0)
+            if (!IsAlive())
                 Console.WriteLine("Game Over");
         }
 

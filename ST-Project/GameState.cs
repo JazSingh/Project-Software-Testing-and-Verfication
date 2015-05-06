@@ -74,7 +74,7 @@ namespace ST_Project
 
         public void NextLevel()
         {
-            d = new Dungeon(d.difficulty + 1);
+            d = new Dungeon(d.difficulty == 5 ? 5 : d.difficulty+1);
         }
 
         private bool DropHealthPot()
@@ -167,6 +167,11 @@ namespace ST_Project
             Console.WriteLine("after combat-round: "+pack.GetNumMonsters());
             return false;
             
+        }
+
+        public bool PlayerDead()
+        {
+            return !p.IsAlive();
         }
 
         private void GivePackReward(int scr)
