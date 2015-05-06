@@ -62,6 +62,7 @@ namespace ST_Project
                 if (buur)
                 {
                     state.SetPosition(newNode);
+                    state.UpdateTime();
                 }
             }
             gs.Invalidate();
@@ -80,6 +81,14 @@ namespace ST_Project
         public void DiffSelectNotify(int diff)
         {
             state = new GameState(diff);
+            gs = new Gamescherm(diff, this);
+            gs.Show();
+            gs.Invalidate();
+        }
+
+        public void GameLoadNotify(GameState st, int diff)
+        {
+            state = st;
             gs = new Gamescherm(diff, this);
             gs.Show();
             gs.Invalidate();
@@ -126,5 +135,9 @@ namespace ST_Project
         }
 
 
+        public void UseScroll()
+        {
+            state.UseScroll();
+        }
     }
 }

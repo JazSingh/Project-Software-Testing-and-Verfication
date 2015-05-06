@@ -21,14 +21,29 @@ namespace ST_Project
             score = 0;
             position = 0; // ID of current node the player's in
             Items = new List<Item>();
+            Items.Add(new Health_Potion());
+            Items.Add(new Time_Crystal());
+            Items.Add(new Magic_Scroll());
+        }
+
+        public Player(int hpmax, int hp, int dmg, int scr, Item item, List<Item> items)
+        {
+            // TODO: Complete member initialization
+            HPmax = hpmax;
+            HP = hp;
+            damage = dmg;
+            score = scr;
+            current = item;
+            Items = items;
         }
 
         public void use(Dungeon d, Item i)
         {
             current = i;
-           
+            current.duration++; // to neutralize the time-cost of the use (-1+1 = 0)
             if (current.type == ItemType.HealthPotion)
             {
+                Console.WriteLine("Health potion genomen.");
                 HP += current.health;
                 if (HP > HPmax)
                     HP = HPmax;
@@ -36,10 +51,21 @@ namespace ST_Project
             }
 
             //
-            // Time-crystal and magic-scrol only have effect when fighting
+            // Time-crystal and magic-scroll only have effect when fighting
             //
-
         }
+
+        public void UpdateCurrentItem()
+        {
+            if (current != null)
+            {
+                current.duration--;
+                Console.WriteLine("current.duration: " + current.duration);
+                if (current.duration <= 0)
+                { current = null; Console.WriteLine("Item is uitgewerkt."); }
+            }
+        }
+
         public void add(Item i)
         {
             Items.Add(i);
@@ -72,16 +98,15 @@ namespace ST_Project
                 if (current.type == ItemType.TimeCrystal)
                 {
                     p.hit_pack_Time_Crystal_variant(damage);
-                    current.duration--;
+                    UpdateCurrentItem();
                 }
                 else if (current.type == ItemType.MagicScroll)
                 {
                     p.hit_pack(damage + current.damage);
-                    current.duration--;
+                    UpdateCurrentItem();
                 }
-                if (current.duration < 1)
-                    current = null;
             }
+
             else
             {
                 if (p.hit_pack(damage) == true)
@@ -92,6 +117,13 @@ namespace ST_Project
             HP -= p.hit_player();
             if (HP <= 0)
                 Console.WriteLine("Game Over");
+        }
+
+        public void AwardScore(int scr)
+        {
+            Console.WriteLine("Score was: " + score);
+            score += scr;
+            Console.WriteLine("Score is: " + score);
         }
 
         public override string ToString()
@@ -108,7 +140,7 @@ namespace ST_Project
             else
                 s += current.ToString();
             s += Environment.NewLine;
-            s += "Items: " + Environment.NewLine;
+            s += "Items: " + Items.Count + Environment.NewLine;
 
             foreach(Item i in Items)
             {
@@ -167,6 +199,16 @@ namespace ST_Project
         public int getHealth()
         {
             return HP;
+        }
+
+        public List<Item> getItems()
+        {
+            return Items;
+        }
+
+        public int getScore()
+        {
+            return score;
         }
     }
 }

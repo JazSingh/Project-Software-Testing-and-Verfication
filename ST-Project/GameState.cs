@@ -31,6 +31,7 @@ namespace ST_Project
             d = dungeon;
             p = player;
             d.SpawnMonsters();
+            DropItems();
         }
 
         public void Save(string filename)
@@ -83,6 +84,17 @@ namespace ST_Project
         public void SetPosition(int i)
         {
             p.set_position(i);
+            CheckItemsFound(i);
+        }
+
+        private void CheckItemsFound(int i)
+        {
+            List<Item> items = d.GetNode(i).get_Items();
+            foreach(Item j in items)
+            {
+                p.add(j);
+                Console.WriteLine("Item gevonden!");
+            }
         }
 
         public bool CheckFinished()
@@ -93,6 +105,11 @@ namespace ST_Project
                 return true;
             }
             return false;
+        }
+
+        public int getTime()
+        {
+            return time;
         }
 
         private void DropItems()
@@ -118,15 +135,96 @@ namespace ST_Project
             int pos = p.get_position();
             Node node = d.GetNode(pos);
             Pack pack = node.popPack();
+            
             Console.WriteLine("before combat-round: "+pack.GetNumMonsters());
 
             p.doCombatRound(GetDungeon(), pack);
             if (!pack.isDead())
                 node.pushPack(pack);
             else
-            { Console.WriteLine("Pack is killed."); return true; }
+            { 
+                Console.WriteLine("Pack is killed.");
+                int score = pack.get_Score();
+                GivePackReward(score);
+                return true; 
+            }
             Console.WriteLine("after combat-round: "+pack.GetNumMonsters());
             return false;
+            
+        }
+
+        private void GivePackReward(int scr)
+        {
+            int score = scr;
+            int nodeId = p.get_position();
+            int interval = d.interval;
+            if(d.GetNode(nodeId).IsBridge(interval))
+            {
+                // meer punten C:
+                int level = nodeId / interval;
+                score *= level;
+                Console.WriteLine("BONUS PUNTEN! Bridge Level: " + level + " Score: " + score);
+
+                // ITEMS GEVEN??
+
+            }
+            else
+            {
+                // minder punten :C
+                Console.WriteLine("NORMALE PUNTEN. Score: " + score);
+
+                // ITEMS GEVEN??
+            }
+            p.AwardScore(score);
+        }
+
+        public void UsePotion()
+        {
+            List<Item> items = p.getItems();
+            for (int t =0;t<items.Count;t++)
+            {
+                if (items[t].type == ItemType.HealthPotion)
+                { 
+                    p.use(d, items[t]); items.Remove(items[t]);
+                    UpdateTime();
+                    break;
+                }
+
+            }
+        }
+
+        public void UseCrystal()
+        {
+            List<Item> items = p.getItems();
+            for (int t =0;t<items.Count;t++)
+            {
+                if (items[t].type == ItemType.TimeCrystal)
+                { 
+                    p.use(d, items[t]); items.Remove(items[t]);
+                    UpdateTime();
+                    break;
+                }
+            }
+        }
+
+        public void UseScroll()
+        {
+            List<Item> items = p.getItems();
+            for (int t = 0; t < items.Count; t++)
+            {
+                if (items[t].type == ItemType.MagicScroll)
+                {
+                    p.use(d, items[t]); items.Remove(items[t]);
+                    UpdateTime();
+                    break;
+                }
+            }
+        }
+
+        internal void UpdateTime()
+        {
+            time++;
+            p.UpdateCurrentItem();
         }
     }
 }

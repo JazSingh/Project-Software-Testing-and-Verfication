@@ -54,34 +54,32 @@ namespace ST_Project
                 string filename = ofd.FileName;
                 string[] filelines = File.ReadAllLines(filename);
 
-                //PLAYER
+                #region player
+
                 int hpmax = Convert.ToInt32(filelines[1].Split(' ')[1]);
                 int hp = Convert.ToInt32(filelines[2].Split(' ')[1]);
                 int damage = Convert.ToInt32(filelines[3].Split(' ')[1]);
                 int score = Convert.ToInt32(filelines[4].Split(' ')[1]);
                 Item item;
                 List<Item> items = new List<Item>();
-                string type = filelines[6].Split(' ')[1];
-                if (type == "none")
-                    item = null;
-                else
-                {
-                    switch (type)
-                    {
-                        case "HealthPotion": item = new Health_Potion(); break;
-                        case "TimeCrystal": item = new Time_Crystal(); break;
-                        case "MagicScroll": item = new Magic_Scroll(); break;
-                        default: item = null; break;
-                    }
-                    // TODO invullen Item waardes geven
+                string type = filelines[5].Split(' ')[2];
+                item = GenerateItem(type);
+                int numitems = Convert.ToInt32(filelines[6].Split(' ')[1]);
 
+                for (int i = 0; i < numitems; i++)
+                {
+                    string typ = filelines[7+i];
+
+                    items.Add(GenerateItem(typ));
                 }
 
-                //Player p = new Player(hpmax, hp, damage, score, item, items);
+                Player p = new Player(hpmax, hp, damage, score, item, items);
 
-                //DUNGEON
+                #endregion
 
-                int index = 9;
+                #region dungeon
+
+                int index = 8;
                 while (filelines[index] != "DUNGEON")
                 {
                     index++;
@@ -99,9 +97,9 @@ namespace ST_Project
 
                     int identifier = Convert.ToInt32(nodeline[1]);
                     int[] adj = new int[nodeline.Length - 1];
-                    for (int j = 1; j < nodeline.Length; j++)
+                    for (int j = 2; j < nodeline.Length-1; j++)
                     {
-                        adj[j - 1] = Convert.ToInt32(nodeline[j]);
+                        adj[j - 2] = Convert.ToInt32(nodeline[j]);
                     }
                     Node n = new Node(identifier, adj);
                     nodes[i] = n;
@@ -110,8 +108,27 @@ namespace ST_Project
 
                 Dungeon d = new Dungeon(nodes, difficulty, size, interval);
 
-               // GameState gs = new GameState(d, p);
+                #endregion
+
+                GameState gs = new GameState(d, p);
+
+                parent.GameLoadNotify(gs, difficulty);
             }
+        }
+
+        private Item GenerateItem(string s)
+        {
+            Item it;
+
+            switch (s)
+            {
+                case "HealthPotion": it = new Health_Potion(); break;
+                case "TimeCrystal": it = new Time_Crystal(); break;
+                case "MagicScroll": it = new Magic_Scroll(); break;
+                default: it = null; break;
+            }
+
+            return it;
         }
 
         private void button1_Click(object sender, EventArgs e)

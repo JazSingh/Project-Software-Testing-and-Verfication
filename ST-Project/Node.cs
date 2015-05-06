@@ -30,6 +30,8 @@ namespace ST_Project
             identifier = ident;
             adj = adje;
             numNeighbours = adj.Length;
+            packs = new Stack<Pack>();
+            items = new List<Item>();
         }
 
         public int[] get_Adj()
@@ -155,7 +157,7 @@ namespace ST_Project
 
         public override string ToString()
         {
-            string s = "Node " + identifier.ToString() + ": ";
+            string s = "Node " + identifier.ToString() + " ";
             for (int i = 0; i < numNeighbours; i++)
                 s += adj[i] + " ";
 
@@ -186,5 +188,14 @@ namespace ST_Project
                 return true;
             return false;
         }
+
+        public bool IsBridge(int interval)
+        {
+            if(identifier % interval == 0)
+                return true;
+
+            return false;
+        }
+
     }
 }

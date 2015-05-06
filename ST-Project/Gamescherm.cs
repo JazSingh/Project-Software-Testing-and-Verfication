@@ -47,6 +47,8 @@ namespace ST_Project
             NRcrystals.Text = parent.GetPlayer().getNRCrystals().ToString();
             NRscrolls.Text = parent.GetPlayer().getNRScrolls().ToString();
             NRhealth.Text = parent.GetPlayer().getHealth().ToString();
+            NRScore.Text = parent.GetPlayer().getScore().ToString();
+            NRLevel.Text = parent.GetDungeon().difficulty.ToString();
         }
 
         private void drawDungeon(PaintEventArgs e)
@@ -251,14 +253,33 @@ namespace ST_Project
         public void ShowUitgespeeld()
         {
             this.Hide();
+            //DIT IS GEEN GRAP, U BENT DE 1000e BEZOEKER!
             MessageBox.Show("Je hebt het spel uitgespeeld!", "GEFELICITEERD!", MessageBoxButtons.OK);
         }
 
         private void fight_button_Click(object sender, EventArgs e)
         {
             parent.Fight();
+            UpdateLabels();
         }
 
+        private void use_pot_Click(object sender, EventArgs e)
+        {
+            parent.UsePotion();
+            UpdateLabels();
+        }
+
+        private void use_crystal_Click(object sender, EventArgs e)
+        {
+            parent.UseCrystal();
+            UpdateLabels();
+        }
+
+        private void use_scroll_Click(object sender, EventArgs e)
+        {
+            parent.UseScroll();
+            UpdateLabels();
+        }
     }
 }
 
