@@ -251,6 +251,7 @@ namespace ST_Project
         public void ShowUitgespeeld()
         {
             this.Hide();
+            //DIT IS GEEN GRAP, U BENT DE 1000e BEZOEKER!
             MessageBox.Show("Je hebt het spel uitgespeeld!", "GEFELICITEERD!", MessageBoxButtons.OK);
         }
 

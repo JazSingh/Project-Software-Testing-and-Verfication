@@ -188,5 +188,14 @@ namespace ST_Project
                 return true;
             return false;
         }
+
+        public bool IsBridge(int interval)
+        {
+            if(identifier % interval == 0)
+                return true;
+
+            return false;
+        }
+
     }
 }
