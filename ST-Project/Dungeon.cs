@@ -148,6 +148,23 @@ namespace ST_Project
             nodes[v].AddNeighbour(nodes[u].ID);
         }
 
+        public bool CheckRetreat(int pos)
+        {
+            Node n = GetNode(pos);
+            if (n.Retreat())
+            {
+                int[] adj = n.getadj();
+                Random r = new Random();
+                int next = adj[r.Next(0, n.NumNeighbours)];
+                Pack p = nodes[pos].popPack();
+                nodes[next].pushPack(p);
+                Console.WriteLine("Pack is vertrokken naar node "+next);
+                return true;
+            }
+
+            return false;
+        }
+
         private void AddRandomEdges(int partition)
         {
             int min = partition * interval;

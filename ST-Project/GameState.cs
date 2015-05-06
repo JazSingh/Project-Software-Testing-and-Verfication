@@ -50,6 +50,13 @@ namespace ST_Project
             return p;
         }
 
+        public bool CheckRetreat()
+        {
+            if (d.CheckRetreat(p.get_position()))
+                return true;
+            return false;
+        }
+
         public bool fighting()
         {
             int pos = GetPlayer().get_position();
@@ -139,14 +146,22 @@ namespace ST_Project
             Console.WriteLine("before combat-round: "+pack.GetNumMonsters());
 
             p.doCombatRound(GetDungeon(), pack);
+
             if (!pack.isDead())
-                node.pushPack(pack);
-            else
             { 
+                node.pushPack(pack);
+                if (CheckRetreat())
+                {
+                    return true;
+                }
+            }
+
+            else
+            {
                 Console.WriteLine("Pack is killed.");
                 int score = pack.get_Score();
                 GivePackReward(score);
-                return true; 
+                return true;
             }
             Console.WriteLine("after combat-round: "+pack.GetNumMonsters());
             return false;

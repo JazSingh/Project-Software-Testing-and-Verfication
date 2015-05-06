@@ -11,7 +11,7 @@ namespace ST_Project
         private Stack<Monster> monsters; // group of monsters who form the pack
         private Monster current; // monster who will get damaged when the player attacks the pack
         private Item item;
-        private int score;
+        private int score, init_hp;
 
         private const int packSize = 3;
 
@@ -22,7 +22,7 @@ namespace ST_Project
             monsters.Push(new Monster());
             monsters.Push(new Monster());
             monsters.Push(new Monster());
-
+            init_hp = 3 * 15;
             // NEEDS IMPROVEMENTS!!!
             score = 9; 
             Random r = new Random();
@@ -40,6 +40,21 @@ namespace ST_Project
         {
             return score;
         }
+        
+        public bool retreat()
+        {
+            int current_hp = 0;
+            if (current != null)
+                current_hp += current.GetHP();
+            foreach (Monster m in monsters)
+                current_hp += m.GetHP();
+
+            if (current_hp < 0.3 * init_hp)
+            {
+                init_hp = current_hp; return true;
+            }
+            return false;
+        }
 
         public bool isDead()
         {
@@ -56,6 +71,10 @@ namespace ST_Project
         public void Add_Monster(Monster i)
         {
             monsters.Push(i);
+            foreach(Monster m in monsters)
+            {
+                init_hp += m.GetHP();
+            }
         }
 
         public int GetPackHealth()
