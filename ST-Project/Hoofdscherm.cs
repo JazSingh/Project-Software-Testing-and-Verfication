@@ -77,7 +77,7 @@ namespace ST_Project
 
                 }
 
-                Player p = new Player(hpmax, hp, damage, score, i, items);
+                //Player p = new Player(hpmax, hp, damage, score, i, items);
 
                 //DUNGEON
 
@@ -94,7 +94,7 @@ namespace ST_Project
 
                 //New GameState
 
-                GameState gs = new GameState(d, p);
+                //GameState gs = new GameState(d, p);
             }
         }
     }

@@ -41,6 +41,16 @@ namespace ST_Project
             }
         }
 
+        public bool Fight()
+        {
+            if (state.Fight())
+            {
+                return true;
+            }
+            return false;
+            
+        }
+
         //Hoofdscherm diff select
         public void DiffSelectNotify(int diff)
         {

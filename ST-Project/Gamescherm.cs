@@ -30,7 +30,16 @@ namespace ST_Project
         {
             drawDungeon(e);
             UpdateLabels();
+            check_fight();
             Invalidate();
+        }
+
+        private void check_fight()
+        {
+            if (parent.GetState().fighting())
+                fight_button.Visible = true;
+            else
+                fight_button.Visible = false;
         }
 
         private void UpdateLabels()
@@ -240,6 +249,11 @@ namespace ST_Project
                 writer.Dispose();
                 writer.Close();
             }
+        }
+
+        private void fight_button_Click(object sender, EventArgs e)
+        {
+            parent.Fight();
         }
 
     }

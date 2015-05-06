@@ -22,17 +22,6 @@ namespace ST_Project
             Items = new List<Item>();
         }
 
-        // Load Constructor
-        public Player(int hpm, int hp, int dmg, int scr, Item i, List<Item> itms)
-        {
-            HPmax = hpm;
-            HP = hp;
-            damage = dmg;
-            score = scr;
-            current = i;
-            Items = itms;
-        }
-
         public void use(Dungeon d, Item i)
         {
             current = i;
@@ -93,7 +82,8 @@ namespace ST_Project
             }
             else
             {
-                p.hit_pack(damage);
+                if (p.hit_pack(damage) == true)
+                {return;}
             }
 
             // if pack needs to attack player
@@ -105,18 +95,18 @@ namespace ST_Project
         public override string ToString()
         {
             string s = string.Empty;
-            s += "PLAYER" + Environment.NewLine;
+            s += "Player:" + Environment.NewLine;
             s += "HpMax: " + HPmax + Environment.NewLine;
             s += "HP: " + HP + Environment.NewLine;
             s += "Damage: " + damage + Environment.NewLine;
             s += "Score: " + score + Environment.NewLine;
-            s += "Current Item:" + Environment.NewLine;
+            s += "Current Item: ";
             if (current == null)
-                s += "Type: none";
+                s += "none";
             else
                 s += current.ToString();
             s += Environment.NewLine;
-            s += "Items: " + Items.Count + Environment.NewLine;
+            s += "Items: " + Environment.NewLine;
 
             foreach(Item i in Items)
             {

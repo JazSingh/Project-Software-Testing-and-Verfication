@@ -41,6 +41,13 @@ namespace ST_Project
             return score;
         }
 
+        public bool isDead()
+        {
+            if (current == null && monsters.Count == 0)
+                return true;
+            return false;
+        }
+
         public int GetNumMonsters()
         {
             return current == null? monsters.Count : (monsters.Count + 1);
@@ -79,7 +86,10 @@ namespace ST_Project
                 if (monsters.Count() > 0)
                     current = monsters.Pop();
                 else
+                {
+                    current = null;
                     return true; // pack is dead (each monster in this pack died)
+                }
             }
             return false; // pack is still alive
         }
