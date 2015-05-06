@@ -205,5 +205,10 @@ namespace ST_Project
         {
             return Items;
         }
+
+        public int getScore()
+        {
+            return score;
+        }
     }
 }

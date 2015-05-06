@@ -43,7 +43,7 @@
             this.score_lbl = new System.Windows.Forms.Label();
             this.NRScore = new System.Windows.Forms.Label();
             this.level_lbl = new System.Windows.Forms.Label();
-            this.Level = new System.Windows.Forms.Label();
+            this.NRLevel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // potions_lbl
@@ -198,20 +198,20 @@
             // 
             // Level
             // 
-            this.Level.AutoSize = true;
-            this.Level.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Level.Location = new System.Drawing.Point(653, 28);
-            this.Level.Name = "Level";
-            this.Level.Size = new System.Drawing.Size(32, 33);
-            this.Level.TabIndex = 15;
-            this.Level.Text = "0";
+            this.NRLevel.AutoSize = true;
+            this.NRLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NRLevel.Location = new System.Drawing.Point(653, 28);
+            this.NRLevel.Name = "Level";
+            this.NRLevel.Size = new System.Drawing.Size(32, 33);
+            this.NRLevel.TabIndex = 15;
+            this.NRLevel.Text = "0";
             // 
             // Gamescherm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
-            this.Controls.Add(this.Level);
+            this.Controls.Add(this.NRLevel);
             this.Controls.Add(this.level_lbl);
             this.Controls.Add(this.NRScore);
             this.Controls.Add(this.score_lbl);
@@ -257,7 +257,7 @@
         private System.Windows.Forms.Label score_lbl;
         private System.Windows.Forms.Label NRScore;
         private System.Windows.Forms.Label level_lbl;
-        private System.Windows.Forms.Label Level;
+        private System.Windows.Forms.Label NRLevel;
 
     }
 }

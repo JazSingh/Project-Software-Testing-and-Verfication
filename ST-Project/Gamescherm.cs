@@ -47,6 +47,8 @@ namespace ST_Project
             NRcrystals.Text = parent.GetPlayer().getNRCrystals().ToString();
             NRscrolls.Text = parent.GetPlayer().getNRScrolls().ToString();
             NRhealth.Text = parent.GetPlayer().getHealth().ToString();
+            NRScore.Text = parent.GetPlayer().getScore().ToString();
+            NRLevel.Text = parent.GetDungeon().difficulty.ToString();
         }
 
         private void drawDungeon(PaintEventArgs e)
