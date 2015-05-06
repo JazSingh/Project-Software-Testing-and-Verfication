@@ -59,6 +59,20 @@ namespace ST_Project
             return items;
         }
 
+        public bool Retreat()
+        {
+            Pack p = packs.Pop();
+            if (p.retreat())
+            {
+                Console.WriteLine("Pack retreats!");
+                packs.Push(p);
+                return true;
+            }
+            else
+                packs.Push(p);
+            return false;
+        }
+
         public bool AddPack()
         {
             Pack p = new Pack();

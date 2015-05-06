@@ -37,12 +37,7 @@ namespace ST_Project
 
         private void newgame_b_Click(object sender, EventArgs e)
         {
-            diff.Visible = true;
-            dif1.Visible = true;
-            dif2.Visible = true;
-            dif3.Visible = true;
-            dif4.Visible = true;
-            dif5.Visible = true;
+            parent.DiffSelectNotify(1);
         }
 
         OpenFileDialog ofd = new OpenFileDialog();

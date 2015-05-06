@@ -259,7 +259,9 @@ namespace ST_Project
 
         private void fight_button_Click(object sender, EventArgs e)
         {
-            parent.Fight();
+            if (parent.Fight())
+                fight_button.Visible = false;
+            Invalidate();
             UpdateLabels();
         }
 
