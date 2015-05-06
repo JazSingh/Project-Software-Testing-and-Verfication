@@ -12,6 +12,10 @@ namespace ST_Project
         private int HPmax, HP, damage, score, position;
         private Item current;
         private List<Item> Items;
+        private int hpmax;
+        private int hp;
+        private Item item;
+        private List<Item> items;
 
         public Player()
         {
@@ -21,6 +25,17 @@ namespace ST_Project
             score = 0;
             position = 0; // ID of current node the player's in
             Items = new List<Item>();
+        }
+
+        public Player(int hpmax, int hp, int damage, int score, Item item, List<Item> items)
+        {
+            // TODO: Complete member initialization
+            this.HPmax = hpmax;
+            this.HP = hp;
+            this.damage = damage;
+            this.score = score;
+            this.current = item;
+            this.items = items;
         }
 
         public void use(Dungeon d, Item i)

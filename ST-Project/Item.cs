@@ -22,10 +22,6 @@ namespace ST_Project
         {
             string s = string.Empty;
             s += "Type: " + type.ToString("F") + Environment.NewLine;
-            s += "Duration: " + duration + Environment.NewLine;
-            s += "Health: " + health + Environment.NewLine;
-            s += "Damage " + damage + Environment.NewLine;
-
             return s;
         }
         

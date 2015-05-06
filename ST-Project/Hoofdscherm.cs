@@ -47,6 +47,7 @@ namespace ST_Project
 
         OpenFileDialog ofd = new OpenFileDialog();
 
+
         private void button2_Click(object sender, EventArgs e)
         {
             if (ofd.ShowDialog() == DialogResult.OK)
@@ -54,7 +55,8 @@ namespace ST_Project
                 string filename = ofd.FileName;
                 string[] filelines = File.ReadAllLines(filename);
 
-                //PLAYER
+                #region player
+
                 int hpmax = Convert.ToInt32(filelines[1].Split(' ')[1]);
                 int hp = Convert.ToInt32(filelines[2].Split(' ')[1]);
                 int damage = Convert.ToInt32(filelines[3].Split(' ')[1]);
@@ -62,24 +64,21 @@ namespace ST_Project
                 Item item;
                 List<Item> items = new List<Item>();
                 string type = filelines[6].Split(' ')[1];
-                if (type == "none")
-                    item = null;
-                else
-                {
-                    switch (type)
-                    {
-                        case "HealthPotion": item = new Health_Potion(); break;
-                        case "TimeCrystal": item = new Time_Crystal(); break;
-                        case "MagicScroll": item = new Magic_Scroll(); break;
-                        default: item = null; break;
-                    }
-                    // TODO invullen Item waardes geven
+                item = GenerateItem(type);
+                int numitems = Convert.ToInt32(filelines[7].Split(' ')[1]);
 
+                for (int i = 0; i < numitems; i++)
+                {
+                    string typ = filelines[8].Split(' ')[1];
+
+                    items.Add(GenerateItem(typ));
                 }
 
-                //Player p = new Player(hpmax, hp, damage, score, item, items);
+                Player p = new Player(hpmax, hp, damage, score, item, items);
 
-                //DUNGEON
+                #endregion
+
+                #region dungeon
 
                 int index = 9;
                 while (filelines[index] != "DUNGEON")
@@ -110,8 +109,25 @@ namespace ST_Project
 
                 Dungeon d = new Dungeon(nodes, difficulty, size, interval);
 
-               // GameState gs = new GameState(d, p);
+                #endregion
+
+                GameState gs = new GameState(d, p);
             }
+        }
+
+        private Item GenerateItem(string s)
+        {
+            Item it;
+
+            switch (s)
+            {
+                case "HealthPotion": it = new Health_Potion(); break;
+                case "TimeCrystal": it = new Time_Crystal(); break;
+                case "MagicScroll": it = new Magic_Scroll(); break;
+                default: it = null; break;
+            }
+
+            return it;
         }
     }
 }
