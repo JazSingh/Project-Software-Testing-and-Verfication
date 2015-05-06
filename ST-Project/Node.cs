@@ -59,6 +59,11 @@ namespace ST_Project
             return items;
         }
 
+        public void RemoveItems()
+        {
+            items.Clear();
+        }
+
         public bool Retreat()
         {
             Pack p = packs.Pop();
@@ -210,6 +215,5 @@ namespace ST_Project
 
             return false;
         }
-
     }
 }

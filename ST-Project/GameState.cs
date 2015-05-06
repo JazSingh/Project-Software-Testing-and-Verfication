@@ -102,6 +102,7 @@ namespace ST_Project
                 p.add(j);
                 Console.WriteLine("Item gevonden!");
             }
+            d.nodes[i].RemoveItems();
         }
 
         public bool CheckFinished()
