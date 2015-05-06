@@ -111,7 +111,7 @@ namespace ST_Project
                if (!m.gets_hit(i))
                {
                    survivors.Push(m);
-               }   
+               }
             }
 
             if (survivors.Count > 0)
@@ -123,6 +123,8 @@ namespace ST_Project
                 }
                 return false;
             }
+            else
+                monsters.Clear();
             return true;
         }
 

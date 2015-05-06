@@ -257,8 +257,26 @@ namespace ST_Project
         private void fight_button_Click(object sender, EventArgs e)
         {
             parent.Fight();
+            UpdateLabels();
         }
 
+        private void use_pot_Click(object sender, EventArgs e)
+        {
+            parent.UsePotion();
+            UpdateLabels();
+        }
+
+        private void use_crystal_Click(object sender, EventArgs e)
+        {
+            parent.UseCrystal();
+            UpdateLabels();
+        }
+
+        private void use_scroll_Click(object sender, EventArgs e)
+        {
+            parent.UseScroll();
+            UpdateLabels();
+        }
     }
 }
 

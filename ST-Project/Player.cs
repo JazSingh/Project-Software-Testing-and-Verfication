@@ -21,14 +21,18 @@ namespace ST_Project
             score = 0;
             position = 0; // ID of current node the player's in
             Items = new List<Item>();
+            Items.Add(new Health_Potion());
+            Items.Add(new Time_Crystal());
+            Items.Add(new Magic_Scroll());
         }
 
         public void use(Dungeon d, Item i)
         {
             current = i;
-           
+            current.duration++; // to neutralize the time-cost of the use (-1+1 = 0)
             if (current.type == ItemType.HealthPotion)
             {
+                Console.WriteLine("Health potion genomen.");
                 HP += current.health;
                 if (HP > HPmax)
                     HP = HPmax;
@@ -36,10 +40,21 @@ namespace ST_Project
             }
 
             //
-            // Time-crystal and magic-scrol only have effect when fighting
+            // Time-crystal and magic-scroll only have effect when fighting
             //
-
         }
+
+        public void UpdateCurrentItem()
+        {
+            if (current != null)
+            {
+                current.duration--;
+                Console.WriteLine("current.duration: " + current.duration);
+                if (current.duration <= 0)
+                { current = null; Console.WriteLine("Item is uitgewerkt."); }
+            }
+        }
+
         public void add(Item i)
         {
             Items.Add(i);
@@ -72,16 +87,15 @@ namespace ST_Project
                 if (current.type == ItemType.TimeCrystal)
                 {
                     p.hit_pack_Time_Crystal_variant(damage);
-                    current.duration--;
+                    UpdateCurrentItem();
                 }
                 else if (current.type == ItemType.MagicScroll)
                 {
                     p.hit_pack(damage + current.damage);
-                    current.duration--;
+                    UpdateCurrentItem();
                 }
-                if (current.duration < 1)
-                    current = null;
             }
+
             else
             {
                 if (p.hit_pack(damage) == true)
@@ -167,6 +181,11 @@ namespace ST_Project
         public int getHealth()
         {
             return HP;
+        }
+
+        public List<Item> getItems()
+        {
+            return Items;
         }
     }
 }

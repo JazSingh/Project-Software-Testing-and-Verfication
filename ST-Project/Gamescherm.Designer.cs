@@ -37,6 +37,11 @@
             this.Health_lbl = new System.Windows.Forms.Label();
             this.NRhealth = new System.Windows.Forms.Label();
             this.fight_button = new System.Windows.Forms.Button();
+            this.use_pot = new System.Windows.Forms.Button();
+            this.use_crystal = new System.Windows.Forms.Button();
+            this.use_scroll = new System.Windows.Forms.Button();
+            this.score_lbl = new System.Windows.Forms.Label();
+            this.NRScore = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // potions_lbl
@@ -130,11 +135,65 @@
             this.fight_button.Visible = false;
             this.fight_button.Click += new System.EventHandler(this.fight_button_Click);
             // 
+            // use_pot
+            // 
+            this.use_pot.Location = new System.Drawing.Point(156, 603);
+            this.use_pot.Name = "use_pot";
+            this.use_pot.Size = new System.Drawing.Size(75, 23);
+            this.use_pot.TabIndex = 9;
+            this.use_pot.Text = "Use Potion";
+            this.use_pot.UseVisualStyleBackColor = true;
+            this.use_pot.Click += new System.EventHandler(this.use_pot_Click);
+            // 
+            // use_crystal
+            // 
+            this.use_crystal.Location = new System.Drawing.Point(325, 603);
+            this.use_crystal.Name = "use_crystal";
+            this.use_crystal.Size = new System.Drawing.Size(110, 23);
+            this.use_crystal.TabIndex = 10;
+            this.use_crystal.Text = "Use Time Crystal";
+            this.use_crystal.UseVisualStyleBackColor = true;
+            this.use_crystal.Click += new System.EventHandler(this.use_crystal_Click);
+            // 
+            // use_scroll
+            // 
+            this.use_scroll.Location = new System.Drawing.Point(521, 603);
+            this.use_scroll.Name = "use_scroll";
+            this.use_scroll.Size = new System.Drawing.Size(97, 23);
+            this.use_scroll.TabIndex = 11;
+            this.use_scroll.Text = "Use Magic Scroll";
+            this.use_scroll.UseVisualStyleBackColor = true;
+            this.use_scroll.Click += new System.EventHandler(this.use_scroll_Click);
+            // 
+            // score_lbl
+            // 
+            this.score_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.score_lbl.Location = new System.Drawing.Point(374, 420);
+            this.score_lbl.Name = "score_lbl";
+            this.score_lbl.Size = new System.Drawing.Size(114, 33);
+            this.score_lbl.TabIndex = 12;
+            this.score_lbl.Text = "Score:";
+            // 
+            // NRScore
+            // 
+            this.NRScore.AutoSize = true;
+            this.NRScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NRScore.Location = new System.Drawing.Point(515, 420);
+            this.NRScore.Name = "NRScore";
+            this.NRScore.Size = new System.Drawing.Size(32, 33);
+            this.NRScore.TabIndex = 13;
+            this.NRScore.Text = "0";
+            // 
             // Gamescherm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.NRScore);
+            this.Controls.Add(this.score_lbl);
+            this.Controls.Add(this.use_scroll);
+            this.Controls.Add(this.use_crystal);
+            this.Controls.Add(this.use_pot);
             this.Controls.Add(this.fight_button);
             this.Controls.Add(this.NRhealth);
             this.Controls.Add(this.Health_lbl);
@@ -168,6 +227,11 @@
         private System.Windows.Forms.Label Health_lbl;
         private System.Windows.Forms.Label NRhealth;
         private System.Windows.Forms.Button fight_button;
+        private System.Windows.Forms.Button use_pot;
+        private System.Windows.Forms.Button use_crystal;
+        private System.Windows.Forms.Button use_scroll;
+        private System.Windows.Forms.Label score_lbl;
+        private System.Windows.Forms.Label NRScore;
 
     }
 }

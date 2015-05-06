@@ -95,6 +95,11 @@ namespace ST_Project
             return false;
         }
 
+        public int getTime()
+        {
+            return time;
+        }
+
         private void DropItems()
         {
             int i = 1;
@@ -127,6 +132,53 @@ namespace ST_Project
             { Console.WriteLine("Pack is killed."); return true; }
             Console.WriteLine("after combat-round: "+pack.GetNumMonsters());
             return false;
+            
+        }
+
+        public void UsePotion()
+        {
+            List<Item> items = p.getItems();
+            for (int t =0;t<items.Count;t++)
+            {
+                if (items[t].type == ItemType.HealthPotion)
+                { 
+                    p.use(d, items[t]); items.Remove(items[t]);
+                    UpdateTime();
+                }
+
+            }
+        }
+
+        public void UseCrystal()
+        {
+            List<Item> items = p.getItems();
+            for (int t =0;t<items.Count;t++)
+            {
+                if (items[t].type == ItemType.TimeCrystal)
+                { 
+                    p.use(d, items[t]); items.Remove(items[t]);
+                    UpdateTime();
+                }
+            }
+        }
+
+        public void UseScroll()
+        {
+            List<Item> items = p.getItems();
+            for (int t = 0; t < items.Count; t++)
+            {
+                if (items[t].type == ItemType.MagicScroll)
+                {
+                    p.use(d, items[t]); items.Remove(items[t]);
+                    UpdateTime();
+                }
+            }
+        }
+
+        internal void UpdateTime()
+        {
+            time++;
+            p.UpdateCurrentItem();
         }
     }
 }

@@ -61,6 +61,7 @@ namespace ST_Project
                 if (buur)
                 {
                     state.SetPosition(newNode);
+                    state.UpdateTime();
                 }
             }
             gs.Invalidate();
@@ -100,6 +101,19 @@ namespace ST_Project
             return state.GetPlayer();
         }
 
+        public void UsePotion()
+        {
+            state.UsePotion();
+        }
 
+        public void UseCrystal()
+        {
+            state.UseCrystal();
+        }
+
+        public void UseScroll()
+        {
+            state.UseScroll();
+        }
     }
 }
