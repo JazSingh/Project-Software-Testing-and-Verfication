@@ -59,40 +59,56 @@ namespace ST_Project
                 int hp = Convert.ToInt32(filelines[2].Split(' ')[1]);
                 int damage = Convert.ToInt32(filelines[3].Split(' ')[1]);
                 int score = Convert.ToInt32(filelines[4].Split(' ')[1]);
-                Item i;
+                Item item;
                 List<Item> items = new List<Item>();
                 string type = filelines[6].Split(' ')[1];
                 if (type == "none")
-                    i = null;
+                    item = null;
                 else
                 {
                     switch (type)
                     {
-                        case "HealthPotion": i = new Health_Potion(); break;
-                        case "TimeCrystal": i = new Time_Crystal(); break;
-                        case "MagicScroll": i = new Magic_Scroll(); break;
-                        default: i = null; break;
+                        case "HealthPotion": item = new Health_Potion(); break;
+                        case "TimeCrystal": item = new Time_Crystal(); break;
+                        case "MagicScroll": item = new Magic_Scroll(); break;
+                        default: item = null; break;
                     }
                     // TODO invullen Item waardes geven
 
                 }
 
-                Player p = new Player(hpmax, hp, damage, score, i, items);
+                Player p = new Player(hpmax, hp, damage, score, item, items);
 
                 //DUNGEON
 
-                //TODO dungeon uitlezen
+                int index = 9;
+                while (filelines[index] != "DUNGEON")
+                {
+                    index++;
+                }
 
-                Node[] nodes = null;
-                int difficulty = 0;
-                int size = 0;
-                int interval = 0;
+                int size = Convert.ToInt32(filelines[index + 1].Split(' ')[1]);
+                int interval = Convert.ToInt32(filelines[index + 2].Split(' ')[1]);
+                int difficulty = Convert.ToInt32(filelines[index + 3].Split(' ')[1]);
+                index += 4;
+                Node[] nodes = new Node[size];
+                for (int i = 0; i < size; i++)
+                {
+                    string[] nodeline = filelines[index + i].Split(' ');
 
 
-                //Dungeon d = new Dungeon(nodes, difficulty, size, interval);
-                Dungeon d = null;
+                    int identifier = Convert.ToInt32(nodeline[1]);
+                    int[] adj = new int[nodeline.Length - 1];
+                    for (int j = 1; j < nodeline.Length; j++)
+                    {
+                        adj[j - 1] = Convert.ToInt32(nodeline[j]);
+                    }
+                    Node n = new Node(identifier, adj);
+                    nodes[i] = n;
+                }
 
-                //New GameState
+
+                Dungeon d = new Dungeon(nodes, difficulty, size, interval);
 
                 GameState gs = new GameState(d, p);
             }
