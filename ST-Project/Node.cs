@@ -65,9 +65,14 @@ namespace ST_Project
             return true;
         }
 
-        public int Amount_of_packs()
+        public Pack popPack()
         {
-            return packs.Count;
+            return packs.Pop();
+        }
+
+        public void pushPack(Pack p)
+        {
+            packs.Push(p);
         }
 
         public int TotalMonsters()
@@ -173,6 +178,13 @@ namespace ST_Project
         public int[] getadj()
         {
             return adj;
+        }
+
+        public bool hasPack()
+        {
+            if (packs.Count > 0)
+                return true;
+            return false;
         }
     }
 }

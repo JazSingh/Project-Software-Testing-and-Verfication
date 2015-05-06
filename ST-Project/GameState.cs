@@ -49,6 +49,16 @@ namespace ST_Project
             return p;
         }
 
+        public bool fighting()
+        {
+            int pos = GetPlayer().get_position();
+            if (GetDungeon().GetNode(pos).hasPack())
+            {
+                return true;
+            }
+            return false;
+        }
+
         private int SumPlayerPotsHP()
         {
             return p.GetHP() + d.SumHealPots();
@@ -77,7 +87,7 @@ namespace ST_Project
 
         public bool CheckFinished()
         {
-            if (GetPlayer().get_position() == GetDungeon().nodes.Length - 1)
+            if (p.get_position() == GetDungeon().nodes.Length - 1)
             {
                 Console.WriteLine("Reached end node!");
                 return true;
@@ -101,6 +111,22 @@ namespace ST_Project
                 }
                 i++;
             }
+        }
+
+        public bool Fight()
+        {
+            int pos = p.get_position();
+            Node node = d.GetNode(pos);
+            Pack pack = node.popPack();
+            Console.WriteLine("before combat-round: "+pack.GetNumMonsters());
+
+            p.doCombatRound(GetDungeon(), pack);
+            if (!pack.isDead())
+                node.pushPack(pack);
+            else
+            { Console.WriteLine("Pack is killed."); return true; }
+            Console.WriteLine("after combat-round: "+pack.GetNumMonsters());
+            return false;
         }
     }
 }

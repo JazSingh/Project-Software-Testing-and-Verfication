@@ -36,7 +36,7 @@
             this.NRscrolls = new System.Windows.Forms.Label();
             this.Health_lbl = new System.Windows.Forms.Label();
             this.NRhealth = new System.Windows.Forms.Label();
-            this.Fight_button = new System.Windows.Forms.Button();
+            this.fight_button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // potions_lbl
@@ -118,23 +118,24 @@
             this.NRhealth.TabIndex = 7;
             this.NRhealth.Text = "0";
             // 
-            // Fight_button
+            // fight_button
             // 
-            this.Fight_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Fight_button.Location = new System.Drawing.Point(831, 487);
-            this.Fight_button.Name = "Fight_button";
-            this.Fight_button.Size = new System.Drawing.Size(180, 74);
-            this.Fight_button.TabIndex = 8;
-            this.Fight_button.Text = "Fight!";
-            this.Fight_button.UseVisualStyleBackColor = true;
-            this.Fight_button.Visible = false;
+            this.fight_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fight_button.Location = new System.Drawing.Point(750, 449);
+            this.fight_button.Name = "fight_button";
+            this.fight_button.Size = new System.Drawing.Size(222, 113);
+            this.fight_button.TabIndex = 8;
+            this.fight_button.Text = "Fight!";
+            this.fight_button.UseVisualStyleBackColor = true;
+            this.fight_button.Visible = false;
+            this.fight_button.Click += new System.EventHandler(this.fight_button_Click);
             // 
             // Gamescherm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
-            this.Controls.Add(this.Fight_button);
+            this.Controls.Add(this.fight_button);
             this.Controls.Add(this.NRhealth);
             this.Controls.Add(this.Health_lbl);
             this.Controls.Add(this.NRscrolls);
@@ -166,7 +167,7 @@
         private System.Windows.Forms.Label NRscrolls;
         private System.Windows.Forms.Label Health_lbl;
         private System.Windows.Forms.Label NRhealth;
-        private System.Windows.Forms.Button Fight_button;
+        private System.Windows.Forms.Button fight_button;
 
     }
 }
