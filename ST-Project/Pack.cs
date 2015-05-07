@@ -71,10 +71,12 @@ namespace ST_Project
         public void Add_Monster(Monster i)
         {
             monsters.Push(i);
-            foreach(Monster m in monsters)
-            {
-                init_hp += m.GetHP();
-            }
+            init_hp += i.GetHP();
+        }
+
+        public int getInitialHP()
+        {
+            return init_hp;
         }
 
         public int GetPackHealth()
