@@ -15,7 +15,7 @@ namespace ST_Project
 
         private const int packSize = 3;
 
-        public Pack()
+        public Pack(int val)
         {
             monsters = new Stack<Monster>();
 
@@ -25,8 +25,8 @@ namespace ST_Project
             init_hp = 3 * 15;
             // NEEDS IMPROVEMENTS!!!
             score = 9; 
-            Random r = new Random();
-            int val = r.Next(0, 19);
+            //Random r = new Random();
+            //int val = r.Next(0, 19);
             if (val < 3)
                 item = new Health_Potion();
             else if (val > 2 && val < 6)
@@ -159,6 +159,11 @@ namespace ST_Project
             foreach (Monster m in monsters)
                 total += m.hits();
             return total;
+        }
+
+        public Item GetItem()
+        {
+            return item;
         }
 
         //public override string ToString()
