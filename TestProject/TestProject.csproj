@@ -57,6 +57,7 @@
     <Compile Include="ItemTests.cs" />
     <Compile Include="OracleTests.cs" />
     <Compile Include="NodeTests.cs" />
+    <Compile Include="DungeonCreation.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ST-Project\ST-Project.csproj">
