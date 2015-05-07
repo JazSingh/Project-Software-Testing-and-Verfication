@@ -93,11 +93,12 @@ namespace ST_Project
         public void SetPosition(int i)
         {
             p.set_position(i);
-            CheckItemsFound(i);
+            CheckItemsFound();
         }
 
-        private void CheckItemsFound(int i)
+        public void CheckItemsFound()
         {
+            int i = p.get_position();
             List<Item> items = d.GetNode(i).get_Items();
             foreach(Item j in items)
             {
@@ -249,6 +250,12 @@ namespace ST_Project
         {
             time++;
             p.UpdateCurrentItem();
+            PackMoves();
+        }
+
+        public void PackMoves()
+        {
+            d.MovePacks(p.get_position());
         }
     }
 }
