@@ -43,7 +43,7 @@ namespace ST_Project
 
             if (i != newNode)
             {
-                int[] buren = state.GetDungeon().nodes[i].getadj();
+                int[] buren = state.GetDungeon().GetNode(i).getadj();
                 for (int s = 0; s < buren.Length; s++)
                 {
                     if (buren[s] == newNode)
@@ -54,6 +54,7 @@ namespace ST_Project
                 {
                     state.SetPosition(newNode);
                     state.UpdateTime();
+                    state.PackMoves();
                 }
             }
             gs.Invalidate();
@@ -65,6 +66,7 @@ namespace ST_Project
             {
                 if (state.PlayerDead())
                     gs.GameOver();
+                state.PackMoves();
                 return true;
             }
             if (state.PlayerDead())
@@ -180,16 +182,19 @@ namespace ST_Project
         public void UsePotion()
         {
             state.UsePotion();
+            state.PackMoves();
         }
 
         public void UseCrystal()
         {
             state.UseCrystal();
+            state.PackMoves();
         }
 
         public void UseScroll()
         {
             state.UseScroll();
+            state.PackMoves();
         }
     }
 }

@@ -25,6 +25,7 @@ namespace TestProject
         public void Retreat()
         {
             Retreat_False();
+            Retreat_True();
         }
 
         public void Retreat_False()
@@ -35,7 +36,25 @@ namespace TestProject
             Assert.AreEqual(expected, actual);
         }
 
+        public void Retreat_True()
+        {
+            Pack p = new Pack();
+            p.hit_pack(16);
+            p.hit_pack(16);
+            p.hit_pack(8);
+            bool expected = true;
+            bool actual = p.retreat();
+            Assert.AreEqual(expected, actual);
+        }
+
         [TestMethod]
+        public void isDead()
+        {
+            isDead_False();
+            isDead_True();
+            isDead_CurrentNull_False();
+        }
+
         public void isDead_False()
         {
             Pack p = new Pack();
@@ -44,11 +63,45 @@ namespace TestProject
             Assert.AreEqual(expected, actual);
         }
 
+        public void isDead_CurrentNull_False()
+        {
+            Pack p = new Pack();
+            p.hit_pack(16);
+            bool expected = false;
+            bool actual = p.isDead();
+            Assert.AreEqual(expected, actual);
+        }
+
+        public void isDead_True()
+        {
+            Pack p = new Pack();
+            p.hit_pack(16);
+            p.hit_pack(16);
+            p.hit_pack(16);
+            bool expected = true;
+            bool actual = p.isDead();
+            Assert.AreEqual(expected, actual);
+        }
+
         [TestMethod]
-        public void getNumMonsters()
+        public void GetNumMonsters()
+        {
+            GetNumMonsters_NewPack();
+            GetNumMonsters_NoCurrent();
+        }
+        public void GetNumMonsters_NewPack()
         {
             Pack p = new Pack();
             int expected = 3;
+            int actual = p.GetNumMonsters();
+            Assert.AreEqual(expected, actual);
+        }
+
+        public void GetNumMonsters_NoCurrent()
+        {
+            Pack p = new Pack();
+            p.hit_pack(16);
+            int expected = 2;
             int actual = p.GetNumMonsters();
             Assert.AreEqual(expected, actual);
         }
@@ -78,8 +131,23 @@ namespace TestProject
         [TestMethod]
         public void GetPackHealth()
         {
+            GetPackHealth_FreshPack();
+            GetPackHealth_CurrentNull();
+
+        }
+        public void GetPackHealth_FreshPack()
+        {
             Pack p = new Pack();
             int expected = 3 * 15;
+            int actual = p.GetPackHealth();
+            Assert.AreEqual(expected, actual);
+        }
+
+        public void GetPackHealth_CurrentNull()
+        {
+            Pack p = new Pack();
+            p.hit_pack(16);
+            int expected = 2 * 15;
             int actual = p.GetPackHealth();
             Assert.AreEqual(expected, actual);
         }
@@ -91,6 +159,8 @@ namespace TestProject
             Gets_hit_CompleteFight();
             Gets_hit_Crystal_False();
             Gets_hit_Crystal_True();
+            Gets_hit_Crystal_CurrentNull_15dmg();
+            Gets_hit_Crystal_CurrentNull_14dmg();
         }
 
         public void Gets_hit_False()
@@ -131,6 +201,24 @@ namespace TestProject
             Assert.AreNotEqual(expected, actual);
         }
 
+        public void Gets_hit_Crystal_CurrentNull_15dmg()
+        {
+            Pack p = new Pack();
+            p.hit_pack(16);
+            bool expected = true;
+            bool actual = p.hit_pack_Time_Crystal_variant(15);
+            Assert.AreEqual(expected, actual);
+        }
+
+        public void Gets_hit_Crystal_CurrentNull_14dmg()
+        {
+            Pack p = new Pack();
+            p.hit_pack(16);
+            bool expected = false;
+            bool actual = p.hit_pack_Time_Crystal_variant(14);
+            Assert.AreEqual(expected, actual);
+        }
+
         [TestMethod]
         public void hit_player()
         {
@@ -138,12 +226,6 @@ namespace TestProject
             int expected = 3 * 3;
             int actual = p.hit_player();
             Assert.AreEqual(expected, actual);
-        }
-
-        [TestMethod]
-        public void ToString()
-        {
-            // ??????
         }
     }
 }

@@ -167,6 +167,38 @@ namespace ST_Project
             return false;
         }
 
+        public void MovePacks(int player)
+        {
+            for(int t =0;t<nodes.Length;t++)
+            {
+                Node n = GetNode(t);
+                if (n != null && t != player)
+                {
+                    if (n.hasPack())
+                    {
+                        Pack p = n.popPack();
+                        int[] adj = n.GetNeighbours();
+                        for (int x = 0;x<adj.Length;x++)
+                        {
+                            Random r = new Random();
+                            int z = adj[r.Next(0, adj.Length)];
+                            if (z != nodes.Length - 1) // != end-node
+                            {
+                                Node zz = GetNode(z);
+                                int total = zz.TotalMonsters();
+                                if (total + p.GetNumMonsters() <= zz.maxCap())
+                                {
+                                    nodes[t].pushPack(p);
+                                    Console.WriteLine("Pack pushed naar node "+z);
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        }
+
         private void AddRandomEdges(int partition)
         {
             int min = partition * interval;

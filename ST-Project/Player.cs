@@ -21,9 +21,6 @@ namespace ST_Project
             score = 0;
             position = 0; // ID of current node the player's in
             Items = new List<Item>();
-            Items.Add(new Health_Potion());
-            Items.Add(new Time_Crystal());
-            Items.Add(new Magic_Scroll());
         }
 
         public Player(int hpmax, int hp, int dmg, int scr, Item item, List<Item> items)
@@ -64,6 +61,11 @@ namespace ST_Project
                 if (current.duration <= 0)
                 { current = null; Console.WriteLine("Item is uitgewerkt."); }
             }
+        }
+
+        public Item getCurrentItem()
+        {
+            return current;
         }
 
         public void add(Item i)
@@ -165,6 +167,11 @@ namespace ST_Project
             return position;
         }
 
+        public void set_HP(int i)
+        {
+            HP = i;
+        }
+
         public int getNRPotions()
         {
             int result = 0;
@@ -199,11 +206,6 @@ namespace ST_Project
             }
 
             return result;
-        }
-
-        public int getHealth()
-        {
-            return HP;
         }
 
         public List<Item> getItems()
