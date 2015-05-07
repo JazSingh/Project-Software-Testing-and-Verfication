@@ -144,16 +144,15 @@ namespace ST_Project
         public bool Fight()
         {
             int pos = p.get_position();
-            Node node = d.GetNode(pos);
-            Pack pack = node.popPack();
+            Pack pack = d.nodes[pos].popPack();
             
             Console.WriteLine("before combat-round: "+pack.GetNumMonsters());
 
-            p.doCombatRound(GetDungeon(), pack);
+            p.doCombatRound(d, pack);
 
             if (!pack.isDead())
             { 
-                node.pushPack(pack);
+                d.nodes[pos].pushPack(pack);
                 if (CheckRetreat())
                 {
                     return true;
