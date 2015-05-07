@@ -161,6 +161,16 @@ namespace TestProject
             Gets_hit_Crystal_True();
             Gets_hit_Crystal_CurrentNull_15dmg();
             Gets_hit_Crystal_CurrentNull_14dmg();
+            Gets_hit_CurrentNull_NoNext();
+        }
+
+        public void Gets_hit_CurrentNull_NoNext()
+        {
+            Pack p = new Pack(10);
+            p.hit_pack(16);
+            p.hit_pack(16);
+            p.hit_pack(16);
+            p.hit_pack(16);
         }
 
         public void Gets_hit_False()
