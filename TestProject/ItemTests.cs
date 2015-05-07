@@ -8,9 +8,4 @@ using ST_Project;
 
 namespace TestProject
 {
-    [TestClass]
-    class ItemTests
-    {
-        ///
-    }
 }
