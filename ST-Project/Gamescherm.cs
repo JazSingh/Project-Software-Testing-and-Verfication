@@ -46,7 +46,7 @@ namespace ST_Project
             NRpotions.Text = parent.GetPlayer().getNRPotions().ToString();
             NRcrystals.Text = parent.GetPlayer().getNRCrystals().ToString();
             NRscrolls.Text = parent.GetPlayer().getNRScrolls().ToString();
-            NRhealth.Text = parent.GetPlayer().getHealth().ToString();
+            NRhealth.Text = parent.GetPlayer().GetHP().ToString();
             NRScore.Text = parent.GetPlayer().getScore().ToString();
             NRLevel.Text = parent.GetDungeon().difficulty.ToString();
         }
