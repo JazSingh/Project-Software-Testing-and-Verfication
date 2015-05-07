@@ -11,18 +11,19 @@ namespace ST_ProjectTest
     class MonsterTest
     {
     private TestContext testContextInstance;
-    //[ClassInitialize()]
-    public MonsterTest()
-    {
-        HPTest();
-        damageTest();
-    }     
-    //[ClassCleanup()]
-    //public static void MyClassCleanup() ...
-    //[TestInitialize()]
-    //public void MyTestInitialize() ...
-    //[TestCleanup()]
-    //public void MyTestCleanup() ...
+    
+        //[ClassInitialize()]
+        public MonsterTest()
+        {
+            HPTest();
+            damageTest();
+        }     
+        //[ClassCleanup()]
+        //public static void MyClassCleanup() ...
+        //[TestInitialize()]
+        //public void MyTestInitialize() ...
+        //[TestCleanup()]
+        //public void MyTestCleanup() ...
 
         public void HPTest()
         {

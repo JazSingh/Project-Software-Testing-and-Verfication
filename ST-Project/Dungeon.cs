@@ -157,6 +157,8 @@ namespace ST_Project
                 Random r = new Random();
                 int next = adj[r.Next(0, n.NumNeighbours)];
                 Pack p = nodes[pos].popPack();
+                while (next == nodes.Length - 1)
+                    next = adj[r.Next(0, n.NumNeighbours)];
                 nodes[next].pushPack(p);
                 Console.WriteLine("Pack is vertrokken naar node "+next);
                 return true;
