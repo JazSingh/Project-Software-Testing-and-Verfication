@@ -25,12 +25,24 @@ namespace TestProject
         public void Retreat()
         {
             Retreat_False();
+            Retreat_True();
         }
 
         public void Retreat_False()
         {
             Pack p = new Pack();
             bool expected = false;
+            bool actual = p.retreat();
+            Assert.AreEqual(expected, actual);
+        }
+
+        public void Retreat_True()
+        {
+            Pack p = new Pack();
+            p.hit_pack(16);
+            p.hit_pack(16);
+            p.hit_pack(8);
+            bool expected = true;
             bool actual = p.retreat();
             Assert.AreEqual(expected, actual);
         }
@@ -138,12 +150,6 @@ namespace TestProject
             int expected = 3 * 3;
             int actual = p.hit_player();
             Assert.AreEqual(expected, actual);
-        }
-
-        [TestMethod]
-        public void ToString()
-        {
-            // ??????
         }
     }
 }
