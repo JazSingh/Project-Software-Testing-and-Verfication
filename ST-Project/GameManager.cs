@@ -62,11 +62,12 @@ namespace ST_Project
 
         public bool Fight()
         {
+            state.PackMoves();
             if (state.Fight())
             {
                 if (state.PlayerDead())
                     gs.GameOver();
-                state.PackMoves();
+                
                 return true;
             }
             if (state.PlayerDead())
