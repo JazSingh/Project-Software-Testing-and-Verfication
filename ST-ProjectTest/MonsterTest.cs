@@ -10,8 +10,6 @@ namespace ST_ProjectTest
 {
     class MonsterTest
     {
-    private TestContext testContextInstance;
-    
         //[ClassInitialize()]
         public MonsterTest()
         {
