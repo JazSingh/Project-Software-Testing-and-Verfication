@@ -210,7 +210,7 @@ namespace ST_Project
 
         public bool IsBridge(int interval)
         {
-            if(identifier % interval == 0)
+            if(identifier > 0 && identifier % interval == 0)
                 return true;
 
             return false;
