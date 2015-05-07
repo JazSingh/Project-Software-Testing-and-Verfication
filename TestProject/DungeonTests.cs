@@ -305,9 +305,5 @@ namespace TestProject
                 if (d.nodes[i] != null) t++;
             return t;
         }
-
-
-
-
     }
 }
