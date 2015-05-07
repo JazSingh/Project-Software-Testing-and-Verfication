@@ -2,9 +2,9 @@ using System;
 
 namespace ST_Project
 {
-    static class Oracle
+    public static class Oracle
     {
-        private static bool DETERM = false;
+        public static bool DETERM = false;
         //Pre: -
         //Post: A random true or false output.
         public static bool Decide()
