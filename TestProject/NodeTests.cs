@@ -125,7 +125,7 @@ namespace TestProject
         public void PushPack()
         {
             Node n = new Node(0);
-            n.pushPack(new Pack());
+            n.pushPack(new Pack(0));
             Assert.IsTrue(n.hasPack());
         }
 
@@ -142,8 +142,8 @@ namespace TestProject
         {
             Node n = new Node(0);
             n.AddPack();
-            n.pushPack(new Pack());
-            n.pushPack(new Pack());
+            n.pushPack(new Pack(0));
+            n.pushPack(new Pack(0));
             Assert.IsFalse(n.AddPack());
         }
 
@@ -306,7 +306,7 @@ namespace TestProject
         public void SumMonstersFullHealth()
         {
             Node n = new Node(0);
-            Pack p = new Pack();
+            Pack p = new Pack(0);
             n.pushPack(p);
             Assert.AreEqual(p.GetPackHealth(), n.SumMonsterHealth());
         }
