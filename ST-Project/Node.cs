@@ -80,7 +80,9 @@ namespace ST_Project
 
         public bool AddPack()
         {
-            Pack p = new Pack();
+            Random r = new Random();
+            int val = r.Next(0, 19);
+            Pack p = new Pack(val);
             if (TotalMonsters() + p.GetNumMonsters() > MaxCapacity) return false;
             packs.Push(p);
             return true;
