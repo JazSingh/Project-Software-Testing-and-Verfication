@@ -98,7 +98,8 @@ namespace ST_Project
         {
             if (current == null)
             {
-                current = monsters.Pop();
+                try { current = monsters.Pop(); }
+                catch { return true; }
             }
 
             bool dead = current.gets_hit(i);

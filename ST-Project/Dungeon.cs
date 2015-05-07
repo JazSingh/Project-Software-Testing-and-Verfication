@@ -160,7 +160,7 @@ namespace ST_Project
                 while (next == nodes.Length - 1)
                     next = adj[r.Next(0, n.NumNeighbours)];
                 nodes[next].pushPack(p);
-                Console.WriteLine("Pack is vertrokken naar node "+next);
+                Console.WriteLine("Pack RETREATS naar node "+next);
                 return true;
             }
 
@@ -176,7 +176,7 @@ namespace ST_Project
                 {
                     if (n.hasPack())
                     {
-                        Pack p = n.popPack();
+                        Pack p = nodes[t].popPack();
                         int[] adj = n.GetNeighbours();
                         for (int x = 0;x<adj.Length;x++)
                         {
@@ -189,7 +189,7 @@ namespace ST_Project
                                 if (total + p.GetNumMonsters() <= zz.maxCap())
                                 {
                                     nodes[t].pushPack(p);
-                                    Console.WriteLine("Pack pushed naar node "+z);
+                                    Console.WriteLine("Pack moves naar node "+z);
                                 }
                             }
                             
