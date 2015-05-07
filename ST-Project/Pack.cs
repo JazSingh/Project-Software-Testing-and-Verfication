@@ -29,9 +29,9 @@ namespace ST_Project
             //int val = r.Next(0, 19);
             if (val < 3)
                 item = new Health_Potion();
-            else if (val > 2 && val < 6)
+            else if (val >= 3 && val < 6)
                 item = new Time_Crystal();
-            else if (val > 5 && val < 9)
+            else if (val >= 6 && val < 9)
                 item = new Magic_Scroll();
             //////////////////////////////////////
         }

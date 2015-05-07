@@ -230,7 +230,7 @@ namespace TestProject
         {
             Player pl = new Player();
             Dungeon d = new Dungeon(1);
-            Pack pack = new Pack();
+            Pack pack = new Pack(10);
             pl.use(d, new Time_Crystal());
             pl.doCombatRound(d, pack);
             Assert.AreEqual(3, pack.GetNumMonsters());
@@ -243,7 +243,7 @@ namespace TestProject
         {
             Player pl = new Player();
             Dungeon d = new Dungeon(1);
-            Pack pack = new Pack();
+            Pack pack = new Pack(8);
             pl.use(d, new Magic_Scroll());
             pl.doCombatRound(d, pack);
             Assert.AreEqual(2, pack.GetNumMonsters());
@@ -254,7 +254,7 @@ namespace TestProject
         {
             Player pl = new Player();
             Dungeon d = new Dungeon(1);
-            Pack pack = new Pack();
+            Pack pack = new Pack(10);
             pl.doCombatRound(d, pack);
             for (int t = 0; t < 5;t++)
                 pl.doCombatRound(d, pack);
@@ -266,7 +266,7 @@ namespace TestProject
         {
             Player pl = new Player();
             Dungeon d = new Dungeon(1);
-            Pack pack = new Pack();
+            Pack pack = new Pack(6);
             pl.set_HP(2);
             Assert.AreEqual(2, pl.GetHP());
             pl.doCombatRound(d, pack);
