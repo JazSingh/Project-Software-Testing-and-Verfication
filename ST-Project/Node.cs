@@ -217,5 +217,10 @@ namespace ST_Project
 
             return false;
         }
+
+        public int maxCap()
+        {
+            return MaxCapacity;
+        }
     }
 }

@@ -151,16 +151,125 @@ namespace TestProject
             Item i = p.getCurrentItem();
             Assert.AreEqual(ItemType.MagicScroll, i.type);
             Assert.AreEqual(5, i.duration);
+            p.UpdateCurrentItem();
+            p.UpdateCurrentItem();
+            p.UpdateCurrentItem();
+            p.UpdateCurrentItem();
+            p.UpdateCurrentItem();
+            Assert.AreEqual(null, p.getCurrentItem());
         }
 
         [TestMethod]
-        public void Save_and_Load()
+        public void Save()
         {
             Player p = new Player();
             Dungeon d = new Dungeon(1);
-            string filename = "  "; // ???????????????????
+            string filename = "test.txt"; // ???????????????????
             Assert.AreEqual(true, p.save(d, filename));
+        }
+
+        [TestMethod]
+        public void Load()
+        {
+            Player p = new Player();
+            string filename = "";
             Assert.AreEqual(true, p.load(filename));
+        }
+
+        [TestMethod]
+        public void ToString_NoItems()
+        {
+            Player p = new Player();
+            string s = string.Empty;
+            s += "Player:" + Environment.NewLine;
+            s += "HpMax: " + 250 + Environment.NewLine;
+            s += "HP: " + 250 + Environment.NewLine;
+            s += "Damage: " + 8 + Environment.NewLine;
+            s += "Score: " + 0 + Environment.NewLine;
+            s += "Current Item: ";
+            Item i = p.getCurrentItem();
+            s += "none";
+
+            s += Environment.NewLine;
+            List<Item> items = p.getItems();
+            s += "Items: " + items.Count + Environment.NewLine;
+
+
+            Assert.AreEqual(s, p.ToString());
+        }
+
+        [TestMethod]
+        public void ToString_WithItems()
+        {
+            Player p = new Player();
+            p.use(new Dungeon(1), new Time_Crystal());
+            p.add(new Health_Potion());
+            string s = string.Empty;
+            s += "Player:" + Environment.NewLine;
+            s += "HpMax: " + 250 + Environment.NewLine;
+            s += "HP: " + 250 + Environment.NewLine;
+            s += "Damage: " + 8 + Environment.NewLine;
+            s += "Score: " + 0 + Environment.NewLine;
+            s += "Current Item: ";
+            Item i = p.getCurrentItem();
+            s += p.getCurrentItem().ToString();
+            s += Environment.NewLine;
+            List<Item> items = p.getItems();
+            s += "Items: " + items.Count + Environment.NewLine;
+
+            foreach (Item z in items)
+            {
+                s += z.ToString() + Environment.NewLine;
+            }
+
+            Assert.AreEqual(s, p.ToString());
+        }
+
+        [TestMethod]
+        public void DoCombatRound_Both_Stay_Alive_Crystal_Version()
+        {
+            Player pl = new Player();
+            Dungeon d = new Dungeon(1);
+            Pack pack = new Pack();
+            pl.use(d, new Time_Crystal());
+            pl.doCombatRound(d, pack);
+            Assert.AreEqual(3, pack.GetNumMonsters());
+            pl.doCombatRound(d, pack);
+            Assert.AreEqual(0, pack.GetNumMonsters());
+        }
+
+        [TestMethod]
+        public void DoCombatRound_Both_Stay_Alive_Scroll_Version()
+        {
+            Player pl = new Player();
+            Dungeon d = new Dungeon(1);
+            Pack pack = new Pack();
+            pl.use(d, new Magic_Scroll());
+            pl.doCombatRound(d, pack);
+            Assert.AreEqual(2, pack.GetNumMonsters());
+        }
+
+        [TestMethod]
+        public void DoCombatRound_Pack_Dies()
+        {
+            Player pl = new Player();
+            Dungeon d = new Dungeon(1);
+            Pack pack = new Pack();
+            pl.doCombatRound(d, pack);
+            for (int t = 0; t < 5;t++)
+                pl.doCombatRound(d, pack);
+            Assert.AreEqual(true, pack.isDead());
+        }
+
+        [TestMethod]
+        public void DoCombatRound_Player_Dies()
+        {
+            Player pl = new Player();
+            Dungeon d = new Dungeon(1);
+            Pack pack = new Pack();
+            pl.set_HP(2);
+            Assert.AreEqual(2, pl.GetHP());
+            pl.doCombatRound(d, pack);
         }
     }
 }

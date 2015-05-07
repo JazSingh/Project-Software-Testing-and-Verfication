@@ -167,6 +167,11 @@ namespace ST_Project
             return position;
         }
 
+        public void set_HP(int i)
+        {
+            HP = i;
+        }
+
         public int getNRPotions()
         {
             int result = 0;
