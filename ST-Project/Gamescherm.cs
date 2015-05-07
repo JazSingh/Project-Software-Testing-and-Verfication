@@ -280,13 +280,13 @@ namespace ST_Project
 
         private void use_pot_Click(object sender, EventArgs e)
         {
-            //parent.UsePotion();
+            parent.UsePotion();
             UpdateLabels();
         }
 
         private void use_crystal_Click(object sender, EventArgs e)
         {
-            //parent.UseCrystal();
+            parent.UseCrystal();
             UpdateLabels();
         }
 

@@ -10,6 +10,7 @@ namespace ST_ProjectTest
     {
         static void Main(string[] args)
         {
+            MonsterTest m = new MonsterTest();
         }
     }
 }

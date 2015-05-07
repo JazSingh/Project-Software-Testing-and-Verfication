@@ -191,15 +191,5 @@ namespace ST_Project
         {
             state.UseScroll();
         }
-
-        internal void UsePotion()
-        {
-            state.UsePotion();
-        }
-
-        internal void UseCrystal()
-        {
-            state.UseCrystal();
-        }
     }
 }

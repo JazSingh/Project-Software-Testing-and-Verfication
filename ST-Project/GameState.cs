@@ -201,6 +201,7 @@ namespace ST_Project
 
         public void UsePotion()
         {
+            Console.WriteLine("Use potion.");
             List<Item> items = p.getItems();
             for (int t =0;t<items.Count;t++)
             {
