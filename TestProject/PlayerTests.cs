@@ -134,7 +134,7 @@ namespace TestProject
         {
             Player p = new Player();
             Dungeon d = new Dungeon(1);
-            Pack pack = new Pack();
+            Pack pack = new Pack(8);
             p.doCombatRound(d, pack);
             p.use(d, new Health_Potion());
             Assert.AreEqual(250, p.GetHP());
