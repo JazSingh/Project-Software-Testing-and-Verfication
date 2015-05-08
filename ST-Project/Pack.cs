@@ -38,6 +38,15 @@ namespace ST_Project
             isMoved = false;
         }
 
+        //Test Constructor
+        public Pack(Stack<Monster> mons)
+        {
+            monsters = mons;
+            score = 9;
+            init_hp = 3 * 15;
+            item = new Health_Potion();
+        }
+
         public int get_Score()
         {
             return score;

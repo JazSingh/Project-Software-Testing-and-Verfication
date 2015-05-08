@@ -72,7 +72,7 @@ namespace ST_Project
 
         public void NextLevel()
         {
-            d = new Dungeon(d.difficulty == 5 ? 5 : d.difficulty+1);
+            d = new Dungeon(d.difficulty == 5 ? 5 : d.difficulty + 1);
             d.SpawnMonsters();
             DropItems();
         }
@@ -80,7 +80,7 @@ namespace ST_Project
         private bool DropHealthPot()
         {
             bool dropped = false;
-            if (SumPlayerPotsHP()< d.SumMonsterHealth() && Oracle.Decide())
+            if (SumPlayerPotsHP() < d.SumMonsterHealth() && Oracle.Decide())
             {
                 d.DropItem(ItemType.HealthPotion);
                 dropped = true;
@@ -98,7 +98,7 @@ namespace ST_Project
         {
             int i = p.get_position();
             List<Item> items = d.GetNode(i).get_Items();
-            foreach(Item j in items)
+            foreach (Item j in items)
             {
                 p.add(j);
                 Console.WriteLine("Item gevonden!");
@@ -139,13 +139,13 @@ namespace ST_Project
         {
             int pos = p.get_position();
             Pack pack = d.nodes[pos].popPack();
-            
-            Console.WriteLine("before combat-round: "+pack.GetNumMonsters());
+
+            Console.WriteLine("before combat-round: " + pack.GetNumMonsters());
 
             p.doCombatRound(d, pack);
 
             if (!pack.isDead())
-            { 
+            {
                 d.nodes[pos].pushPack(pack);
                 if (CheckRetreat())
                 {
@@ -160,9 +160,9 @@ namespace ST_Project
                 GivePackReward(score);
                 return true;
             }
-            Console.WriteLine("after combat-round: "+pack.GetNumMonsters());
+            Console.WriteLine("after combat-round: " + pack.GetNumMonsters());
             return false;
-            
+
         }
 
         public bool PlayerDead()
@@ -175,7 +175,7 @@ namespace ST_Project
             int score = scr;
             int nodeId = p.get_position();
             int interval = d.interval;
-            if(d.GetNode(nodeId).IsBridge(interval))
+            if (d.GetNode(nodeId).IsBridge(interval))
             {
                 // meer punten C:
                 int level = nodeId / interval;
@@ -195,14 +195,19 @@ namespace ST_Project
             p.AwardScore(score);
         }
 
+        public void GivePackRewardTest(int scr)
+        {
+            GivePackReward(scr);
+        }
+
         public void UsePotion()
         {
             Console.WriteLine("Use potion.");
             List<Item> items = p.getItems();
-            for (int t =0;t<items.Count;t++)
+            for (int t = 0; t < items.Count; t++)
             {
                 if (items[t].type == ItemType.HealthPotion)
-                { 
+                {
                     p.use(d, items[t]); items.Remove(items[t]);
                     UpdateTime();
                     break;
@@ -214,10 +219,10 @@ namespace ST_Project
         public void UseCrystal()
         {
             List<Item> items = p.getItems();
-            for (int t =0;t<items.Count;t++)
+            for (int t = 0; t < items.Count; t++)
             {
                 if (items[t].type == ItemType.TimeCrystal)
-                { 
+                {
                     p.use(d, items[t]); items.Remove(items[t]);
                     UpdateTime();
                     break;

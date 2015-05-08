@@ -85,7 +85,7 @@ namespace TestProject
             gst.PackMoves();
 
             bool expected = true;
-            bool actual = hashBefore != gst.GetDungeon().nodes.GetHashCode();
+            bool actual = hashBefore == gst.GetDungeon().nodes.GetHashCode();
 
             Assert.AreEqual(expected, actual);
         }
@@ -281,6 +281,259 @@ namespace TestProject
             Assert.AreEqual(expected, actual);
         }
 
+        [TestMethod]
+        public void GivePackReward()
+        {
+            GivePackReward_Bridge();
+            GivePackReward_No_Bridge();
+        }
 
+        public void GivePackReward_Bridge()
+        {
+            GameState gst = new GameState(5);
+            Dungeon d = gst.GetDungeon();
+            Player p = gst.GetPlayer();
+            int scoreBefore = p.getScore();
+
+            int interval = d.interval;
+
+            if (d.nodes[2 * interval] == null)
+                d.nodes[2 * interval] = new Node(2*interval);
+
+            p.set_position(2 * interval);
+
+            gst.GivePackRewardTest(10);
+
+            int scoreAfter = p.getScore();
+
+            bool expected = true;
+            bool actual = scoreAfter > scoreBefore && scoreAfter == (scoreBefore + (2 * 10));
+
+            Assert.AreEqual(expected, actual);
+            
+        }
+        public void GivePackReward_No_Bridge()
+        {
+            GameState gst = new GameState(5);
+            Dungeon d = gst.GetDungeon();
+            Player p = gst.GetPlayer();
+            int scoreBefore = p.getScore();
+
+            int interval = d.interval;
+
+            if (d.nodes[2 * interval + 1] == null)
+                d.nodes[2 * interval + 1] = new Node(2 * interval + 1);
+
+            p.set_position(2 * interval + 1);
+
+            gst.GivePackRewardTest(10);
+
+            int scoreAfter = p.getScore();
+
+            bool expected = true;
+            bool actual = scoreAfter > scoreBefore && scoreAfter == (scoreBefore +  10);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Fighting()
+        {
+            Fighting_noPack();
+            Fighting_Pack();
+        }
+
+        public void Fighting_Pack()
+        {
+            GameState gst = new GameState(1);
+            Dungeon d = gst.GetDungeon();
+            Player p = gst.GetPlayer();
+            int position = 2;
+
+            if (d.nodes[position] == null)
+                d.nodes[position] = new Node(position);
+            if (!d.nodes[position].hasPack())
+                d.nodes[position].pushPack(new Pack(2));
+
+            p.set_position(position);
+
+            bool expected = true;
+            bool actual = gst.fighting();
+
+            Assert.AreEqual(expected, actual);
+        }
+        public void Fighting_noPack()
+        {
+            GameState gst = new GameState(1);
+            Dungeon d = gst.GetDungeon();
+            Player p = gst.GetPlayer();
+            int position = 2;
+
+            if (d.nodes[position] == null)
+                d.nodes[position] = new Node(position);
+            while (d.nodes[position].hasPack())
+                d.nodes[position].popPack();
+
+            p.set_position(position);
+
+            bool expected = false;
+            bool actual = gst.fighting();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void SetPosition()
+        {
+            SetPosition_SamePosition();
+            SetPosition_DifferentPosition();
+        }
+
+        private void SetPosition_DifferentPosition()
+        {
+            GameState gst = new GameState(1);
+            Dungeon d = gst.GetDungeon();
+            Player p = gst.GetPlayer();
+           
+            int positionBefore = p.get_position();
+            gst.SetPosition(d.nodes.Length-1);
+            int positionAfter = p.get_position();
+
+            bool expected = false;
+            bool actual = positionAfter == positionBefore;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        private void SetPosition_SamePosition()
+        {
+            GameState gst = new GameState(1);
+            Dungeon d = gst.GetDungeon();
+            Player p = gst.GetPlayer();
+
+            int positionBefore = p.get_position();
+            gst.SetPosition(0);
+            int positionAfter = p.get_position();
+
+            bool expected = true;
+            bool actual = positionAfter == positionBefore;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void CheckFinished()
+        {
+            CheckFinished_True();
+            CheckFinished_False();
+        }
+
+        private void CheckFinished_False()
+        {
+            GameState gst = new GameState(1);
+            Dungeon d = gst.GetDungeon();
+
+            bool expected = false;
+            bool actual = gst.CheckFinished();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        private void CheckFinished_True()
+        {
+            GameState gst = new GameState(1);
+            Dungeon d = gst.GetDungeon();
+            Player p = gst.GetPlayer();
+
+            gst.SetPosition(d.nodes.Length-1);
+
+            bool expected = true;
+            bool actual = gst.CheckFinished();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Fight()
+        {
+            Fight_PackDead();
+            Fight_PackAlive_NoRetreat();
+            Fight_PackAlive_Retreat();
+        }
+
+        private void Fight_PackAlive_Retreat()
+        {
+            GameState gst = new GameState(1);
+            Player p = gst.GetPlayer();
+
+            int position = 2;
+            Node n = new Node(position);
+            Dungeon d = gst.GetDungeon();
+            d.nodes[position] = n;
+
+            Stack<Monster> monsters = new Stack<Monster>();
+            Monster monster = new Monster();
+            monster.gets_hit(13);
+            monsters.Push(monster);
+
+            d.nodes[position].pushPack(new Pack(monsters));
+
+            p.set_position(position);
+
+            gst = new GameState(d, p);
+
+            bool expected = true;
+            bool actual = gst.Fight();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        private void Fight_PackAlive_NoRetreat()
+        {
+            GameState gst = new GameState(1);
+            Player p = gst.GetPlayer();
+
+            int position = 2;
+            Node n = new Node(position);
+            Dungeon d = gst.GetDungeon();
+            d.nodes[position] = n;
+
+            d.nodes[position].pushPack(new Pack(3));
+
+            p.set_position(position);
+
+            gst = new GameState(d, p);
+
+            bool expected = false;
+            bool actual = gst.Fight();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        private void Fight_PackDead()
+        {
+            GameState gst = new GameState(1);
+            Player p = gst.GetPlayer();
+
+            int position = 2;
+            Node n = new Node(position);
+            Dungeon d = gst.GetDungeon();
+            d.nodes[position] = n;
+
+            Stack<Monster> monsters = new Stack<Monster>();
+            Monster monster = new Monster();
+            monster.gets_hit(16);
+            monsters.Push(monster);
+            d.nodes[position].pushPack(new Pack(monsters));
+
+            p.set_position(position);
+
+            gst = new GameState(d, p);
+
+            bool expected = true;
+            bool actual = gst.Fight();
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
