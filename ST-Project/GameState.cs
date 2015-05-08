@@ -32,6 +32,12 @@ namespace ST_Project
             DropItems();
         }
 
+        public GameState(Dungeon d, Player p, bool testconst)
+        {
+            this.d = d;
+            this.p = p;
+        }
+
         public void Save(string filename)
         {
             d = new Dungeon(d.difficulty + 1);

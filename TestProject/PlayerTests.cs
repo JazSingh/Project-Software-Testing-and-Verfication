@@ -194,5 +194,30 @@ namespace TestProject
             p.doCombatRound(d, pa);
             Assert.AreEqual(pa.GetPackHealth(), 21);
         }
+
+        [TestMethod]
+        public void ItemExpire()
+        {
+            Player p = new Player();
+            Dungeon d = new Dungeon(5);
+            Pack pa = new Pack(0);
+            Time_Crystal tc = new Time_Crystal();
+            p.use(d, tc);
+            tc.duration = 0;
+            p.UpdateCurrentItem();
+            Assert.IsNull(p.getCurrentItem());
+        }
+
+        [TestMethod]
+        public void StringWithItems()
+        {
+            Player p = new Player();
+            p.add(new Health_Potion());
+            p.add(new Time_Crystal());
+            p.add(new Magic_Scroll());
+            p.use(new Dungeon(1), new Time_Crystal());
+            string s = p.ToString();
+            Assert.IsTrue(s.Contains(new Health_Potion().ToString()) && s.Contains(new Time_Crystal().ToString()) && s.Contains(new Magic_Scroll().ToString()));
+        }
     }
 }
