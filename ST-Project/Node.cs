@@ -198,11 +198,6 @@ namespace ST_Project
             return s;
         }
 
-        public int[] getadj()
-        {
-            return adj;
-        }
-
         public bool hasPack()
         {
             if (packs.Count > 0)

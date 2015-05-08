@@ -168,22 +168,6 @@ namespace ST_Project
             return item;
         }
 
-        //public override string ToString()
-        //{
-        //    string s = string.Empty;
-        //    s += "Score: " + score + Environment.NewLine;
-        //    s += "Item: " + (item == null ? "" : item.ToString()) + Environment.NewLine;
-        //    s += "Current: " + (current == null ? "" : current.ToString()) + Environment.NewLine;
-        //    s += "Monsters: " + Environment.NewLine;
-
-        //    foreach (Monster m in monsters)
-        //    {
-        //        s += m.ToString() + Environment.NewLine;
-        //    }
-
-        //    return s;
-        //}
-
         public void Moved(bool t)
         {
             isMoved = t;

@@ -166,7 +166,7 @@ namespace ST_Project
             Node n = GetNode(pos);
             if (n.Retreat())
             {
-                int[] adj = n.getadj();
+                int[] adj = n.get_Adj();
                 Random r = new Random();
                 int next = adj[r.Next(0, n.NumNeighbours)];
                 Pack p = nodes[pos].popPack();
