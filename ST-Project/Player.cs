@@ -25,7 +25,6 @@ namespace ST_Project
 
         public Player(int hpmax, int hp, int dmg, int scr, Item item, List<Item> items)
         {
-            // TODO: Complete member initialization
             HPmax = hpmax;
             HP = hp;
             damage = dmg;
@@ -46,10 +45,6 @@ namespace ST_Project
                     HP = HPmax;
                 current = null;
             }
-
-            //
-            // Time-crystal and magic-scroll only have effect when fighting
-            //
         }
 
         public void UpdateCurrentItem()
@@ -97,8 +92,6 @@ namespace ST_Project
 
         public void doCombatRound(Dungeon d, Pack p)
         {
-            // NEEDS IMPROVEMENTS
-
             // if player needs to attack
             if (current != null)
             {

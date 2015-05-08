@@ -180,21 +180,7 @@ namespace ST_Project
         {
             string s = "Node " + identifier.ToString() + " ";
             for (int i = 0; i < numNeighbours; i++)
-                s += adj[i] + " ";
-
-            /*
-            s += Environment.NewLine + "Packs:" + Environment.NewLine;
-            foreach (Pack p in packs)
-            {
-                s += p.ToString();
-            }
-            s += Environment.NewLine + "Items:" + Environment.NewLine;
-            foreach (Item i in items)
-            {
-                s += i.ToString();
-            }
-            */
-             
+                s += adj[i] + " ";             
             return s;
         }
 
