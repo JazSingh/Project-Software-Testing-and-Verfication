@@ -620,38 +620,55 @@ namespace TestProject
             Assert.AreEqual(expected, actual);
         }
 
-
         [TestMethod]
-        public void DropHealthPot()
+        public void CheckRetreat()
         {
-            DropHealthPot_FirstArgument_True();
-            DropHealthPot_FirstArgument_False();
+            CheckRetreat_True();
+            CheckRetreat_False();
         }
 
-        private void DropHealthPot_FirstArgument_True()
+        public void CheckRetreat_True()
         {
-            Player p = new Player(250, 10, 8, 0, null, new List<Item>());
-            Dungeon d = new Dungeon(1);
-            for (int i = 0; i < d.nodes.Length; i++)
-            {
-                d.nodes[i] = new Node(i);
-                d.nodes[i].AddPack();
-            }
+            GameState gst = new GameState(1);
+            Player p = gst.GetPlayer();
+            Dungeon d = gst.GetDungeon();
+            int position = 2;
+            Node n = new Node(position);
+            n.AddPack();
+            Pack pack = n.popPack();
+            pack.hit_pack(16);
+            pack.hit_pack(16);
+            pack.hit_pack(10);  //Alleen laatste leeft nog, hp < init/3
+            n.pushPack(pack);
 
-            GameState gst = new GameState(d, p);
+            p.set_position(position);
+
+            gst = new GameState(d, p);
+
             bool expected = true;
-            bool actual = gst.DropHealthPotTest();
+            bool actual = gst.CheckRetreat();
 
             Assert.AreEqual(expected, actual);
         }
 
-        private void DropHealthPot_FirstArgument_False()
+        public void CheckRetreat_False()
         {
-            GameState gst = new GameState(5);
+            GameState gst = new GameState(1);
+            Player p = gst.GetPlayer();
+            Dungeon d = gst.GetDungeon();
+            int position = 2;
+            Node n = new Node(position);
+            n.AddPack();    //Allen leven nog, hp == init
+            
+            p.set_position(position);
+
+            gst = new GameState(d, p);
+
             bool expected = false;
-            bool actual = gst.DropHealthPotTest();
+            bool actual = gst.CheckRetreat();
 
             Assert.AreEqual(expected, actual);
         }
+
     }
 }

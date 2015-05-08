@@ -82,22 +82,6 @@ namespace ST_Project
             DropItems();
         }
 
-        private bool DropHealthPot()
-        {
-            bool dropped = false;
-            if (SumPlayerPotsHP() < d.SumMonsterHealth() && Oracle.Decide())
-            {
-                d.DropItem(ItemType.HealthPotion);
-                dropped = true;
-            }
-            return dropped;
-        }
-
-        public bool DropHealthPotTest()
-        {
-            return DropHealthPot();
-        }
-
         public void SetPosition(int i)
         {
             p.set_position(i);
