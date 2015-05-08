@@ -308,6 +308,24 @@ namespace TestProject
         }
 
         [TestMethod]
+        public void MovePackToPlayerNode()
+        {
+            int diff = 1;
+            int dsize = 3;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[1] = new Node(1);
+            ns[1].AddPack();
+
+            ns[0].AddNeighbour(1);
+            ns[1].AddNeighbour(0);
+
+            Dungeon d = new Dungeon(ns, diff, dsize, 2);
+            d.MovePacks(0);
+            Assert.IsTrue(d.nodes[0].hasPack());
+        }
+
+        [TestMethod]
         public void MovePackMaxCap()
         {
             int diff = 1;
@@ -692,6 +710,30 @@ namespace TestProject
                 }
                 Assert.AreEqual(exp, act);
             }
+        }
+
+        [TestMethod]
+        public void ReachableNodesNoNeighbours()
+        {
+            int diff = 1;
+            int dsize = 4;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[1] = new Node(1);
+            ns[2] = new Node(2);
+            ns[3] = new Node(3);
+
+            ns[0].AddNeighbour(1); ns[1].AddNeighbour(0);
+            ns[0].AddNeighbour(2); ns[2].AddNeighbour(0);
+
+            Dungeon d = new Dungeon(ns, diff, dsize, 1);
+            bool[] b = new bool[4];
+
+            d.ReachableNodes(ns[3], ref b);
+            Assert.IsTrue(b[3]);
+            Assert.IsFalse(b[2]);
+            Assert.IsFalse(b[1]);
+            Assert.IsFalse(b[0]);
         }
 
         //Help Methods

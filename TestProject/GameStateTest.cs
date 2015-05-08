@@ -623,8 +623,8 @@ namespace TestProject
         [TestMethod]
         public void CheckRetreat()
         {
-            CheckRetreat_True();
             CheckRetreat_False();
+            CheckRetreat_True();
         }
 
         public void CheckRetreat_True()
@@ -636,9 +636,9 @@ namespace TestProject
             Node n = new Node(position);
             n.AddPack();
             Pack pack = n.popPack();
-            pack.hit_pack(16);
-            pack.hit_pack(16);
-            pack.hit_pack(10);  //Alleen laatste leeft nog, hp < init/3
+            pack.hit_pack(45);
+            pack.hit_pack(45);
+            pack.hit_pack(14);  //Alleen laatste leeft nog, hp < init/3
             n.pushPack(pack);
 
             p.set_position(position);
