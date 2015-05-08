@@ -154,13 +154,20 @@ namespace TestProject
         }
 
         [TestMethod]
-        public void Save_and_Load()
+        public void Save()
         {
             Player p = new Player();
             Dungeon d = new Dungeon(1);
             string filename = "  "; // ???????????????????
             Assert.AreEqual(true, p.save(d, filename));
-            Assert.AreEqual(true, p.load(filename));
+        }
+
+        [TestMethod]
+        public void Load()
+        {
+            Player p = new Player();
+            string s = "stinrdnka";
+            Assert.AreEqual(true, p.load(s));
         }
     }
 }
