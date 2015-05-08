@@ -70,22 +70,16 @@ namespace ST_Project
             return p.GetHP() + d.SumHealPots();
         }
 
+        public int SumPlayerPotsHPTest()
+        {
+            return SumPlayerPotsHP();
+        }
+
         public void NextLevel()
         {
             d = new Dungeon(d.difficulty == 5 ? 5 : d.difficulty + 1);
             d.SpawnMonsters();
             DropItems();
-        }
-
-        private bool DropHealthPot()
-        {
-            bool dropped = false;
-            if (SumPlayerPotsHP() < d.SumMonsterHealth() && Oracle.Decide())
-            {
-                d.DropItem(ItemType.HealthPotion);
-                dropped = true;
-            }
-            return dropped;
         }
 
         public void SetPosition(int i)
