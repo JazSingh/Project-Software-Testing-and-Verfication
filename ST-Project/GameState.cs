@@ -245,7 +245,7 @@ namespace ST_Project
             }
         }
 
-        internal void UpdateTime()
+        public void UpdateTime()
         {
             time++;
             p.UpdateCurrentItem();
