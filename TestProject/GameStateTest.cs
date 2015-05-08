@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ST_Project;
 using System.Collections.Generic;
+using System.IO;
 
 namespace TestProject
 {
@@ -683,6 +684,21 @@ namespace TestProject
 
             bool expected = false;
             bool actual = gst.CheckRetreat();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Save()
+        {
+            Player p = new Player();
+            Dungeon d = new Dungeon(1);
+
+            GameState gst = new GameState(d, p);
+            gst.Save("test");
+
+            bool expected = true;
+            bool actual = File.Exists("test");
 
             Assert.AreEqual(expected, actual);
         }
