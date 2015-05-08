@@ -51,7 +51,8 @@
     <StartupObject />
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Naamloos.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -138,9 +139,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\background.jpeg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Naamloos.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

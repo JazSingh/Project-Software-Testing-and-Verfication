@@ -156,7 +156,6 @@ namespace ST_Project
             }
             Console.WriteLine("after combat-round: " + pack.GetNumMonsters());
             return false;
-
         }
 
         public bool PlayerDead()
