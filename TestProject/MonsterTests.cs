@@ -22,7 +22,7 @@ namespace TestProject
         }
 
         [TestMethod]
-        public void ToString()
+        public void TToString()
         {
             Monster m = new Monster();
             string s = string.Empty;

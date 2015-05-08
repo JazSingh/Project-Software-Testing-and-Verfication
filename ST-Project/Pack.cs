@@ -43,7 +43,7 @@ namespace ST_Project
         {
             monsters = mons;
             score = 9;
-            init_hp = 3 * 15;
+            init_hp = mons.Count * 15;
             item = new Health_Potion();
         }
 

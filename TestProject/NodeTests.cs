@@ -343,7 +343,7 @@ namespace TestProject
         }
 
         [TestMethod]
-        public void ToStringNoNeigh()
+        public void TToStringNoNeigh()
         {
             Node n = new Node(0);
             string s = "Node 0 ";
@@ -351,7 +351,7 @@ namespace TestProject
         }
 
         [TestMethod]
-        public void ToString()
+        public void TToString()
         {
             Node n = new Node(0, new int[] { 1, 2, 3, 4 });
             string s = "Node 0 1 2 3 4 ";

@@ -93,16 +93,8 @@ namespace TestProject
             Assert.AreEqual(expected, actual);
         }
 
+
         [TestMethod]
-        public void UsePotion() 
-        {
-            UsePotion_PotionAvailable();
-            UsePotion_NoPotion();
-            UsePotion_Player_FullHealth();
-            UsePotion_Player_LowHealth();
-
-        }
-
         public void UsePotion_PotionAvailable()
         {
             GameState gst = new GameState(1);
@@ -117,23 +109,28 @@ namespace TestProject
             Assert.AreEqual(numItems, numItems2 + 1);
         }
 
+        [TestMethod]
         public void UsePotion_NoPotion()
         {
-            GameState gst = new GameState(1);
-            Player p = gst.GetPlayer();
+            Player p = new Player();
+            int diff = 1;
+            int dsize = 3;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[2] = new Node(2);
 
-            int numItems = p.getItems().Count;
+            Dungeon d = new Dungeon(ns, diff, dsize, 1);
+            GameState gst = new GameState(d, p, true);
 
+            gst.SetPosition(0);
+
+            p.set_HP(10);
             gst.UsePotion();
-            int numItems2 = p.getItems().Count;
 
-            bool expected = true;
-            bool numItemsCheck = numItems == numItems2;
-            bool actual = numItemsCheck && numItems == 0;
-
-            Assert.AreEqual(expected, actual);
+            Assert.IsTrue(p.GetHP() == 10);
         }
 
+        [TestMethod]
         public void UsePotion_Player_LowHealth()
         {
             GameState gst = new GameState(1);
@@ -153,6 +150,8 @@ namespace TestProject
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
         public void UsePotion_Player_FullHealth()
         {
             GameState gst = new GameState(1);
@@ -174,29 +173,20 @@ namespace TestProject
         }
 
         [TestMethod]
-        public void UseScroll()
-        {
-            UseScroll_NoScroll();
-            UseScroll_ScrollAvailable();
-        }
-
         public void UseScroll_NoScroll()
         {
-            GameState gst = new GameState(1);
-            Player p = gst.GetPlayer();
+            Player p = new Player();
+            Dungeon d = new Dungeon(5);
+            GameState gst = new GameState(d, p, true);
 
-            int numItems = p.getItems().Count;
 
             gst.UseScroll();
             int numItems2 = p.getItems().Count;
 
-            bool expected = true;
-            bool numItemsCheck = numItems == numItems2;
-            bool actual = numItemsCheck && numItems == 0;
-
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(0, numItems2);
         }
 
+        [TestMethod]
         public void UseScroll_ScrollAvailable()
         {
             Oracle.DETERM = true;
@@ -204,13 +194,17 @@ namespace TestProject
             Player p = gst.GetPlayer();
             p.add(new Health_Potion());
             p.add(new Magic_Scroll());
+            p.add(new Magic_Scroll());
             
             int numItems = p.getItems().Count;
 
             gst.UseScroll();
-            int numItems2 = p.getItems().Count;
+            Oracle.DETERMF = true;
+            gst.UseScroll();
+            gst.UseScroll();
 
-            Assert.AreEqual(numItems, numItems2+1);
+            int numItems2 = p.getItems().Count;
+            Assert.AreEqual(1, numItems2);
         }
 
         [TestMethod]
@@ -461,29 +455,63 @@ namespace TestProject
 
         private void Fight_PackAlive_Retreat()
         {
-            GameState gst = new GameState(1);
+            GameState gst = new GameState(3);
             Player p = gst.GetPlayer();
 
             int position = 2;
             Node n = new Node(position);
             Dungeon d = gst.GetDungeon();
             d.nodes[position] = n;
+            d.nodes[3] = new Node(3);
+            d.nodes[3].AddNeighbour(2); d.nodes[2].AddNeighbour(3);
 
             Stack<Monster> monsters = new Stack<Monster>();
             Monster monster = new Monster();
-            monster.gets_hit(13);
             monsters.Push(monster);
 
-            d.nodes[position].pushPack(new Pack(monsters));
+            Pack pak = new Pack(monsters);
+            pak.hit_pack(13);
+            d.nodes[position].pushPack(pak);
 
             p.set_position(position);
 
-            gst = new GameState(d, p);
+            gst = new GameState(d, p, true);
 
             bool expected = true;
             bool actual = gst.Fight();
 
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void RetFighting()
+        {
+            int diff = 3;
+            int dsize = 7;
+            Node[] ns = new Node[dsize];
+            ns[1] = new Node(1);
+            ns[1].AddPack();
+            ns[1].AddPack();
+            ns[2] = new Node(2);
+
+            ns[3] = new Node(3);
+
+            ns[1].AddNeighbour(2);
+            ns[2].AddNeighbour(1);
+            ns[1].AddNeighbour(3);
+            ns[3].AddNeighbour(1);
+
+            Pack p = ns[1].popPack();
+            p.hit_pack(45);
+            p.hit_pack(45);
+            p.hit_pack(3);
+            ns[1].pushPack(p);
+            Dungeon d = new Dungeon(ns, diff, dsize, 2);
+            Player pl = new Player();
+            pl.set_position(1);
+
+            GameState gst = new GameState(d, pl, true);
+            Assert.IsTrue(gst.Fight());
         }
 
         private void Fight_PackAlive_NoRetreat()

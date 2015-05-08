@@ -59,6 +59,7 @@ namespace TestProject
         public void TestDetermDecide()
         {
             Oracle.DETERM = true;
+            Oracle.DETERMF = false;
             Assert.IsTrue(Oracle.Decide());
         }
 

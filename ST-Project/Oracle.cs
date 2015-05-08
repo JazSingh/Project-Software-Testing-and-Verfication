@@ -4,12 +4,13 @@ namespace ST_Project
 {
     public static class Oracle
     {
-        public static bool DETERM = true;
+        public static bool DETERM = false;
+        public static bool DETERMF = false;
         //Pre: -
         //Post: A random true or false output.
         public static bool Decide()
         {
-            if (DETERM) return true;
+            if (DETERM) return !DETERMF;
             Random r = new Random(Guid.NewGuid().GetHashCode());
             return r.Next(0, 2) == 1;
         }

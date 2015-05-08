@@ -212,7 +212,6 @@ namespace ST_Project
                     UpdateTime();
                     break;
                 }
-
             }
         }
 
@@ -241,7 +240,7 @@ namespace ST_Project
                     PackMoves();
                     p.use(d, items[t]); items.Remove(items[t]);
                     UpdateTime();
-                    if (Oracle.Decide() && Oracle.Decide())
+                    if (Oracle.Decide())
                     {
                         Console.WriteLine("KABOOOOM");
                         int np = d.Destroy(d.nodes[p.get_position()]);
