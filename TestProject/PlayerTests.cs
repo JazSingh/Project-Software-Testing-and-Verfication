@@ -169,5 +169,30 @@ namespace TestProject
             string s = "stinrdnka";
             Assert.AreEqual(true, p.load(s));
         }
+
+        [TestMethod]
+        public void ScrollActive()
+        {
+            Player p = new Player();
+            Dungeon d = new Dungeon(5);
+            Pack pa = new Pack(0);
+            p.use(d, new Magic_Scroll());
+
+            p.doCombatRound(d, pa);
+            //Assert.IsTrue(p.getCurrentItem().type == ItemType.MagicScroll);
+            Assert.AreEqual(pa.GetPackHealth(), 30);
+        }
+
+        [TestMethod]
+        public void CrystalActive()
+        {
+            Player p = new Player();
+            Dungeon d = new Dungeon(5);
+            Pack pa = new Pack(0);
+            p.use(d, new Time_Crystal());
+
+            p.doCombatRound(d, pa);
+            Assert.AreEqual(pa.GetPackHealth(), 21);
+        }
     }
 }

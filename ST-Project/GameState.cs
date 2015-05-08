@@ -233,6 +233,11 @@ namespace ST_Project
                 {
                     p.use(d, items[t]); items.Remove(items[t]);
                     UpdateTime();
+                    if (Oracle.Decide() && Oracle.Decide())
+                    {
+                        int np = d.Destroy(d.nodes[p.get_position()]);
+                        SetPosition(np);
+                    }
                     break;
                 }
             }

@@ -4,7 +4,7 @@ namespace ST_Project
 {
     public static class Oracle
     {
-        public static bool DETERM = true;
+        public static bool DETERM = false;
         //Pre: -
         //Post: A random true or false output.
         public static bool Decide()
