@@ -10,13 +10,11 @@ namespace ST_Project
     {
         Dungeon d;
         Player p;
-        int time;
 
         public GameState(int i)
         {
             d = new Dungeon(i);
             p = new Player();
-            time = 0;
             d.SpawnMonsters();
             DropItems();
             Console.WriteLine(d.ToString());
@@ -118,10 +116,6 @@ namespace ST_Project
             return false;
         }
 
-        public int getTime()
-        {
-            return time;
-        }
 
         private void DropItems()
         {
@@ -247,7 +241,6 @@ namespace ST_Project
 
         public void UpdateTime()
         {
-            time++;
             p.UpdateCurrentItem();
             PackMoves();
         }

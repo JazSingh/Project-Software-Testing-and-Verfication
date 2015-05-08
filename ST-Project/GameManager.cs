@@ -10,8 +10,8 @@ namespace ST_Project
 
     public class GameManager
     {
-        public GameState state;
-        public Gamescherm gs;
+        private GameState state;
+        private Gamescherm gs;
         public Hoofdscherm hs;
 
         public GameManager()
@@ -43,7 +43,7 @@ namespace ST_Project
 
             if (i != newNode)
             {
-                int[] buren = state.GetDungeon().GetNode(i).getadj();
+                int[] buren = state.GetDungeon().GetNode(i).get_Adj();
                 for (int s = 0; s < buren.Length; s++)
                 {
                     if (buren[s] == newNode)
