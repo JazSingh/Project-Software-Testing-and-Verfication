@@ -70,6 +70,11 @@ namespace ST_Project
             return p.GetHP() + d.SumHealPots();
         }
 
+        public int SumPlayerPotsHPTest()
+        {
+            return SumPlayerPotsHP();
+        }
+
         public void NextLevel()
         {
             d = new Dungeon(d.difficulty == 5 ? 5 : d.difficulty + 1);
@@ -86,6 +91,11 @@ namespace ST_Project
                 dropped = true;
             }
             return dropped;
+        }
+
+        public bool DropHealthPotTest()
+        {
+            return DropHealthPot();
         }
 
         public void SetPosition(int i)

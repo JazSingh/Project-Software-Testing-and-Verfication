@@ -18,6 +18,7 @@ namespace TestProject
             Dungeon d2 = gst.GetDungeon();
             bool expected = true;
             bool actual = true;
+
             if (d.GetHashCode() != d2.GetHashCode())
                 actual = false;
 
@@ -34,6 +35,7 @@ namespace TestProject
             Player p2 = gst.GetPlayer();
             bool expected = true;
             bool actual = true;
+
             if (p.GetHashCode() != p2.GetHashCode())
                 actual = false;
 
@@ -297,8 +299,7 @@ namespace TestProject
 
             int interval = d.interval;
 
-            if (d.nodes[2 * interval] == null)
-                d.nodes[2 * interval] = new Node(2*interval);
+            d.nodes[2 * interval] = new Node(2*interval);
 
             p.set_position(2 * interval);
 
@@ -321,8 +322,7 @@ namespace TestProject
 
             int interval = d.interval;
 
-            if (d.nodes[2 * interval + 1] == null)
-                d.nodes[2 * interval + 1] = new Node(2 * interval + 1);
+            d.nodes[2 * interval + 1] = new Node(2 * interval + 1);
 
             p.set_position(2 * interval + 1);
 
@@ -349,11 +349,10 @@ namespace TestProject
             Dungeon d = gst.GetDungeon();
             Player p = gst.GetPlayer();
             int position = 2;
-
-            if (d.nodes[position] == null)
-                d.nodes[position] = new Node(position);
-            if (!d.nodes[position].hasPack())
-                d.nodes[position].pushPack(new Pack(2));
+            
+            d.nodes[position] = new Node(position);
+            
+            d.nodes[position].pushPack(new Pack(2));
 
             p.set_position(position);
 
@@ -368,12 +367,9 @@ namespace TestProject
             Dungeon d = gst.GetDungeon();
             Player p = gst.GetPlayer();
             int position = 2;
-
-            if (d.nodes[position] == null)
-                d.nodes[position] = new Node(position);
-            while (d.nodes[position].hasPack())
-                d.nodes[position].popPack();
-
+            
+            d.nodes[position] = new Node(position);
+            
             p.set_position(position);
 
             bool expected = false;
@@ -532,6 +528,125 @@ namespace TestProject
 
             bool expected = true;
             bool actual = gst.Fight();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void CheckItemsFound()
+        {
+            CheckItemsFound_ZeroItems();
+            CheckItemsFound_Items();
+        }
+
+        private void CheckItemsFound_ZeroItems()
+        {
+            GameState gst = new GameState(1);
+            Player p = gst.GetPlayer();
+            Dungeon d = gst.GetDungeon();
+
+            int position = 2;
+            Node n = new Node(2);
+            d.nodes[position] = n;
+            p.set_position(position);
+
+            gst = new GameState(d, p);
+
+            int items = gst.GetDungeon().nodes[position].get_Items().Count;
+            gst.CheckItemsFound();
+            int items2 = gst.GetDungeon().nodes[position].get_Items().Count;
+
+            bool expected = true;
+            bool actual = items == items2;
+
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        private void CheckItemsFound_Items()
+        {
+            GameState gst = new GameState(1);
+            Player p = gst.GetPlayer();
+            Dungeon d = gst.GetDungeon();
+
+            int position = 2;
+            Node n = new Node(2);
+            n.Add_Item(new Magic_Scroll());
+            n.Add_Item(new Health_Potion());
+            n.Add_Item(new Time_Crystal());
+            d.nodes[position] = n;
+            p.set_position(position);
+
+            gst = new GameState(d, p);
+
+            int items = gst.GetDungeon().nodes[position].get_Items().Count;
+            gst.CheckItemsFound();
+            int items2 = gst.GetDungeon().nodes[position].get_Items().Count;
+
+            bool expected = false;
+            bool actual = items == items2;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void SumPlayerPotsHP()
+        {
+            SumPlayerPotsHP_Test(0, false);
+            SumPlayerPotsHP_Test(250, false);
+            SumPlayerPotsHP_Test(0, true);
+            SumPlayerPotsHP_Test(250, true);
+        }
+
+        public void SumPlayerPotsHP_Test(int php, bool b)
+        {
+            Dungeon d = new Dungeon(1);
+            for (int i = 0; i < d.nodes.Length; i++)
+            { 
+                d.nodes[i] = new Node(i);
+                if(b)
+                    d.nodes[i].Add_Item(new Health_Potion());
+            }
+            Player p = new Player(250, php, 8,0,null, new List<Item>());
+
+            GameState gst = new GameState(d,p);
+
+            int hp = gst.SumPlayerPotsHPTest();
+            int playerHP = p.GetHP();
+            int dungeonHP = d.SumHealPots();
+            bool expected = true;
+            bool actual = hp == playerHP + dungeonHP && hp >= playerHP && hp >= dungeonHP;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void DropHealthPot()
+        {
+            DropHealthPot_FirstArgument_True();
+            DropHealthPot_FirstArgument_False();
+        }
+
+        private void DropHealthPot_FirstArgument_True()
+        {
+            Player p = new Player(250, 10, 8, 0, null, new List<Item>());
+            Dungeon d = new Dungeon(1);
+            for (int i = 0; i < d.nodes.Length; i++)
+                d.nodes[i] = new Node(i);
+
+            GameState gst = new GameState(d, p);
+            bool expected = true;
+            bool actual = gst.DropHealthPotTest();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        private void DropHealthPot_FirstArgument_False()
+        {
+            GameState gst = new GameState(5);
+            bool expected = false;
+            bool actual = gst.DropHealthPotTest();
 
             Assert.AreEqual(expected, actual);
         }
