@@ -95,14 +95,7 @@ namespace ST_Project
 
         public void pushPack(Pack p)
         {
-            if (packs.Count > 0) // set new pack on snd place
-            {
-                Pack z = packs.Pop();
-                packs.Push(p);
-                packs.Push(z);
-            }
-            else
-                packs.Push(p);
+            packs.Push(p); // else set new pack on fst place
         }
 
         public int TotalMonsters()
