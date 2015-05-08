@@ -182,7 +182,7 @@ namespace ST_Project
 
         public void MovePacks(int player)
         {
-            for(int t =0;t<nodes.Length;t++)
+            for (int t = 0; t < nodes.Length; t++)
             {
                 Node n = GetNode(t);
                 if (n != null && t != player)
@@ -190,9 +190,9 @@ namespace ST_Project
                     if (n.hasPack())
                     {
                         Pack p = nodes[t].popPack();
-                        int[] adj = n.GetNeighbours();
-                        for (int x = 0;x<adj.Length;x++)
+                        if (!p.is_Moved())
                         {
+                            int[] adj = n.GetNeighbours();
                             Random r = new Random();
                             int z = adj[r.Next(0, adj.Length)];
                             if (z != nodes.Length - 1) // != end-node
@@ -201,13 +201,36 @@ namespace ST_Project
                                 int total = zz.TotalMonsters();
                                 if (total + p.GetNumMonsters() <= zz.maxCap())
                                 {
-                                    nodes[t].pushPack(p);
-                                    Console.WriteLine("Pack moves naar node "+z);
+                                    p.Moved(true);
+                                    nodes[z].pushPack(p);
+                                    Console.WriteLine("Pack moves naar node " + z);
                                 }
+                                else
+                                    nodes[t].pushPack(p);
                             }
-                            
                         }
+                        else
+                            nodes[t].pushPack(p);
                     }
+                }
+            }
+
+            for (int t =0;t<nodes.Length;t++) // set for every pack isMoved to false
+            {
+                if (nodes[t] != null)
+                {
+                    Stack<Pack> packs = new Stack<Pack>();
+                    while (nodes[t].hasPack())
+                    {
+                        Pack p = nodes[t].popPack();
+                        p.Moved(false);
+                        packs.Push(p);
+                    }
+                    while(packs.Count > 0)
+                    {
+                        nodes[t].pushPack(packs.Pop());
+                    }
+
                 }
             }
         }
