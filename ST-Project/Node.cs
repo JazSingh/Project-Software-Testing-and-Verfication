@@ -95,7 +95,7 @@ namespace ST_Project
 
         public void pushPack(Pack p)
         {
-            packs.Push(p);
+            packs.Push(p); // else set new pack on fst place
         }
 
         public int TotalMonsters()
