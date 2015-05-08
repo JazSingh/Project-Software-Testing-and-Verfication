@@ -633,7 +633,10 @@ namespace TestProject
             Player p = new Player(250, 10, 8, 0, null, new List<Item>());
             Dungeon d = new Dungeon(1);
             for (int i = 0; i < d.nodes.Length; i++)
+            {
                 d.nodes[i] = new Node(i);
+                d.nodes[i].AddPack();
+            }
 
             GameState gst = new GameState(d, p);
             bool expected = true;
