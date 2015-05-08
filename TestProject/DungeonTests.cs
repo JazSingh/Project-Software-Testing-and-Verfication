@@ -526,9 +526,12 @@ namespace TestProject
             for (int i = 4; i <= 100; i++)
             {
                 Dungeon d = new Dungeon(i);
-                d.Destroy(d.nodes[d.interval * (i / 2)]);
+                int result = d.Destroy(d.nodes[d.interval * (i / 2)]);
                 for (int j = 0; j <= d.interval * (i / 2); j++)
+                { 
                     Assert.IsNull(d.nodes[j]);
+                }
+                Assert.AreNotSame(-1, result);
             }
         }
 

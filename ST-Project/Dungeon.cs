@@ -295,9 +295,12 @@ namespace ST_Project
             return path;
         }
 
-        public void Destroy(Node u)
+        public int Destroy(Node u)
         {
             int[] neighs = u.GetNeighbours();
+            int[] backup = new int[neighs.Length];
+            neighs.CopyTo(backup, 0);
+
             foreach (int neigh in neighs)
                 nodes[neigh].RemoveNeighbour(u.ID);
             nodes[u.ID] = null;
@@ -308,11 +311,22 @@ namespace ST_Project
             for (int i = 0; i < dungeonSize; i++)
                 if (!reachable[i])
                     nodes[i] = null;
+
+            int newpos = -1;
+            //newpos = first reachable neighbour
+            foreach (int mn in backup)
+            {
+                if (reachable[mn]) newpos =  mn;
+            }
+
+            return newpos;
         }
 
         public void ReachableNodes(Node u, ref bool[] visited)
         {
             visited[u.ID] = true;
+            int[] nbs = u.GetNeighbours();
+            if (nbs == null) return;
             foreach (int v in u.GetNeighbours())
                 if (!visited[v]) ReachableNodes(nodes[v], ref visited);
         }

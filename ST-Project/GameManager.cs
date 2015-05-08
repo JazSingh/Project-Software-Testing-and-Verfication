@@ -195,6 +195,13 @@ namespace ST_Project
         public void UseScroll()
         {
             state.UseScroll();
+            if (Oracle.Decide() && Oracle.Decide())
+            { 
+                int np = state.GetDungeon().Destroy(state.GetDungeon().nodes[state.GetPlayer().get_position()]);
+                state.SetPosition(np);
+                if (np == state.GetDungeon().dungeonSize - 1) NotifyFinished();
+                gs.Invalidate();
+            }
             state.PackMoves();
         }
     }
