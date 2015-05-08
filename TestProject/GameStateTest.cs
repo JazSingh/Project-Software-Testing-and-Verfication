@@ -199,6 +199,7 @@ namespace TestProject
 
         public void UseScroll_ScrollAvailable()
         {
+            Oracle.DETERM = true;
             GameState gst = new GameState(1);
             Player p = gst.GetPlayer();
             p.add(new Health_Potion());
@@ -542,52 +543,49 @@ namespace TestProject
 
         private void CheckItemsFound_ZeroItems()
         {
-            GameState gst = new GameState(1);
-            Player p = gst.GetPlayer();
-            Dungeon d = gst.GetDungeon();
+            Player p = new Player();
+            int diff = 1;
+            int dsize = 3;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[2] = new Node(2);
 
-            int position = 2;
-            Node n = new Node(2);
-            d.nodes[position] = n;
-            p.set_position(position);
+            Dungeon d = new Dungeon(ns, diff, dsize, 1);
+            GameState gst = new GameState(d,p, true);
+            int items1 = gst.GetDungeon().nodes[0].get_Items().Count;
 
-            gst = new GameState(d, p);
-
-            int items = gst.GetDungeon().nodes[position].get_Items().Count;
+            gst.SetPosition(0);
             gst.CheckItemsFound();
-            int items2 = gst.GetDungeon().nodes[position].get_Items().Count;
 
-            bool expected = true;
-            bool actual = items == items2;
+            int items = gst.GetDungeon().nodes[0].get_Items().Count;
 
-            Assert.AreEqual(expected, actual);
-
+            Assert.AreEqual(0, items1);
+            Assert.AreEqual(items1, items);
         }
 
         private void CheckItemsFound_Items()
         {
-            GameState gst = new GameState(1);
-            Player p = gst.GetPlayer();
-            Dungeon d = gst.GetDungeon();
+            Player p = new Player();
+            int diff = 1;
+            int dsize = 3;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[2] = new Node(2);
 
-            int position = 2;
-            Node n = new Node(2);
-            n.Add_Item(new Magic_Scroll());
-            n.Add_Item(new Health_Potion());
-            n.Add_Item(new Time_Crystal());
-            d.nodes[position] = n;
-            p.set_position(position);
+            Dungeon d = new Dungeon(ns, diff, dsize, 1);
+            GameState gst = new GameState(d, p, true);
 
-            gst = new GameState(d, p);
+            gst.SetPosition(0);
+            ns[0].Add_Item(new Health_Potion());
+            ns[0].Add_Item(new Magic_Scroll());
+            ns[0].Add_Item(new Time_Crystal());
 
-            int items = gst.GetDungeon().nodes[position].get_Items().Count;
+            int items1 = gst.GetDungeon().nodes[0].get_Items().Count;
             gst.CheckItemsFound();
-            int items2 = gst.GetDungeon().nodes[position].get_Items().Count;
+            int items = gst.GetDungeon().nodes[0].get_Items().Count;
 
-            bool expected = false;
-            bool actual = items == items2;
-
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(3, items1);
+            Assert.AreEqual(0, items);
         }
 
         [TestMethod]
