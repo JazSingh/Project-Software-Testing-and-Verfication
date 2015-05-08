@@ -530,7 +530,7 @@ namespace TestProject
         [TestMethod]
         public void SumMonstHealthDamaged()
         {
-            Dungeon d = new Dungeon(i);
+            Dungeon d = new Dungeon(10);
             int exp = d.SumMonsterHealth();
             int act = 0;
             for (int j = 0; j < d.dungeonSize; j++)
