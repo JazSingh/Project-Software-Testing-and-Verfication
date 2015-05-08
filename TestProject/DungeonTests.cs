@@ -200,7 +200,7 @@ namespace TestProject
             Dungeon d = new Dungeon(ns, diff, dsize, 2);
             d.ConnectParition(1, 2);
 
-            Assert.IsTrue(d.nodes[2].NumNeighbours == 1);
+            Assert.IsTrue(d.nodes[4].NumNeighbours == 1);
         }
 
         [TestMethod]
