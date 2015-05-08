@@ -52,8 +52,9 @@ namespace TestProject
             GameState gst = new GameState(d, p);
             gst.NextLevel();
             Dungeon d2 = gst.GetDungeon();
+            
             bool expected = false;
-            bool actual = d.GetHashCode() == d2.GetHashCode();
+            bool actual = d.GetHashCode() == d2.GetHashCode() && p.get_position() == 0;
 
             Assert.AreEqual(expected, actual);
         }
@@ -66,23 +67,42 @@ namespace TestProject
             gst.NextLevel();
             Dungeon d2 = gst.GetDungeon();
             bool expected = false;
-            bool actual = d.GetHashCode() == d2.GetHashCode();
+            bool actual = d.GetHashCode() == d2.GetHashCode() && p.get_position() == 0;
 
             Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
-
         public void PackMoves()
         {
             Dungeon d = new Dungeon(1);
             Player p = new Player();
             GameState gst = new GameState(d, p);
-            int hash = gst.GetHashCode();
+
+            int hashBefore = gst.GetDungeon().nodes.GetHashCode();
+
             gst.PackMoves();
 
             bool expected = true;
-            bool actual = hash == gst.GetHashCode();
+            bool actual = hashBefore != gst.GetDungeon().nodes.GetHashCode();
+            
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UpdateTime()
+        {
+            Dungeon d = new Dungeon(1);
+            Player p = new Player();
+            GameState gst = new GameState(d, p);
+
+            int timeBefore = gst.getTime();
+
+            gst.UpdateTime();
+            
+
+            bool expected = false;
+            bool actual = gst.getTime() == timeBefore;
 
             Assert.AreEqual(expected, actual);
         }
