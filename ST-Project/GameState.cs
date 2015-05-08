@@ -10,13 +10,11 @@ namespace ST_Project
     {
         Dungeon d;
         Player p;
-        int time;
 
         public GameState(int i)
         {
             d = new Dungeon(i);
             p = new Player();
-            time = 0;
             d.SpawnMonsters();
             DropItems();
             Console.WriteLine(d.ToString());
@@ -93,11 +91,12 @@ namespace ST_Project
         public void SetPosition(int i)
         {
             p.set_position(i);
-            CheckItemsFound(i);
+            CheckItemsFound();
         }
 
-        private void CheckItemsFound(int i)
+        public void CheckItemsFound()
         {
+            int i = p.get_position();
             List<Item> items = d.GetNode(i).get_Items();
             foreach(Item j in items)
             {
@@ -117,10 +116,6 @@ namespace ST_Project
             return false;
         }
 
-        public int getTime()
-        {
-            return time;
-        }
 
         private void DropItems()
         {
@@ -143,16 +138,15 @@ namespace ST_Project
         public bool Fight()
         {
             int pos = p.get_position();
-            Node node = d.GetNode(pos);
-            Pack pack = node.popPack();
+            Pack pack = d.nodes[pos].popPack();
             
             Console.WriteLine("before combat-round: "+pack.GetNumMonsters());
 
-            p.doCombatRound(GetDungeon(), pack);
+            p.doCombatRound(d, pack);
 
             if (!pack.isDead())
             { 
-                node.pushPack(pack);
+                d.nodes[pos].pushPack(pack);
                 if (CheckRetreat())
                 {
                     return true;
@@ -245,10 +239,15 @@ namespace ST_Project
             }
         }
 
-        internal void UpdateTime()
+        public void UpdateTime()
         {
-            time++;
             p.UpdateCurrentItem();
+            PackMoves();
+        }
+
+        public void PackMoves()
+        {
+            d.MovePacks(p.get_position());
         }
     }
 }

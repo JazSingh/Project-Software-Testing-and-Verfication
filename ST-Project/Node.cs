@@ -80,7 +80,9 @@ namespace ST_Project
 
         public bool AddPack()
         {
-            Pack p = new Pack();
+            Random r = new Random();
+            int val = r.Next(0, 19);
+            Pack p = new Pack(val);
             if (TotalMonsters() + p.GetNumMonsters() > MaxCapacity) return false;
             packs.Push(p);
             return true;
@@ -93,7 +95,7 @@ namespace ST_Project
 
         public void pushPack(Pack p)
         {
-            packs.Push(p);
+            packs.Push(p); // else set new pack on fst place
         }
 
         public int TotalMonsters()
@@ -139,7 +141,7 @@ namespace ST_Project
             if (index == -1) return false;
 
             adj[index] = -1;
-            for (int i = index; i < numNeighbours; i++)
+            for (int i = index; i < numNeighbours - 1; i++)
                 adj[i] = adj[i + 1];
             numNeighbours--;
             return true;
@@ -196,11 +198,6 @@ namespace ST_Project
             return s;
         }
 
-        public int[] getadj()
-        {
-            return adj;
-        }
-
         public bool hasPack()
         {
             if (packs.Count > 0)
@@ -214,6 +211,11 @@ namespace ST_Project
                 return true;
 
             return false;
+        }
+
+        public int maxCap()
+        {
+            return MaxCapacity;
         }
     }
 }

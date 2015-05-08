@@ -10,8 +10,8 @@ namespace ST_Project
 
     public class GameManager
     {
-        public GameState state;
-        public Gamescherm gs;
+        private GameState state;
+        private Gamescherm gs;
         public Hoofdscherm hs;
 
         public GameManager()
@@ -43,7 +43,7 @@ namespace ST_Project
 
             if (i != newNode)
             {
-                int[] buren = state.GetDungeon().nodes[i].getadj();
+                int[] buren = state.GetDungeon().GetNode(i).get_Adj();
                 for (int s = 0; s < buren.Length; s++)
                 {
                     if (buren[s] == newNode)
@@ -54,6 +54,7 @@ namespace ST_Project
                 {
                     state.SetPosition(newNode);
                     state.UpdateTime();
+                    state.PackMoves();
                 }
             }
             gs.Invalidate();
@@ -61,10 +62,12 @@ namespace ST_Project
 
         public bool Fight()
         {
+            state.PackMoves();
             if (state.Fight())
             {
                 if (state.PlayerDead())
                     gs.GameOver();
+                
                 return true;
             }
             if (state.PlayerDead())
@@ -180,16 +183,19 @@ namespace ST_Project
         public void UsePotion()
         {
             state.UsePotion();
+            state.PackMoves();
         }
 
         public void UseCrystal()
         {
             state.UseCrystal();
+            state.PackMoves();
         }
 
         public void UseScroll()
         {
             state.UseScroll();
+            state.PackMoves();
         }
     }
 }

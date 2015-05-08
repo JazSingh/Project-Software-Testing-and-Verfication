@@ -226,12 +226,14 @@ namespace ST_Project
                 {
                     Console.WriteLine("Verplaats speler naar buur " + buren[t]);
                     parent.PlayerMoved(buren[t]);
+                    
                     if (parent.GetState().CheckFinished())
                     {
                         parent.NotifyFinished();
                     }
                 }
             }
+            Invalidate();
         }
 
         private void Gamescherm_Load(object sender, EventArgs e)

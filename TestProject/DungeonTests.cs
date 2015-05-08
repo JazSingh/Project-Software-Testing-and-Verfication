@@ -1,0 +1,580 @@
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ST_Project;
+using System.Collections.Generic;
+
+namespace TestProject
+{
+    [TestClass]
+    public class DungeonTests
+    {
+        [TestMethod]
+        public void BasicProperties()
+        {
+            Dungeon d = new Dungeon(5);
+            Assert.IsNotNull(d.nodes);
+            Assert.IsTrue(d.difficulty > 0);
+            Assert.IsTrue(d.interval > 0);
+            Assert.IsTrue(d.dungeonSize > 0);
+            Assert.IsTrue(d.dungeonSize > d.interval);
+            Assert.IsTrue(CountNonNullNodes(d) >= d.difficulty + 2);
+        }
+
+        [TestMethod]
+        public void CreateNodes()
+        {
+            for (int i = 1; i <= 100; i++)
+            {
+                Dungeon d = new Dungeon(i, false);
+                d.nodes[0] = new Node(0);
+                d.nodes[d.dungeonSize - 1] = new Node(d.dungeonSize - 1);
+
+                d.CreateNodes();
+                Assert.IsTrue(CountNonNullNodes(d) >= i + 2);
+            }
+        }
+
+        [TestMethod]
+        public void CreateSTreeTwoNodes()
+        {
+            int diff = 5;
+            int dsize = 5 * 5 + 5 + 2;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[1] = new Node(1);
+            ns[dsize - 1] = new Node(dsize - 1);
+            Dungeon d = new Dungeon(ns, 5, dsize, diff);
+            d.CreateSpanningTree(0);
+            Assert.IsTrue(d.nodes[0].IsNeighbour(1) && d.nodes[1].IsNeighbour(0));
+        }
+
+        [TestMethod]
+        public void CreateSTree()
+        {
+            int diff = 5;
+            int dsize = 5 * 5 + 5 + 2;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[1] = new Node(1);
+            ns[2] = new Node(2);
+            ns[3] = new Node(3);
+            ns[4] = new Node(4);
+            ns[dsize - 1] = new Node(dsize - 1);
+            Dungeon d = new Dungeon(ns, 5, dsize, diff);
+            d.CreateSpanningTree(0);
+            for (int i = 0; i < 5; i++)
+            {
+                Assert.IsTrue(d.nodes[i].NumNeighbours > 0);
+            }
+
+            Assert.IsTrue(d.nodes[dsize - 1].NumNeighbours == 0);
+        }
+
+        [TestMethod]
+        public void CreateSTreeSingle()
+        {
+            int diff = 5;
+            int dsize = 5 * 5 + 5 + 2;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+
+            Dungeon d = new Dungeon(ns, 5, dsize, diff);
+            d.CreateSpanningTree(0);
+
+            Assert.IsTrue(d.nodes[0].NumNeighbours == 0);
+        }
+
+        [TestMethod]
+        public void FixLooseEndsNoLooseEnd()
+        {
+            int diff = 1;
+            int dsize = 1 * 1 + 1 + 2;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[1] = new Node(1);
+            ns[2] = new Node(2);
+            ns[3] = new Node(3);
+
+            ns[0].AddNeighbour(1); ns[1].AddNeighbour(0);
+            ns[1].AddNeighbour(2); ns[2].AddNeighbour(1);
+            ns[2].AddNeighbour(3); ns[3].AddNeighbour(2);
+
+            Dungeon d = new Dungeon(ns, 2, dsize, diff);
+            d.FixLooseEnds();
+
+            Assert.IsTrue(ns[0].NumNeighbours == 1);
+            Assert.IsTrue(ns[1].NumNeighbours == 2);
+            Assert.IsTrue(ns[2].NumNeighbours == 2);
+            Assert.IsTrue(ns[3].NumNeighbours == 1);
+        }
+
+        [TestMethod]
+        public void FixLooseEndsSingle()
+        {
+            int diff = 1;
+            int dsize = 7;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[3] = new Node(3);
+            ns[4] = new Node(4);
+            ns[5] = new Node(5);
+            ns[6] = new Node(6);
+
+            ns[0].AddNeighbour(3); ns[3].AddNeighbour(0);
+            ns[3].AddNeighbour(4); ns[4].AddNeighbour(3);
+            ns[4].AddNeighbour(6); ns[6].AddNeighbour(4);
+            ns[6].AddNeighbour(5); ns[5].AddNeighbour(6);
+
+            Dungeon d = new Dungeon(ns, diff, dsize, 3);
+            Assert.IsTrue(ns[5].NumNeighbours == 1);
+
+            d.FixLooseEnds();
+
+            Assert.IsTrue(ns[5].NumNeighbours == 2);
+        }
+
+        [TestMethod]
+        public void FixLooseEndsMultiple()
+        {
+            int diff = 1;
+            int dsize = 9;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[7] = new Node(7);
+            ns[4] = new Node(4);
+            ns[5] = new Node(5);
+            ns[6] = new Node(6);
+            ns[8] = new Node(8);
+
+
+            ns[0].AddNeighbour(4); ns[4].AddNeighbour(0);
+            ns[4].AddNeighbour(5); ns[5].AddNeighbour(4);
+            ns[5].AddNeighbour(8); ns[8].AddNeighbour(5);
+            ns[6].AddNeighbour(8); ns[8].AddNeighbour(6);
+            ns[7].AddNeighbour(8); ns[8].AddNeighbour(7);
+
+            Dungeon d = new Dungeon(ns, diff, dsize, 4);
+            Assert.IsTrue(ns[6].NumNeighbours == 1);
+            Assert.IsTrue(ns[7].NumNeighbours == 1);
+
+
+            d.FixLooseEnds();
+
+            Assert.IsTrue(ns[6].NumNeighbours == 2);
+            Assert.IsTrue(ns[7].NumNeighbours == 2);
+
+        }
+
+        [TestMethod]
+        public void ConnectPartitionTwoBridgesOnly()
+        {
+            int diff = 3;
+            int dsize = 4;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[1] = new Node(1);
+            ns[2] = new Node(2);
+            ns[3] = new Node(3);
+
+            Dungeon d = new Dungeon(ns, diff, dsize, 1);
+            d.ConnectParition(1, 2);
+
+            Assert.IsTrue(d.nodes[1].IsNeighbour(2));
+            Assert.IsTrue(d.nodes[2].IsNeighbour(1));
+        }
+
+        [TestMethod]
+        public void ConnectPartition()
+        {
+            int diff = 3;
+            int dsize = 7;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[6] = new Node(6);
+            ns[2] = new Node(2);
+            ns[3] = new Node(3);
+            ns[4] = new Node(4);
+
+            ns[2].AddNeighbour(3); ns[3].AddNeighbour(2);
+
+            Dungeon d = new Dungeon(ns, diff, dsize, 2);
+            d.ConnectParition(1, 2);
+
+            Assert.IsTrue(d.nodes[2].NumNeighbours == 1);
+        }
+
+        [TestMethod]
+        public void CheckRetreatYes()
+        {
+            int diff = 3;
+            int dsize = 7;
+            Node[] ns = new Node[dsize];
+            ns[1] = new Node(1);
+            ns[1].AddPack();
+            ns[1].AddPack();
+            ns[2] = new Node(2);
+
+            ns[3] = new Node(3);
+
+            ns[1].AddNeighbour(2);
+            ns[2].AddNeighbour(1);
+            ns[1].AddNeighbour(3);
+            ns[3].AddNeighbour(1);
+
+            Pack p = ns[1].popPack();
+            p.hit_pack(45);
+            p.hit_pack(45);
+            p.hit_pack(44);
+            ns[1].pushPack(p);
+            Dungeon d = new Dungeon(ns, diff, dsize, 2);
+
+            Assert.IsTrue(d.CheckRetreat(1));
+        }
+
+        [TestMethod]
+        public void CheckRetreatYesOneChoice()
+        {
+            int diff = 3;
+            int dsize = 7;
+            Node[] ns = new Node[dsize];
+            ns[1] = new Node(1);
+            ns[1].AddPack();
+            ns[1].AddPack();
+            ns[2] = new Node(2);
+
+            ns[1].AddNeighbour(2);
+            ns[2].AddNeighbour(1);
+
+            Pack p = ns[1].popPack();
+            p.hit_pack(45);
+            p.hit_pack(45);
+            p.hit_pack(44);
+            ns[1].pushPack(p);
+            Dungeon d = new Dungeon(ns, diff, dsize, 2);
+
+            Assert.IsTrue(d.CheckRetreat(1));
+        }
+
+        [TestMethod]
+        public void CheckRetreatNo()
+        {
+            int diff = 3;
+            int dsize = 7;
+            Node[] ns = new Node[dsize];
+            ns[1] = new Node(1);
+            ns[1].AddPack();
+            ns[1].AddPack();
+            Dungeon d = new Dungeon(ns, diff, dsize, 2);
+
+            Assert.IsFalse(d.CheckRetreat(1));
+        }
+
+        [TestMethod]
+        public void MovePacksToContested()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        public void MovePackToEmptyNode()
+        {
+            Assert.Fail();
+
+        }
+
+        [TestMethod]
+        public void MovePackMaxCap()
+        {
+            Assert.Fail();
+
+        }
+
+        [TestMethod]
+        public void MovePack()
+        {
+            Assert.Fail();
+
+        }
+
+        [TestMethod]
+        public void MovePackDamaged()
+        {
+            Assert.Fail();
+
+        }
+
+        [TestMethod]
+        public void AddEdgesSingleNode()
+        {
+            int diff = 3;
+            int dsize = 7;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            Dungeon d = new Dungeon(ns, diff, dsize, 2);
+            d.AddRandomEdges(0);
+            Assert.AreEqual(0, ns[0].NumNeighbours);
+        }
+
+        [TestMethod]
+        public void AddEdgesMultipleNodesNoNeigs()
+        {
+            int diff = 3;
+            int dsize = 12;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[1] = new Node(1);
+            ns[2] = new Node(2);
+            ns[3] = new Node(3);
+            Dungeon d = new Dungeon(ns, diff, dsize, 4);
+            d.AddRandomEdges(0);
+            for (int i = 0; i < 4; i++)
+            {
+                Assert.IsTrue(ns[i].NumNeighbours >= 0);
+            }
+        }
+
+        [TestMethod]
+        public void SPlength()
+        {
+            int diff = 1;
+            int dsize = 4;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[1] = new Node(1);
+            ns[2] = new Node(2);
+            ns[3] = new Node(3);
+
+            ns[0].AddNeighbour(1); ns[1].AddNeighbour(0);
+            ns[1].AddNeighbour(2); ns[2].AddNeighbour(1);
+            ns[2].AddNeighbour(3); ns[3].AddNeighbour(2);
+
+            Dungeon d = new Dungeon(ns, diff, dsize, 1);
+            Stack<Node> vs1 = d.ShortestPath(ns[0], ns[1]);
+            Stack<Node> vs2 = d.ShortestPath(ns[0], ns[2]);
+            Stack<Node> vs3 = d.ShortestPath(ns[0], ns[3]);
+
+            Assert.AreEqual(2, vs1.Count);
+            Assert.AreEqual(3, vs2.Count);
+            Assert.AreEqual(4, vs3.Count);
+        }
+
+        [TestMethod]
+        public void SPCycle()
+        {
+            int diff = 1;
+            int dsize = 5;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[1] = new Node(1);
+            ns[2] = new Node(2);
+            ns[3] = new Node(3);
+            ns[4] = new Node(4);
+
+            ns[0].AddNeighbour(1); ns[1].AddNeighbour(0);
+            ns[1].AddNeighbour(2); ns[2].AddNeighbour(1);
+            ns[2].AddNeighbour(3); ns[3].AddNeighbour(2);
+
+            ns[4].AddNeighbour(1); ns[1].AddNeighbour(4);
+            ns[4].AddNeighbour(2); ns[2].AddNeighbour(4);
+
+            Dungeon d = new Dungeon(ns, diff, dsize, 1);
+            Stack<Node> vs1 = d.ShortestPath(ns[0], ns[3]);
+            Assert.AreEqual(4, vs1.Count);
+        }
+
+        [TestMethod]
+        public void SP()
+        {
+            int diff = 1;
+            int dsize = 5;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[1] = new Node(1);
+            ns[2] = new Node(2);
+            ns[3] = new Node(3);
+            ns[4] = new Node(4);
+
+            ns[0].AddNeighbour(1); ns[1].AddNeighbour(0);
+            ns[1].AddNeighbour(2); ns[2].AddNeighbour(1);
+            ns[2].AddNeighbour(3); ns[3].AddNeighbour(2);
+
+            ns[4].AddNeighbour(0); ns[0].AddNeighbour(4);
+            ns[4].AddNeighbour(3); ns[3].AddNeighbour(4);
+
+            Dungeon d = new Dungeon(ns, diff, dsize, 1);
+            Stack<Node> vs1 = d.ShortestPath(ns[0], ns[3]);
+            Assert.AreEqual(3, vs1.Count);
+        }
+
+        [TestMethod]
+        public void AllReachable()
+        {
+            for (int i = 1; i <= 100; i++)
+            {
+                Dungeon d = new Dungeon(i);
+                int rnodes = CountNonNullNodes(d);
+                for (int j = 0; j < d.dungeonSize; j++)
+                    if (d.nodes[j] != null)
+                    {
+                        bool[] rs = new bool[d.dungeonSize];
+                        d.ReachableNodes(d.nodes[j], ref rs);
+                        Assert.AreEqual(rnodes, CountTrue(rs));
+                    }
+            }
+        }
+
+        [TestMethod]
+        public void DestroyImportant()
+        {
+            for (int i = 4; i <= 100; i++)
+            {
+                Dungeon d = new Dungeon(i);
+                d.Destroy(d.nodes[d.interval * (i / 2)]);
+                for (int j = 0; j <= d.interval * (i / 2); j++)
+                    Assert.IsNull(d.nodes[j]);
+            }
+        }
+
+        [TestMethod]
+        public void DestroyNonImportant()
+        {
+            int diff = 1;
+            int dsize = 4;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[1] = new Node(1);
+            ns[2] = new Node(2);
+            ns[3] = new Node(3);
+
+            ns[0].AddNeighbour(1); ns[1].AddNeighbour(0);
+            ns[0].AddNeighbour(2); ns[2].AddNeighbour(0);
+            ns[2].AddNeighbour(3); ns[3].AddNeighbour(2);
+
+            Dungeon d = new Dungeon(ns, diff, dsize, 1);
+            d.Destroy(ns[1]);
+            Assert.AreEqual(3, CountNonNullNodes(d));
+        }
+
+        [TestMethod]
+        public void DropHealth()
+        {
+            int s = 0;
+            Dungeon d = new Dungeon(10);
+            d.DropItem(ItemType.HealthPotion);
+            for (int i = 0; i < d.dungeonSize; i++)
+            {
+                if (d.nodes[i] != null && d.nodes[i].get_Items().Count > 0) s++;
+            }
+            Assert.AreEqual(1, s);
+        }
+
+        [TestMethod]
+        public void DropCrystal()
+        {
+            int s = 0;
+            Dungeon d = new Dungeon(10);
+            d.DropItem(ItemType.TimeCrystal);
+            for (int i = 0; i < d.dungeonSize; i++)
+            {
+                if (d.nodes[i] != null && d.nodes[i].get_Items().Count > 0) s++;
+            }
+            Assert.AreEqual(1, s);
+        }
+
+        [TestMethod]
+        public void DropScroll()
+        {
+            int s = 0;
+            Dungeon d = new Dungeon(10);
+            d.DropItem(ItemType.MagicScroll);
+            for (int i = 0; i < d.dungeonSize; i++)
+            {
+                if (d.nodes[i] != null && d.nodes[i].get_Items().Count > 0) s++;
+            }
+            Assert.AreEqual(1, s);
+        }
+
+        [TestMethod]
+        public void SpawnMonsters()
+        {
+            for (int i = 1; i <= 100; i++)
+            {
+                Dungeon d = new Dungeon(i);
+                d.SpawnMonsters();
+                int exp = d.SumMonsterHealth();
+                int act = 0;
+                for (int j = 0; j < d.dungeonSize; j++)
+                {
+                    if (d.nodes[j] != null) act += d.nodes[j].SumMonsterHealth();
+                }
+                Assert.AreEqual(exp, act);
+            }
+
+        }
+
+        [TestMethod]
+        public void SumMonstHealthNone()
+        {
+            for (int i = 1; i <= 100; i++)
+            {
+                Dungeon d = new Dungeon(i);
+                int act = 0;
+                for (int j = 0; j < d.dungeonSize; j++)
+                {
+                    if (d.nodes[j] != null) act += d.nodes[j].SumMonsterHealth();
+                }
+                Assert.AreEqual(0, act);
+            }
+        }
+
+        [TestMethod]
+        public void SumMonstHealthDamaged()
+        {
+            Dungeon d = new Dungeon(10);
+            int exp = d.SumMonsterHealth();
+            int act = 0;
+            for (int j = 0; j < d.dungeonSize; j++)
+            {
+                if (d.nodes[j] != null) act += d.nodes[j].SumMonsterHealth();
+            }
+            Assert.AreEqual(exp, act);
+        }
+
+        [TestMethod]
+        public void SumMonstHealthFull()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        public void SumHPotsNone()
+        {
+            Assert.Fail();
+
+        }
+
+        [TestMethod]
+        public void SumHPotsSome()
+        {
+            Assert.Fail();
+
+        }
+
+        //Help Methods
+        private int CountNonNullNodes(Dungeon d)
+        {
+            int t = 0;
+            for (int i = 0; i < d.dungeonSize; i++)
+                if (d.nodes[i] != null) t++;
+            return t;
+        }
+
+        private int CountTrue(bool[] b)
+        {
+            int k = 0;
+            foreach (bool tf in b)
+                if (tf) k++;
+            return k;
+        }
+    }
+}

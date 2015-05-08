@@ -12,10 +12,11 @@ namespace ST_Project
         private Monster current; // monster who will get damaged when the player attacks the pack
         private Item item;
         private int score, init_hp;
+        private bool isMoved;
 
         private const int packSize = 3;
 
-        public Pack()
+        public Pack(int val)
         {
             monsters = new Stack<Monster>();
 
@@ -25,15 +26,16 @@ namespace ST_Project
             init_hp = 3 * 15;
             // NEEDS IMPROVEMENTS!!!
             score = 9; 
-            Random r = new Random();
-            int val = r.Next(0, 19);
+            //Random r = new Random();
+            //int val = r.Next(0, 19);
             if (val < 3)
                 item = new Health_Potion();
-            else if (val > 2 && val < 6)
+            if (val >= 3 && val < 6)
                 item = new Time_Crystal();
-            else if (val > 5 && val < 9)
+            if (val >= 6 && val < 9)
                 item = new Magic_Scroll();
             //////////////////////////////////////
+            isMoved = false;
         }
 
         public int get_Score()
@@ -98,7 +100,8 @@ namespace ST_Project
         {
             if (current == null)
             {
-                current = monsters.Pop();
+                try { current = monsters.Pop(); }
+                catch { return true; }
             }
 
             bool dead = current.gets_hit(i);
@@ -160,20 +163,19 @@ namespace ST_Project
             return total;
         }
 
-        public override string ToString()
+        public Item GetItem()
         {
-            string s = string.Empty;
-            s += "Score: " + score + Environment.NewLine;
-            s += "Item: " + (item == null ? "" : item.ToString()) + Environment.NewLine;
-            s += "Current: " + (current == null ? "" : current.ToString()) + Environment.NewLine;
-            s += "Monsters: " + Environment.NewLine;
+            return item;
+        }
 
-            foreach (Monster m in monsters)
-            {
-                s += m.ToString() + Environment.NewLine;
-            }
+        public void Moved(bool t)
+        {
+            isMoved = t;
+        }
 
-            return s;
+        public bool is_Moved()
+        {
+            return isMoved;
         }
     }
 }
