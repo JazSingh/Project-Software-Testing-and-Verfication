@@ -28,7 +28,6 @@ namespace TestProject
             {
                 Node n = new Node(i);
                 Assert.AreEqual(4, n.get_Adj().Length);
-                Assert.AreEqual(4, n.getadj().Length);
             }
         }
 

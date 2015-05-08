@@ -91,24 +91,6 @@ namespace TestProject
         }
 
         [TestMethod]
-        public void UpdateTime()
-        {
-            Dungeon d = new Dungeon(1);
-            Player p = new Player();
-            GameState gst = new GameState(d, p);
-
-            int timeBefore = gst.getTime();
-
-            gst.UpdateTime();
-
-
-            bool expected = false;
-            bool actual = gst.getTime() == timeBefore;
-
-            Assert.AreEqual(expected, actual);
-        }
-
-        [TestMethod]
         public void UsePotion() 
         {
             UsePotion_PotionAvailable();
