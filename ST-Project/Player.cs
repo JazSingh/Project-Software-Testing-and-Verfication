@@ -117,7 +117,14 @@ namespace ST_Project
             else
             {
                 if (p.hit_pack(damage) == true)
-                {return;}
+                {
+                    Item i = p.GetItem();
+                    {
+                        Console.WriteLine("Item gekregen van verslagen pack!");
+                        add(i);
+                    }
+                    return;
+                }
             }
 
             // if pack needs to attack player
