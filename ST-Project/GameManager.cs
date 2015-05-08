@@ -183,26 +183,17 @@ namespace ST_Project
         public void UsePotion()
         {
             state.UsePotion();
-            state.PackMoves();
         }
 
         public void UseCrystal()
         {
             state.UseCrystal();
-            state.PackMoves();
         }
 
         public void UseScroll()
         {
-            state.UseScroll();
-            if (Oracle.Decide() && Oracle.Decide())
-            { 
-                int np = state.GetDungeon().Destroy(state.GetDungeon().nodes[state.GetPlayer().get_position()]);
-                state.SetPosition(np);
-                if (np == state.GetDungeon().dungeonSize - 1) NotifyFinished();
+            if (state.UseScroll())
                 gs.Invalidate();
-            }
-            state.PackMoves();
         }
     }
 }

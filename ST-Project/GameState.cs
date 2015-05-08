@@ -202,12 +202,12 @@ namespace ST_Project
 
         public void UsePotion()
         {
-            Console.WriteLine("Use potion.");
             List<Item> items = p.getItems();
             for (int t = 0; t < items.Count; t++)
             {
                 if (items[t].type == ItemType.HealthPotion)
                 {
+                    PackMoves(); Console.WriteLine("Use potion.");
                     p.use(d, items[t]); items.Remove(items[t]);
                     UpdateTime();
                     break;
@@ -223,6 +223,7 @@ namespace ST_Project
             {
                 if (items[t].type == ItemType.TimeCrystal)
                 {
+                    PackMoves();
                     p.use(d, items[t]); items.Remove(items[t]);
                     UpdateTime();
                     break;
@@ -230,23 +231,27 @@ namespace ST_Project
             }
         }
 
-        public void UseScroll()
+        public bool UseScroll()
         {
             List<Item> items = p.getItems();
             for (int t = 0; t < items.Count; t++)
             {
                 if (items[t].type == ItemType.MagicScroll)
                 {
+                    PackMoves();
                     p.use(d, items[t]); items.Remove(items[t]);
                     UpdateTime();
                     if (Oracle.Decide() && Oracle.Decide())
                     {
+                        Console.WriteLine("KABOOOOM");
                         int np = d.Destroy(d.nodes[p.get_position()]);
                         SetPosition(np);
+                        return true;
                     }
                     break;
                 }
             }
+            return false;
         }
 
         public void UpdateTime()
