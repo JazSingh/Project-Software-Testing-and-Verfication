@@ -12,6 +12,7 @@ namespace ST_Project
         private Monster current; // monster who will get damaged when the player attacks the pack
         private Item item;
         private int score, init_hp;
+        private bool isMoved;
 
         private const int packSize = 3;
 
@@ -34,6 +35,7 @@ namespace ST_Project
             if (val >= 6 && val < 9)
                 item = new Magic_Scroll();
             //////////////////////////////////////
+            isMoved = false;
         }
 
         public int get_Score()
@@ -181,5 +183,15 @@ namespace ST_Project
 
         //    return s;
         //}
+
+        public void Moved(bool t)
+        {
+            isMoved = t;
+        }
+
+        public bool is_Moved()
+        {
+            return isMoved;
+        }
     }
 }
