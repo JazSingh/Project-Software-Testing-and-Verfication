@@ -85,7 +85,7 @@ namespace TestProject
             gst.PackMoves();
 
             bool expected = true;
-            bool actual = hashBefore != gst.GetDungeon().nodes.GetHashCode();
+            bool actual = hashBefore == gst.GetDungeon().nodes.GetHashCode();
 
             Assert.AreEqual(expected, actual);
         }
