@@ -305,7 +305,7 @@ namespace ST_Project
             ReachableNodes(nodes[dungeonSize - 1], ref reachable);
 
             for (int i = 0; i < dungeonSize; i++)
-                if (nodes[i] != null && !reachable[i])
+                if (!reachable[i])
                     nodes[i] = null;
         }
 

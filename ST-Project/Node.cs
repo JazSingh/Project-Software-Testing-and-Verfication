@@ -141,7 +141,7 @@ namespace ST_Project
             if (index == -1) return false;
 
             adj[index] = -1;
-            for (int i = index; i < numNeighbours; i++)
+            for (int i = index; i < numNeighbours - 1; i++)
                 adj[i] = adj[i + 1];
             numNeighbours--;
             return true;
