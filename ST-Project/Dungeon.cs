@@ -199,15 +199,15 @@ namespace ST_Project
                                 int total = zz.TotalMonsters();
                                 if (total + p.GetNumMonsters() <= zz.maxCap())
                                 {
-                                    p.Moved(true);
+                                    p.Moved(true); // to prevent the system from moving the same pack again, later in this for-loop
                                     nodes[z].pushPack(p);
                                     Console.WriteLine("Pack moves naar node " + z);
                                 }
-                                else
+                                else // if the node the pack wants to move to, is full
                                     nodes[t].pushPack(p);
                             }
                         }
-                        else
+                        else // if the pack moved already
                             nodes[t].pushPack(p);
                     }
                 }
