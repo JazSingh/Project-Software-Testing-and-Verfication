@@ -108,7 +108,6 @@ namespace ST_Project
                 if(nodes[i] != null)
                     partitionList.Add(i);
 
-            if (partitionList.Count == 0) return;
             int u;
             int v;
             u = partitionList[Oracle.GiveNumber(partitionList.Count-1)];
@@ -166,12 +165,10 @@ namespace ST_Project
             Node n = GetNode(pos);
             if (n.Retreat())
             {
-                int[] adj = n.get_Adj();
-                Random r = new Random();
-                int next = adj[r.Next(0, n.NumNeighbours)];
+                int[] adj = n.getadj();
+                int next = adj[Oracle.GiveNumber(0, n.NumNeighbours == 1? 0 : n.NumNeighbours-2)];
                 Pack p = nodes[pos].popPack();
-                while (next == nodes.Length - 1)
-                    next = adj[r.Next(0, n.NumNeighbours)];
+
                 nodes[next].pushPack(p);
                 Console.WriteLine("Pack RETREATS naar node "+next);
                 return true;

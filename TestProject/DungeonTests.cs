@@ -22,76 +22,256 @@ namespace TestProject
         [TestMethod]
         public void CreateNodes()
         {
-            Assert.Fail();
+            for (int i = 1; i <= 100; i++)
+            {
+                Dungeon d = new Dungeon(i, false);
+                d.nodes[0] = new Node(0);
+                d.nodes[d.dungeonSize - 1] = new Node(d.dungeonSize - 1);
+
+                d.CreateNodes();
+                Assert.IsTrue(CountNonNullNodes(d) >= i + 2);
+            }
         }
 
         [TestMethod]
-        public void CreateSTreeSingleNode()
+        public void CreateSTreeTwoNodes()
         {
-            Assert.Fail();
+            int diff = 5;
+            int dsize = 5 * 5 + 5 + 2;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[1] = new Node(1);
+            ns[dsize - 1] = new Node(dsize - 1);
+            Dungeon d = new Dungeon(ns, 5, dsize, diff);
+            d.CreateSpanningTree(0);
+            Assert.IsTrue(d.nodes[0].IsNeighbour(1) && d.nodes[1].IsNeighbour(0));
         }
 
         [TestMethod]
         public void CreateSTree()
         {
-            Assert.Fail();
+            int diff = 5;
+            int dsize = 5 * 5 + 5 + 2;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[1] = new Node(1);
+            ns[2] = new Node(2);
+            ns[3] = new Node(3);
+            ns[4] = new Node(4);
+            ns[dsize - 1] = new Node(dsize - 1);
+            Dungeon d = new Dungeon(ns, 5, dsize, diff);
+            d.CreateSpanningTree(0);
+            for (int i = 0; i < 5; i++)
+            {
+                Assert.IsTrue(d.nodes[i].NumNeighbours > 0);
+            }
 
+            Assert.IsTrue(d.nodes[dsize - 1].NumNeighbours == 0);
+        }
+
+        [TestMethod]
+        public void CreateSTreeSingle()
+        {
+            int diff = 5;
+            int dsize = 5 * 5 + 5 + 2;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+
+            Dungeon d = new Dungeon(ns, 5, dsize, diff);
+            d.CreateSpanningTree(0);
+
+            Assert.IsTrue(d.nodes[0].NumNeighbours == 0);
         }
 
         [TestMethod]
         public void FixLooseEndsNoLooseEnd()
         {
-            Assert.Fail();
+            int diff = 1;
+            int dsize = 1 * 1 + 1 + 2;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[1] = new Node(1);
+            ns[2] = new Node(2);
+            ns[3] = new Node(3);
 
+            ns[0].AddNeighbour(1); ns[1].AddNeighbour(0);
+            ns[1].AddNeighbour(2); ns[2].AddNeighbour(1);
+            ns[2].AddNeighbour(3); ns[3].AddNeighbour(2);
+
+            Dungeon d = new Dungeon(ns, 2, dsize, diff);
+            d.FixLooseEnds();
+
+            Assert.IsTrue(ns[0].NumNeighbours == 1);
+            Assert.IsTrue(ns[1].NumNeighbours == 2);
+            Assert.IsTrue(ns[2].NumNeighbours == 2);
+            Assert.IsTrue(ns[3].NumNeighbours == 1);
         }
 
         [TestMethod]
         public void FixLooseEndsSingle()
         {
-            Assert.Fail();
+            int diff = 1;
+            int dsize = 7;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[3] = new Node(3);
+            ns[4] = new Node(4);
+            ns[5] = new Node(5);
+            ns[6] = new Node(6);
 
+            ns[0].AddNeighbour(3); ns[3].AddNeighbour(0);
+            ns[3].AddNeighbour(4); ns[4].AddNeighbour(3);
+            ns[4].AddNeighbour(6); ns[6].AddNeighbour(4);
+            ns[6].AddNeighbour(5); ns[5].AddNeighbour(6);
+
+            Dungeon d = new Dungeon(ns, diff, dsize, 3);
+            Assert.IsTrue(ns[5].NumNeighbours == 1);
+
+            d.FixLooseEnds();
+
+            Assert.IsTrue(ns[5].NumNeighbours == 2);
         }
 
         [TestMethod]
         public void FixLooseEndsMultiple()
         {
-            Assert.Fail();
+            int diff = 1;
+            int dsize = 9;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[7] = new Node(7);
+            ns[4] = new Node(4);
+            ns[5] = new Node(5);
+            ns[6] = new Node(6);
+            ns[8] = new Node(8);
+
+
+            ns[0].AddNeighbour(4); ns[4].AddNeighbour(0);
+            ns[4].AddNeighbour(5); ns[5].AddNeighbour(4);
+            ns[5].AddNeighbour(8); ns[8].AddNeighbour(5);
+            ns[6].AddNeighbour(8); ns[8].AddNeighbour(6);
+            ns[7].AddNeighbour(8); ns[8].AddNeighbour(7);
+
+            Dungeon d = new Dungeon(ns, diff, dsize, 4);
+            Assert.IsTrue(ns[6].NumNeighbours == 1);
+            Assert.IsTrue(ns[7].NumNeighbours == 1);
+
+
+            d.FixLooseEnds();
+
+            Assert.IsTrue(ns[6].NumNeighbours == 2);
+            Assert.IsTrue(ns[7].NumNeighbours == 2);
 
         }
 
         [TestMethod]
         public void ConnectPartitionTwoBridgesOnly()
         {
-            Assert.Fail();
+            int diff = 3;
+            int dsize = 4;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[1] = new Node(1);
+            ns[2] = new Node(2);
+            ns[3] = new Node(3);
 
+            Dungeon d = new Dungeon(ns, diff, dsize, 1);
+            d.ConnectParition(1,2);
+
+            Assert.IsTrue(d.nodes[1].IsNeighbour(2));
+            Assert.IsTrue(d.nodes[2].IsNeighbour(1));
         }
 
         [TestMethod]
         public void ConnectPartition()
         {
-            Assert.Fail();
+            int diff = 3;
+            int dsize = 7;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[6] = new Node(6);
+            ns[2] = new Node(2);
+            ns[3] = new Node(3);
+            ns[4] = new Node(4);
 
+            ns[2].AddNeighbour(3); ns[3].AddNeighbour(2);
+
+            Dungeon d = new Dungeon(ns, diff, dsize, 2);
+            d.ConnectParition(1, 2);
+
+            Assert.IsTrue(d.nodes[2].NumNeighbours == 1);
         }
 
         [TestMethod]
         public void CheckRetreatYes()
         {
-            Assert.Fail();
+            int diff = 3;
+            int dsize = 7;
+            Node[] ns = new Node[dsize];
+            ns[1] = new Node(1);
+            ns[1].AddPack();
+            ns[1].AddPack();
+            ns[2] = new Node(2);
 
+            ns[3] = new Node(3);
+
+            ns[1].AddNeighbour(2);
+            ns[2].AddNeighbour(1);
+            ns[1].AddNeighbour(3);
+            ns[3].AddNeighbour(1);
+
+            Pack p = ns[1].popPack();
+            p.hit_pack(45);
+            p.hit_pack(45);
+            p.hit_pack(44);
+            ns[1].pushPack(p);
+            Dungeon d = new Dungeon(ns, diff, dsize, 2);
+
+            Assert.IsTrue(d.CheckRetreat(1));
+        }
+
+        [TestMethod]
+        public void CheckRetreatYesOneChoice()
+        {
+            int diff = 3;
+            int dsize = 7;
+            Node[] ns = new Node[dsize];
+            ns[1] = new Node(1);
+            ns[1].AddPack();
+            ns[1].AddPack();
+            ns[2] = new Node(2);
+
+            ns[1].AddNeighbour(2);
+            ns[2].AddNeighbour(1);
+
+            Pack p = ns[1].popPack();
+            p.hit_pack(45);
+            p.hit_pack(45);
+            p.hit_pack(44);
+            ns[1].pushPack(p);
+            Dungeon d = new Dungeon(ns, diff, dsize, 2);
+
+            Assert.IsTrue(d.CheckRetreat(1));
         }
 
         [TestMethod]
         public void CheckRetreatNo()
         {
-            Assert.Fail();
+            int diff = 3;
+            int dsize = 7;
+            Node[] ns = new Node[dsize];
+            ns[1] = new Node(1);
+            ns[1].AddPack();
+            ns[1].AddPack();
+            Dungeon d = new Dungeon(ns, diff, dsize, 2);
 
+            Assert.IsFalse(d.CheckRetreat(1));
         }
 
         [TestMethod]
         public void MovePacksToContested()
         {
             Assert.Fail();
-
         }
 
         [TestMethod]
@@ -126,7 +306,6 @@ namespace TestProject
         public void AddEdgesSingleNode()
         {
             Assert.Fail();
-
         }
 
         [TestMethod]
@@ -147,7 +326,6 @@ namespace TestProject
         public void AddEdgesOtherFull()
         {
             Assert.Fail();
-
         }
 
         [TestMethod]
