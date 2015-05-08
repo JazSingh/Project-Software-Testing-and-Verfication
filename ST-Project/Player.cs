@@ -21,6 +21,7 @@ namespace ST_Project
             score = 0;
             position = 0; // ID of current node the player's in
             Items = new List<Item>();
+            add(new Magic_Scroll());
         }
 
         public Player(int hpmax, int hp, int dmg, int scr, Item item, List<Item> items)
@@ -119,6 +120,7 @@ namespace ST_Project
                 if (p.hit_pack(damage) == true)
                 {
                     Item i = p.GetItem();
+                    if (i != null)
                     {
                         Console.WriteLine("Item gekregen van verslagen pack!");
                         add(i);
