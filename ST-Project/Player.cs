@@ -129,8 +129,6 @@ namespace ST_Project
 
             // if pack needs to attack player
             HP -= p.hit_player();
-            if (!IsAlive())
-                Console.WriteLine("Game Over");
         }
 
         public void AwardScore(int scr)
