@@ -270,37 +270,134 @@ namespace TestProject
         }
 
         [TestMethod]
-        public void MovePacksToContested()
+        public void MovePacksFromContested()
         {
-            Assert.Fail();
+            int diff = 1;
+            int dsize = 3;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[0].AddPack();
+            ns[1] = new Node(1);
+            ns[2] = new Node(2);
+
+            ns[0].AddNeighbour(1);
+            ns[1].AddNeighbour(0);
+
+            Dungeon d = new Dungeon(ns, diff, dsize, 2);
+            d.MovePacks(0);
+            Assert.IsFalse(d.nodes[1].hasPack());
         }
 
         [TestMethod]
         public void MovePackToEmptyNode()
         {
-            Assert.Fail();
+            int diff = 1;
+            int dsize = 3;
+            Node[] ns = new Node[dsize];
+            ns[0] = new Node(0);
+            ns[0].AddPack();
+            ns[1] = new Node(1);
+            ns[2] = new Node(2);
 
+            ns[0].AddNeighbour(1);
+            ns[1].AddNeighbour(0);
+
+            Dungeon d = new Dungeon(ns, diff, dsize, 2);
+            d.MovePacks(2);
+            Assert.IsFalse(d.nodes[0].hasPack());
         }
 
         [TestMethod]
         public void MovePackMaxCap()
         {
-            Assert.Fail();
+            int diff = 1;
+            int dsize = 3;
+            Node[] ns = new Node[dsize];
 
+            ns[0] = new Node(0);
+            ns[0].AddPack();
+            Pack p1 = new Pack(1);
+            p1.hit_pack(1);
+            ns[0].pushPack(p1);
+            Pack p2 = new Pack(2);
+            p2.hit_pack(2);
+            ns[0].pushPack(p2);
+
+            ns[1] = new Node(1);
+            ns[1].AddPack();
+            Pack p3 = new Pack(3);
+            p3.hit_pack(3);
+            ns[1].pushPack(p3);
+            Pack p4 = new Pack(4);
+            p4.hit_pack(4);
+            ns[1].pushPack(p4);
+
+            ns[0].AddNeighbour(1);
+            ns[1].AddNeighbour(0);
+
+            ns[2] = new Node(2);
+            Dungeon d = new Dungeon(ns, diff, dsize, 2);
+            d.MovePacks(2);
+
+            Pack p5 = new Pack(5);
+            Assert.IsTrue(ns[0].popPack().GetPackHealth() == p5.GetPackHealth() - 2);
+            Assert.IsTrue(ns[0].popPack().GetPackHealth() == p5.GetPackHealth() - 1);
+            Assert.IsTrue(ns[1].popPack().GetPackHealth() == p5.GetPackHealth() - 4);
+            Assert.IsTrue(ns[1].popPack().GetPackHealth() == p5.GetPackHealth() - 3);
         }
 
         [TestMethod]
         public void MovePack()
         {
-            Assert.Fail();
+            for (int i = 1; i <= 100; i++)
+            {
+                int som = 0;
+                for (int j = 1; j <= i; j++)
+                    som += j;
 
+                Dungeon d = new Dungeon(i);
+                d.SpawnMonsters();
+                d.MovePacks(0);
+                Assert.IsTrue(som + 1 >= d.SumMonsterHealth() / 45 
+                    &&        som - 1 <= d.SumMonsterHealth() / 45);
+            }
         }
 
         [TestMethod]
         public void MovePackDamaged()
         {
-            Assert.Fail();
+            int diff = 1;
+            int dsize = 3;
+            Node[] ns = new Node[dsize];
 
+            ns[0] = new Node(0);
+            Pack p1 = new Pack(1);
+            p1.hit_pack(1);
+            ns[0].pushPack(p1);
+            Pack p2 = new Pack(2);
+            p2.hit_pack(2);
+            ns[0].pushPack(p2);
+
+            ns[1] = new Node(1);
+            Pack p3 = new Pack(3);
+            p3.hit_pack(3);
+            ns[1].pushPack(p3);
+            Pack p4 = new Pack(4);
+            p4.hit_pack(4);
+            ns[1].pushPack(p4);
+
+            ns[0].AddNeighbour(1);
+            ns[1].AddNeighbour(0);
+
+            ns[2] = new Node(2);
+            Dungeon d = new Dungeon(ns, diff, dsize, 2);
+            d.MovePacks(2);
+
+            Pack p5 = new Pack(5);
+            Assert.IsTrue(ns[0].popPack().GetPackHealth() != p5.GetPackHealth() - 2
+            || ns[0].popPack().GetPackHealth() != p5.GetPackHealth() - 1
+            || ns[1].popPack().GetPackHealth() != p5.GetPackHealth() - 4
+            || ns[1].popPack().GetPackHealth() != p5.GetPackHealth() - 3);
         }
 
         [TestMethod]
@@ -531,6 +628,10 @@ namespace TestProject
         public void SumMonstHealthDamaged()
         {
             Dungeon d = new Dungeon(10);
+            d.nodes[0].AddPack();
+            Pack p = d.nodes[0].popPack();
+            p.hit_pack(10);
+            d.nodes[0].pushPack(p);
             int exp = d.SumMonsterHealth();
             int act = 0;
             for (int j = 0; j < d.dungeonSize; j++)
@@ -543,21 +644,51 @@ namespace TestProject
         [TestMethod]
         public void SumMonstHealthFull()
         {
-            Assert.Fail();
+            for (int i = 1; i <= 100; i++)
+            {
+                Dungeon d = new Dungeon(i);
+                d.SpawnMonsters();
+                int exp = d.SumMonsterHealth();
+                int act = 0;
+                for (int j = 0; j < d.dungeonSize; j++)
+                {
+                    if (d.nodes[j] != null) act += d.nodes[j].SumMonsterHealth();
+                }
+                Assert.AreEqual(exp, act);
+            }
         }
 
         [TestMethod]
         public void SumHPotsNone()
         {
-            Assert.Fail();
-
+            for (int i = 1; i <= 100; i++)
+            {
+                Dungeon d = new Dungeon(i);
+                int act = 0;
+                for (int j = 0; j < d.dungeonSize; j++)
+                {
+                    if (d.nodes[j] != null) act += d.nodes[j].SumHealPots();
+                }
+                Assert.AreEqual(0, act);
+            }
         }
 
         [TestMethod]
         public void SumHPotsSome()
         {
-            Assert.Fail();
-
+            for (int i = 1; i <= 100; i++)
+            {
+                Dungeon d = new Dungeon(i);
+                Health_Potion hp = new Health_Potion();
+                int exp = hp.health;
+                d.DropItem(ItemType.HealthPotion);
+                int act = 0;
+                for (int j = 0; j < d.dungeonSize; j++)
+                {
+                    if (d.nodes[j] != null) act += d.nodes[j].SumHealPots();
+                }
+                Assert.AreEqual(exp, act);
+            }
         }
 
         //Help Methods

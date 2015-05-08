@@ -158,7 +158,7 @@ namespace TestProject
         {
             Player p = new Player();
             Dungeon d = new Dungeon(1);
-            string filename = "  "; // ???????????????????
+            string filename = "test.txt";
             Assert.AreEqual(true, p.save(d, filename));
         }
 
