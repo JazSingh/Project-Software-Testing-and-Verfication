@@ -30,6 +30,19 @@ namespace ST_Project
             //Console.WriteLine(ToString());
         }
 
+        //Test Constructor
+        public Dungeon(int n, bool mock)
+        {
+            difficulty = n;
+            int k = 5; //Oracle.GiveNumber(4,6);
+            dungeonSize = k * n + n + 2;
+            interval = (int)Math.Ceiling((double)dungeonSize / (difficulty + 1));
+            nodes = new Node[dungeonSize];
+            initialPackDrops = 0;
+            for (int i = 1; i <= n; i++)
+                initialPackDrops += i;
+        }
+
         // Load constructor
         public Dungeon(Node[] nds, int diff, int size, int interv)
         {
@@ -39,7 +52,7 @@ namespace ST_Project
             interval = interv;
         }
 
-        private void GenerateDungeon()
+        public void GenerateDungeon()
         {
             //Initialize start and exit node
             nodes[0] = new Node(0);
@@ -64,7 +77,7 @@ namespace ST_Project
                 AddRandomEdges(i);
         }
 
-        private void CreateNodes()
+        public void CreateNodes()
         {
             int i = 1;
             int b = 1;
@@ -84,7 +97,7 @@ namespace ST_Project
 
         //[S...b_1>, [b_1..b_2>, ...., [b_n-1...E-1], [E]
         //Create a spanning tree for the nodes in a partition
-        private void CreateSpanningTree(int partition)
+        public void CreateSpanningTree(int partition)
         {
             //Create list with indices of nodes in the partition
             List<int> partitionList = new List<int>();
@@ -128,9 +141,9 @@ namespace ST_Project
                 }
         }
 
-        //Pre: p2-p1 = 1
+        //Pre: p2-p1 = 1, p1 ^ p2 valid
         //Post: There is a path from a node u in p1 to a node v in p2
-        private void ConnectParition(int p1, int p2)
+        public void ConnectParition(int p1, int p2)
         {
             int min_p1 = p1 * interval;
             int max_p1 = min_p1 + interval - 1;
@@ -222,7 +235,7 @@ namespace ST_Project
             }
         }
 
-        private void AddRandomEdges(int partition)
+        public void AddRandomEdges(int partition)
         {
             int min = partition * interval;
             int max = min + interval;
@@ -299,7 +312,7 @@ namespace ST_Project
                     nodes[i] = null;
         }
 
-        private void ReachableNodes(Node u, ref bool[] visited)
+        public void ReachableNodes(Node u, ref bool[] visited)
         {
             visited[u.ID] = true;
             foreach (int v in u.GetNeighbours())
