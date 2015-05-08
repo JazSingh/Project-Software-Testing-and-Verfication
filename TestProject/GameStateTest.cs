@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ST_Project;
 using System.Collections.Generic;
+using System.IO;
 
 namespace TestProject
 {
@@ -632,14 +633,22 @@ namespace TestProject
             GameState gst = new GameState(1);
             Player p = gst.GetPlayer();
             Dungeon d = gst.GetDungeon();
+
+            for (int i = 0; i < d.nodes.Length - 1; i++)
+            {
+                d.nodes[i] = new Node(i);
+            }
+
             int position = 2;
             Node n = new Node(position);
             n.AddPack();
             Pack pack = n.popPack();
-            pack.hit_pack(45);
-            pack.hit_pack(45);
-            pack.hit_pack(14);  //Alleen laatste leeft nog, hp < init/3
+            pack.hit_pack(16);
+            pack.hit_pack(16);
+            pack.hit_pack(10);  //Alleen laatste leeft nog, hp < init/3
             n.pushPack(pack);
+
+            d.nodes[position] = n;
 
             p.set_position(position);
 
@@ -656,16 +665,40 @@ namespace TestProject
             GameState gst = new GameState(1);
             Player p = gst.GetPlayer();
             Dungeon d = gst.GetDungeon();
+
+            for (int i = 0; i < d.nodes.Length - 1; i++)
+            {
+                d.nodes[i] = new Node(i);
+            }
+
+
             int position = 2;
             Node n = new Node(position);
             n.AddPack();    //Allen leven nog, hp == init
-            
+
+            d.nodes[position] = n;
+
             p.set_position(position);
 
             gst = new GameState(d, p);
 
             bool expected = false;
             bool actual = gst.CheckRetreat();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Save()
+        {
+            Player p = new Player();
+            Dungeon d = new Dungeon(1);
+
+            GameState gst = new GameState(d, p);
+            gst.Save("test");
+
+            bool expected = true;
+            bool actual = File.Exists("test");
 
             Assert.AreEqual(expected, actual);
         }
