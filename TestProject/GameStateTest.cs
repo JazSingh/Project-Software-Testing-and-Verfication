@@ -9,6 +9,8 @@ namespace TestProject
     [TestClass]
     public class GameStateTest
     {
+        // create a gamestate with a dungeon and a player, and checks wether the provided dungeon is the same as the dungeon
+        // GetDungeon() returns by comparing hashes
         [TestMethod]
         public void GetDungeon()
         {
@@ -26,6 +28,8 @@ namespace TestProject
             Assert.AreEqual(expected, actual);
         }
 
+        // create a gamestate with a dungeon and a player, and checks wether the provided player is the same as 
+        // the player that gets returned by GePlayer() by comparing hashes
         [TestMethod]
         public void GetPlayer()
         {
@@ -42,6 +46,8 @@ namespace TestProject
 
             Assert.AreEqual(expected, actual);
         }
+
+        // checks wether the NextLevel method returns a new level
         [TestMethod]
         public void NextLevel()
         {
@@ -49,20 +55,28 @@ namespace TestProject
             NextLevel_Not5();
         }
 
+        // Create a new GameState with a Player and a level 4 dungeon
+        // check if the dungeons are not identical
+        // Check wether the new dungeon is a level higher and 
+        // check if the player starts at position 0
         private void NextLevel_Not5()
         {
-            Dungeon d = new Dungeon(4);
+            int difficulty = 4;
+            Dungeon d = new Dungeon(difficulty);
             Player p = new Player();
             GameState gst = new GameState(d, p);
             gst.NextLevel();
             Dungeon d2 = gst.GetDungeon();
+            Player p2 = gst.GetPlayer();
 
-            bool expected = false;
-            bool actual = d.GetHashCode() == d2.GetHashCode() && p.get_position() == 0;
+            bool expected = true;
+            bool actual = d.GetHashCode() != d2.GetHashCode() && p2.get_position() == 0 && d2.difficulty == difficulty+1;
 
             Assert.AreEqual(expected, actual);
         }
 
+        // same as above but with a level 5 dungeon
+        // check wether the level of the new dungeon is also 5
         public void NextLevel_5()
         {
             Dungeon d = new Dungeon(5);
@@ -70,12 +84,16 @@ namespace TestProject
             GameState gst = new GameState(d, p);
             gst.NextLevel();
             Dungeon d2 = gst.GetDungeon();
-            bool expected = false;
-            bool actual = d.GetHashCode() == d2.GetHashCode() && p.get_position() == 0;
+            Player p2 = gst.GetPlayer();
+
+            bool expected = true;
+            bool actual = d.GetHashCode() != d2.GetHashCode() && p2.get_position() == 0 && d2.difficulty == 5;
 
             Assert.AreEqual(expected, actual);
         }
 
+        // Check wether the packs in a dungeon move to different nodes 
+        // when PackMoves() is called
         [TestMethod]
         public void PackMoves()
         {
@@ -93,7 +111,7 @@ namespace TestProject
             Assert.AreEqual(expected, actual);
         }
 
-
+        //Check wether a potion has been used when a potion is available by comparing the player backpack before and after usage
         [TestMethod]
         public void UsePotion_PotionAvailable()
         {
@@ -109,6 +127,7 @@ namespace TestProject
             Assert.AreEqual(numItems, numItems2 + 1);
         }
 
+        // same as above, but no health potion is available
         [TestMethod]
         public void UsePotion_NoPotion()
         {
@@ -130,6 +149,8 @@ namespace TestProject
             Assert.IsTrue(p.GetHP() == 10);
         }
 
+        // Check wether using a health potion actually heals the player
+        // check if the HP stays below 250
         [TestMethod]
         public void UsePotion_Player_LowHealth()
         {
@@ -151,6 +172,7 @@ namespace TestProject
             Assert.AreEqual(expected, actual);
         }
 
+        // checks if the current HP can surpass the max HP after using a potion
         [TestMethod]
         public void UsePotion_Player_FullHealth()
         {
@@ -172,6 +194,7 @@ namespace TestProject
             Assert.AreEqual(expected, actual);
         }
 
+        // check wether a scroll is used when none are available
         [TestMethod]
         public void UseScroll_NoScroll()
         {
@@ -186,6 +209,7 @@ namespace TestProject
             Assert.AreEqual(0, numItems2);
         }
 
+        // check wether a scroll is used when there is a scroll available
         [TestMethod]
         public void UseScroll_ScrollAvailable()
         {
@@ -214,6 +238,7 @@ namespace TestProject
             UseCrystal_CrystalAvailable();
         }
 
+        // checks wether a crystal is used while there isn't any available
         private void UseCrystal_CrystalAvailable()
         {
             GameState gst = new GameState(1);
@@ -229,6 +254,7 @@ namespace TestProject
             Assert.AreEqual(numItems, numItems2 + 1);
         }
 
+        // checks wether a crystal is used
         private void UseCrystal_NoCrystal()
         {
             GameState gst = new GameState(1);
@@ -251,6 +277,8 @@ namespace TestProject
             PlayerDead_Full_HP();
             PlayerDead_Zero_HP();
         }
+
+        // check if PlayerDead returns true when the player has no HP left
         public void PlayerDead_Zero_HP()
         {
             GameState gst = new GameState(1);
@@ -265,6 +293,7 @@ namespace TestProject
             Assert.AreEqual(expected, actual);
         }
 
+        // check if PlayerDead returns false if the player still has some HP left
         public void PlayerDead_Full_HP()
         {
             GameState gst = new GameState(1);
@@ -286,6 +315,7 @@ namespace TestProject
             GivePackReward_No_Bridge();
         }
 
+        // check wether more points are rewarded when the battle took place on a bridge
         public void GivePackReward_Bridge()
         {
             GameState gst = new GameState(5);
@@ -309,6 +339,8 @@ namespace TestProject
             Assert.AreEqual(expected, actual);
             
         }
+
+        // check wether the normal amount of points has been rewarded if the battle did not took place on a bridge
         public void GivePackReward_No_Bridge()
         {
             GameState gst = new GameState(5);
@@ -339,6 +371,7 @@ namespace TestProject
             Fighting_Pack();
         }
 
+        // check wether Fighting() returns true when there still is a pack left to fight
         public void Fighting_Pack()
         {
             GameState gst = new GameState(1);
@@ -357,6 +390,8 @@ namespace TestProject
 
             Assert.AreEqual(expected, actual);
         }
+
+        // check wether Fighting() returns false when no pack is present
         public void Fighting_noPack()
         {
             GameState gst = new GameState(1);
@@ -381,6 +416,7 @@ namespace TestProject
             SetPosition_DifferentPosition();
         }
 
+        // check if the players position changes when SetPosition is called on a different node
         private void SetPosition_DifferentPosition()
         {
             GameState gst = new GameState(1);
@@ -397,6 +433,7 @@ namespace TestProject
             Assert.AreEqual(expected, actual);
         }
 
+        // check if the players position remains the same when SetPosition is called on the same node
         private void SetPosition_SamePosition()
         {
             GameState gst = new GameState(1);
@@ -420,6 +457,7 @@ namespace TestProject
             CheckFinished_False();
         }
 
+        // check wether CheckFinished returns false if the player has not yet reached the end node
         private void CheckFinished_False()
         {
             GameState gst = new GameState(1);
@@ -431,6 +469,7 @@ namespace TestProject
             Assert.AreEqual(expected, actual);
         }
 
+        // check wether CheckFinished returns true if the player has reached the end node
         private void CheckFinished_True()
         {
             GameState gst = new GameState(1);
@@ -453,6 +492,7 @@ namespace TestProject
             Fight_PackAlive_Retreat();
         }
 
+        // check if Fight returns true if there is a pack remaining but it retreats
         private void Fight_PackAlive_Retreat()
         {
             GameState gst = new GameState(3);
@@ -514,6 +554,7 @@ namespace TestProject
             Assert.IsTrue(gst.Fight());
         }
 
+        // check if Fight returns false if the pack shouldn't retreat
         private void Fight_PackAlive_NoRetreat()
         {
             GameState gst = new GameState(1);
@@ -536,6 +577,7 @@ namespace TestProject
             Assert.AreEqual(expected, actual);
         }
 
+        // check if Fight returns true if all packs have been slain
         private void Fight_PackDead()
         {
             GameState gst = new GameState(1);
@@ -569,6 +611,7 @@ namespace TestProject
             CheckItemsFound_Items();
         }
 
+        // check if the player does not pick up any items when none are available
         private void CheckItemsFound_ZeroItems()
         {
             Player p = new Player();
@@ -591,6 +634,7 @@ namespace TestProject
             Assert.AreEqual(items1, items);
         }
 
+        // check if the player picks up all items from the node if there are items available
         private void CheckItemsFound_Items()
         {
             Player p = new Player();
@@ -625,6 +669,8 @@ namespace TestProject
             SumPlayerPotsHP_Test(250, true);
         }
 
+        // php is the players current hp
+        // b wheter health potions should be spawned in all nodes
         public void SumPlayerPotsHP_Test(int php, bool b)
         {
             Dungeon d = new Dungeon(1);
@@ -654,6 +700,7 @@ namespace TestProject
             CheckRetreat_True();
         }
 
+        // check wether the pack retreats when it should
         public void CheckRetreat_True()
         {
             GameState gst = new GameState(1);
@@ -686,6 +733,7 @@ namespace TestProject
             Assert.AreEqual(expected, actual);
         }
 
+        // check if a pack doesn't retreat if it shouldn't 
         public void CheckRetreat_False()
         {
             GameState gst = new GameState(1);
@@ -714,6 +762,7 @@ namespace TestProject
             Assert.AreEqual(expected, actual);
         }
 
+        //check wether after saving a safe file is available
         [TestMethod]
         public void Save()
         {

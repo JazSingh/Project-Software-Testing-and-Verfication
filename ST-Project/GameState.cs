@@ -11,6 +11,7 @@ namespace ST_Project
         Dungeon d;
         Player p;
 
+        // Constructor for creating a new game
         public GameState(int i)
         {
             d = new Dungeon(i);
@@ -23,7 +24,7 @@ namespace ST_Project
             Console.WriteLine("Total hp player and pots: " + SumPlayerPotsHP());
         }
 
-        // Load constructor
+        // Constructor to load in a previous game
         public GameState(Dungeon dungeon, Player player)
         {
             d = dungeon;
@@ -32,28 +33,34 @@ namespace ST_Project
             DropItems();
         }
 
+        // Constructor for testing
         public GameState(Dungeon d, Player p, bool testconst)
         {
             this.d = d;
             this.p = p;
         }
 
+        // Called after finishing a dungeon. Create a new dungeon and save the state with the new dungeon
+        // the new dungeon does NOT contain any monsters or items yet, these will be spawned afterwards
         public void Save(string filename)
         {
             d = new Dungeon(d.difficulty + 1);
             p.save(d, filename);
         }
 
+        // returns the current dungeon
         public Dungeon GetDungeon()
         {
             return d;
         }
 
+        // returns the player
         public Player GetPlayer()
         {
             return p;
         }
 
+        // returns wether a pack retreats from combat or not
         public bool CheckRetreat()
         {
             if (d.CheckRetreat(p.get_position()))
@@ -61,6 +68,7 @@ namespace ST_Project
             return false;
         }
 
+        // check wether a battle can be fought between the player and a pack in the players current node
         public bool fighting()
         {
             int pos = GetPlayer().get_position();
@@ -71,16 +79,20 @@ namespace ST_Project
             return false;
         }
 
+        // returns the sum of the player's current HP and the total of health pots scattered around in the dungeon
         private int SumPlayerPotsHP()
         {
             return p.GetHP() + d.SumHealPots();
         }
 
+        // test method for private method SumPlayerPotsHP()
         public int SumPlayerPotsHPTest()
         {
             return SumPlayerPotsHP();
         }
 
+        // Generates a new dungeon level, if the previous difficulty level was 4 or less, the dificulty goes up by one 
+        // also spawns monsters and items in the level
         public void NextLevel()
         {
             d = new Dungeon(d.difficulty == 5 ? 5 : d.difficulty + 1);
@@ -88,12 +100,14 @@ namespace ST_Project
             DropItems();
         }
 
+        // sets the player position and checks for loot in the current node
         public void SetPosition(int i)
         {
             p.set_position(i);
             CheckItemsFound();
         }
 
+        // gives the player the loot that can be found in the current node 
         public void CheckItemsFound()
         {
             int i = p.get_position();
@@ -106,6 +120,7 @@ namespace ST_Project
             d.nodes[i].RemoveItems();
         }
 
+        // returns wether the player has reached the last node of the dungeon
         public bool CheckFinished()
         {
             if (p.get_position() == GetDungeon().nodes.Length - 1)
@@ -116,7 +131,9 @@ namespace ST_Project
             return false;
         }
 
-
+        // drops items in the dungeon at random positions, depending on certain constrains
+        // a health potion only spawns when the sum of the player's HP and the total HP that can be obtained from other potions in the dungeon
+        // is lower than the total hp of the monsters in the dungeon
         private void DropItems()
         {
             int i = 1;
@@ -135,6 +152,7 @@ namespace ST_Project
             }
         }
 
+        // makes the player fight with the current pack and checks if the pack will run away or if it dies.
         public bool Fight()
         {
             int pos = p.get_position();
@@ -164,11 +182,14 @@ namespace ST_Project
             return false;
         }
 
+        // returns wether the player is still alive or not
         public bool PlayerDead()
         {
             return !p.IsAlive();
         }
 
+        // calculates the points earned by the player for killing a pack
+        // If the current node is a bridge, these points will be multiplied by the level of the bridge
         private void GivePackReward(int scr)
         {
             int score = scr;
@@ -176,29 +197,25 @@ namespace ST_Project
             int interval = d.interval;
             if (d.GetNode(nodeId).IsBridge(interval))
             {
-                // meer punten C:
                 int level = nodeId / interval;
                 score *= level;
                 Console.WriteLine("BONUS PUNTEN! Bridge Level: " + level + " Score: " + score);
-
-                // ITEMS GEVEN??
-
             }
             else
             {
-                // minder punten :C
                 Console.WriteLine("NORMALE PUNTEN. Score: " + score);
-
-                // ITEMS GEVEN??
             }
             p.AwardScore(score);
         }
 
+        // test method for private method GivePackReward(int scr)
         public void GivePackRewardTest(int scr)
         {
             GivePackReward(scr);
         }
 
+        // check wether a potion is available in the players item list and remove it
+        // if a health potion is available the player will use it, this counts as a turn
         public void UsePotion()
         {
             List<Item> items = p.getItems();
@@ -214,6 +231,8 @@ namespace ST_Project
             }
         }
 
+        // check wether a crystal is available in the players item list and remove it
+        // if a crystal is available the player will use it, this counts as a turn
         public void UseCrystal()
         {
             List<Item> items = p.getItems();
@@ -229,6 +248,9 @@ namespace ST_Project
             }
         }
 
+        // check wether a magic scroll is available in the players item list and remove it
+        // if a scroll is available the player will use it, this counts as a turn
+        // has a small chance to blow up the current node the player is in, the player will be blown to the nearest node from which the end node can be reached
         public bool UseScroll()
         {
             List<Item> items = p.getItems();
@@ -253,12 +275,15 @@ namespace ST_Project
             return false;
         }
 
+        // Update the time for the items that is currently in use
+        // moves packs around the dungeon
         public void UpdateTime()
         {
             p.UpdateCurrentItem();
             PackMoves();
         }
 
+        // Move all packs in the dungeon, depending on the players current location
         public void PackMoves()
         {
             d.MovePacks(p.get_position());
