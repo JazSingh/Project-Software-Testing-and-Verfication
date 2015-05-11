@@ -243,6 +243,7 @@ namespace ST_Project
                     {
                         Console.WriteLine("KABOOOOM");
                         int np = d.Destroy(d.nodes[p.get_position()]);
+                        Console.WriteLine("Player moves to: " + np);
                         SetPosition(np);
                         return true;
                     }

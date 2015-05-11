@@ -67,7 +67,6 @@ namespace ST_Project
             {
                 if (state.PlayerDead())
                     gs.GameOver();
-                
                 return true;
             }
             if (state.PlayerDead())
@@ -193,7 +192,15 @@ namespace ST_Project
         public void UseScroll()
         {
             if (state.UseScroll())
-                gs.Invalidate();
+            {
+                if (state.CheckFinished())
+                    NotifyFinished();
+                else 
+                { 
+                    //gs.locations =  new Dictionary<int, Tuple<int, int>>();
+                    gs.Invalidate();
+                }
+            }
         }
     }
 }

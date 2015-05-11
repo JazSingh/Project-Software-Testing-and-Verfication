@@ -85,11 +85,10 @@ namespace ST_Project
                 int difficulty = Convert.ToInt32(filelines[index + 3].Split(' ')[1]);
                 index += 4;
                 Node[] nodes = new Node[size];
-                for (int i = 0; i < size; i++)
+                int z = 0;
+                while(index + z < filelines.Length)
                 {
-                    string[] nodeline = filelines[index + i].Split(' ');
-
-
+                    string[] nodeline = filelines[index + z].Split(' ');
                     int identifier = Convert.ToInt32(nodeline[1]);
                     int[] adj = new int[nodeline.Length - 1];
                     for (int j = 2; j < nodeline.Length-1; j++)
@@ -97,7 +96,8 @@ namespace ST_Project
                         adj[j - 2] = Convert.ToInt32(nodeline[j]);
                     }
                     Node n = new Node(identifier, adj);
-                    nodes[i] = n;
+                    nodes[identifier] = n;
+                    z++;
                 }
 
 

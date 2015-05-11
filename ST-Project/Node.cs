@@ -140,7 +140,7 @@ namespace ST_Project
                 if (adj[i] == v) index = i;
             if (index == -1) return false;
 
-            adj[index] = -1;
+            adj[index] = 0;
             for (int i = index; i < numNeighbours - 1; i++)
                 adj[i] = adj[i + 1];
             numNeighbours--;

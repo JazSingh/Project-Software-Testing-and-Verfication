@@ -14,7 +14,7 @@ namespace ST_Project
     public partial class Gamescherm : Form
     {
         GameManager parent;
-        Dictionary<int, Tuple<int, int>> locations;
+        public Dictionary<int, Tuple<int, int>> locations;
         int w = 30;
         int h = 30;
 
@@ -108,6 +108,7 @@ namespace ST_Project
             if (hspos == -1)
             {
                 MessageBox.Show("No New Highscore", "GAME OVER", MessageBoxButtons.OK);
+                this.Close();
             }
             else
             {
