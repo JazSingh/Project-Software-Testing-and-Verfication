@@ -299,7 +299,9 @@ namespace ST_Project
         {
             int[] neighs = u.GetNeighbours();
             int[] backup = new int[neighs.Length];
+            foreach (int n in neighs) Console.WriteLine(n);
             neighs.CopyTo(backup, 0);
+            foreach (int n in neighs) Console.WriteLine(n);
 
             foreach (int neigh in neighs)
                 nodes[neigh].RemoveNeighbour(u.ID);

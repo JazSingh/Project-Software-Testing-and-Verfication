@@ -78,7 +78,7 @@ namespace ST_Project
                 int size = Convert.ToInt32(filelines[11].Split(' ')[1]);
                 int interval = Convert.ToInt32(filelines[12].Split(' ')[1]);
                 int difficulty = Convert.ToInt32(filelines[13].Split(' ')[1]);
-                
+
                 Node[] nodes = new Node[size];
 
                 for (int i = 14; i < filelines.Length; i++)
