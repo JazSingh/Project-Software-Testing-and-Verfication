@@ -13,7 +13,7 @@ namespace ST_Project
 {
     public partial class Hoofdscherm : Form
     {
-        GameManager parent;
+        GameManager parent;     // GameManager parent object to communicate with
         public Hoofdscherm(GameManager parent)
         {
             InitializeComponent();
@@ -35,6 +35,7 @@ namespace ST_Project
             Visible = false;
         }
 
+        // create a new game
         private void newgame_b_Click(object sender, EventArgs e)
         {
             parent.DiffSelectNotify(1);
@@ -42,6 +43,7 @@ namespace ST_Project
 
         OpenFileDialog ofd = new OpenFileDialog();
 
+        // loads a game from a save file
         private void button2_Click(object sender, EventArgs e)
         {
             if (ofd.ShowDialog() == DialogResult.OK)
@@ -49,22 +51,23 @@ namespace ST_Project
                 string filename = ofd.FileName;
                 string[] filelines = File.ReadAllLines(filename);
 
+                // this region deals with reading all lines needed to create a player object
                 #region player
-
+                
                 int hpmax = Convert.ToInt32(filelines[1].Split(' ')[1]);
                 int hp = Convert.ToInt32(filelines[2].Split(' ')[1]);
                 int damage = Convert.ToInt32(filelines[3].Split(' ')[1]);
                 int score = Convert.ToInt32(filelines[4].Split(' ')[1]);
+
                 Item item;
                 List<Item> items = new List<Item>();
                 string type = filelines[5].Split(' ')[2];
                 item = GenerateItem(type);
-                //6
+
                 int hpcount = Convert.ToInt32(filelines[6].Split(' ')[1]);
-                //7
                 int tccount = Convert.ToInt32(filelines[7].Split(' ')[1]);
-                //8
                 int mscount = Convert.ToInt32(filelines[8].Split(' ')[1]);
+
                 for (int i = 0; i < hpcount; i++) items.Add(new Health_Potion());
                 for (int i = 0; i < tccount; i++) items.Add(new Time_Crystal());
                 for (int i = 0; i < mscount; i++) items.Add(new Magic_Scroll());
@@ -73,6 +76,7 @@ namespace ST_Project
 
                 #endregion
 
+                // this region deals with reading all lines needed to create a dungeon object
                 #region dungeon
 
                 int size = Convert.ToInt32(filelines[11].Split(' ')[1]);
@@ -102,12 +106,14 @@ namespace ST_Project
 
                 #endregion
 
+                // the Player p and Dungeon d together make a new GameState gs
                 GameState gs = new GameState(d, p);
 
                 parent.GameLoadNotify(gs, difficulty);
             }
         }
 
+        // returns the right item for the save file Load method
         private Item GenerateItem(string s)
         {
             Item it;
@@ -123,6 +129,7 @@ namespace ST_Project
             return it;
         }
 
+        // shows the highscores
         private void button1_Click(object sender, EventArgs e)
         {
             parent.ShowHighScores();
