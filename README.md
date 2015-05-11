@@ -1,7 +1,6 @@
 # ST-Project
 
 Project by:
-
 Daan Jacobs, 4123581 
 Jaspreet Singh, 3754022 
 Daniël Stekelenburg, 4153286
