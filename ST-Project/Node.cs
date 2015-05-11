@@ -16,6 +16,7 @@ namespace ST_Project
 
         private int MaxCapacity = 9;
 
+        //Post: member variables are initialized
         public Node(int i)
         {
             identifier = i;
@@ -44,6 +45,7 @@ namespace ST_Project
             return adj;
         }
 
+        //Set maxcapacity if the node is a bridge
         public void SetCapacity(int bridgeLvl)
         {
             MaxCapacity *= bridgeLvl;
@@ -54,6 +56,7 @@ namespace ST_Project
             return MaxCapacity;
         }
 
+        //Add item to node
         public void Add_Item(Item i)
         {
             items.Add(i);
@@ -69,6 +72,7 @@ namespace ST_Project
             items.Clear();
         }
 
+        //Check if upper most pack in the stack retreats
         public bool Retreat()
         {
             Pack p = packs.Pop();
@@ -83,6 +87,7 @@ namespace ST_Project
             return false;
         }
 
+        //Add a new pack to the node
         public bool AddPack()
         {
             Random r = new Random();
@@ -93,16 +98,19 @@ namespace ST_Project
             return true;
         }
 
+        //Remove pack from stack
         public Pack popPack()
         {
             return packs.Pop();
         }
 
+        //Add pack to stack
         public void pushPack(Pack p)
         {
             packs.Push(p); // else set new pack on fst place
         }
 
+        //Get total number of monsters in node
         public int TotalMonsters()
         {
             int s = 0;
@@ -111,12 +119,14 @@ namespace ST_Project
             return s;
         }
 
+        //Add neighbour if possible and not already present
         public void AddNeighbour(int node)
         {
             if(!IsNeighbour(node) && numNeighbours < 4)
                 adj[numNeighbours++] = node; 
         }
 
+        //Check if some node is a neighbour
         public bool IsNeighbour(int node)
         {
             for(int i = 0; i < numNeighbours; i++)
@@ -124,6 +134,7 @@ namespace ST_Project
             return false;
         }
 
+        //Return an array with the indices of the neigher or null if there are no neighbours
         public int[] GetNeighbours()
         {
             if (numNeighbours == 0) return null;
@@ -138,6 +149,7 @@ namespace ST_Project
             return numNeighbours == 4;
         }
 
+        //If v is a neighbour, remove it.
         public bool RemoveNeighbour(int v)
         {
             int index = -1;
@@ -152,6 +164,7 @@ namespace ST_Project
             return true;
         }
 
+        //Return the sum of health of monster in the node
         public int SumMonsterHealth()
         {
             int sum = 0;
@@ -160,6 +173,7 @@ namespace ST_Project
             return sum;
         }
 
+        //Return the sum of health the potions inside the node
         public int SumHealPots()
         {
             int sum = 0;
@@ -189,6 +203,7 @@ namespace ST_Project
             return s;
         }
 
+        //Check if the node contains a pack
         public bool hasPack()
         {
             if (packs.Count > 0)
@@ -196,6 +211,7 @@ namespace ST_Project
             return false;
         }
 
+        //Given the interval of a dungeon, check if the node is bridge.
         public bool IsBridge(int interval)
         {
             if(identifier > 0 && identifier % interval == 0)
