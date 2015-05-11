@@ -8,6 +8,7 @@ namespace TestProject
     [TestClass]
     public class DungeonTests
     {
+        //Test if basic properties of the map are set correctly upon initialization.
         [TestMethod]
         public void BasicProperties()
         {
@@ -20,6 +21,7 @@ namespace TestProject
             Assert.IsTrue(CountNonNullNodes(d) >= d.difficulty + 2);
         }
 
+        //Test if the number of nodea is at least difficulty + 2
         [TestMethod]
         public void CreateNodes()
         {
@@ -34,6 +36,7 @@ namespace TestProject
             }
         }
 
+        //Check if a spanning tree is created between two nodes
         [TestMethod]
         public void CreateSTreeTwoNodes()
         {
@@ -48,6 +51,7 @@ namespace TestProject
             Assert.IsTrue(d.nodes[0].IsNeighbour(1) && d.nodes[1].IsNeighbour(0));
         }
 
+        //Test if a graph is fully connected when creating a spanning tree
         [TestMethod]
         public void CreateSTree()
         {
@@ -70,6 +74,7 @@ namespace TestProject
             Assert.IsTrue(d.nodes[dsize - 1].NumNeighbours == 0);
         }
 
+        //Check if in a dungeon with only one node, no new edges are added
         [TestMethod]
         public void CreateSTreeSingle()
         {
@@ -84,6 +89,7 @@ namespace TestProject
             Assert.IsTrue(d.nodes[0].NumNeighbours == 0);
         }
 
+        //Check if there are no loose end, no new edges are added
         [TestMethod]
         public void FixLooseEndsNoLooseEnd()
         {
@@ -108,6 +114,7 @@ namespace TestProject
             Assert.IsTrue(ns[3].NumNeighbours == 1);
         }
 
+        //Check if a single loose end is handled correctly
         [TestMethod]
         public void FixLooseEndsSingle()
         {
@@ -133,6 +140,7 @@ namespace TestProject
             Assert.IsTrue(ns[5].NumNeighbours == 2);
         }
 
+        //Check if multiple loose end are handled correctly
         [TestMethod]
         public void FixLooseEndsMultiple()
         {
@@ -165,6 +173,7 @@ namespace TestProject
 
         }
 
+        //Check if two paritions are connected correcly
         [TestMethod]
         public void ConnectPartitionTwoBridgesOnly()
         {
@@ -203,6 +212,7 @@ namespace TestProject
             Assert.IsTrue(d.nodes[4].NumNeighbours == 1);
         }
 
+        //Check if when a pack should retreat the method returns a true value
         [TestMethod]
         public void CheckRetreatYes()
         {
@@ -231,6 +241,7 @@ namespace TestProject
             Assert.IsTrue(d.CheckRetreat(1));
         }
 
+        //Check in case of a retreat the pack retreats to that single node
         [TestMethod]
         public void CheckRetreatYesOneChoice()
         {
@@ -255,6 +266,7 @@ namespace TestProject
             Assert.IsTrue(d.CheckRetreat(1));
         }
 
+        //Check if the method returns a false if a pack shouldnt retreat.
         [TestMethod]
         public void CheckRetreatNo()
         {
@@ -269,6 +281,7 @@ namespace TestProject
             Assert.IsFalse(d.CheckRetreat(1));
         }
 
+        //Check if pack can move a from a contested node which arent engaged in battle
         [TestMethod]
         public void MovePacksFromContested()
         {
@@ -288,6 +301,7 @@ namespace TestProject
             Assert.IsFalse(d.nodes[1].hasPack());
         }
 
+        //Check if moving packs to an empty node is possible
         [TestMethod]
         public void MovePackToEmptyNode()
         {
@@ -307,6 +321,7 @@ namespace TestProject
             Assert.IsFalse(d.nodes[0].hasPack());
         }
 
+        //Check if it is possible to move packs to the node in which the player currently resides
         [TestMethod]
         public void MovePackToPlayerNode()
         {
@@ -325,6 +340,7 @@ namespace TestProject
             Assert.IsTrue(d.nodes[0].hasPack());
         }
 
+        //It shouldnt be possible to move a pack to a node if it will breach its maximum capacity
         [TestMethod]
         public void MovePackMaxCap()
         {
@@ -364,6 +380,7 @@ namespace TestProject
             Assert.IsTrue(ns[1].popPack().GetPackHealth() == p5.GetPackHealth() - 3);
         }
 
+        //Check if packs dont disspear when moving them around
         [TestMethod]
         public void MovePack()
         {
@@ -381,6 +398,7 @@ namespace TestProject
             }
         }
 
+        //Check if packs still have the same health when moves
         [TestMethod]
         public void MovePackDamaged()
         {
@@ -418,6 +436,7 @@ namespace TestProject
             || ns[1].popPack().GetPackHealth() != p5.GetPackHealth() - 3);
         }
 
+        //Check if no edges are added in a graph with a single node
         [TestMethod]
         public void AddEdgesSingleNode()
         {
@@ -430,6 +449,7 @@ namespace TestProject
             Assert.AreEqual(0, ns[0].NumNeighbours);
         }
 
+        //Check if edges can be added
         [TestMethod]
         public void AddEdgesMultipleNodesNoNeigs()
         {
@@ -448,6 +468,7 @@ namespace TestProject
             }
         }
 
+        //Test if the length of the shortest path is actually minimal
         [TestMethod]
         public void SPlength()
         {
@@ -473,6 +494,7 @@ namespace TestProject
             Assert.AreEqual(4, vs3.Count);
         }
 
+        //If the graph contains a cycle, check if the given path is still minimal
         [TestMethod]
         public void SPCycle()
         {
@@ -497,6 +519,7 @@ namespace TestProject
             Assert.AreEqual(4, vs1.Count);
         }
 
+        //Check for the shortest path
         [TestMethod]
         public void SP()
         {
@@ -521,6 +544,7 @@ namespace TestProject
             Assert.AreEqual(3, vs1.Count);
         }
 
+        //Chick if upon creation, all nodes are reachable from the exit
         [TestMethod]
         public void AllReachable()
         {
@@ -538,6 +562,7 @@ namespace TestProject
             }
         }
 
+        //If we remove a bridge, all nodes preceiding it, shouldnt be reachable
         [TestMethod]
         public void DestroyImportant()
         {
@@ -553,6 +578,7 @@ namespace TestProject
             }
         }
 
+        //Check all other nodes are reachable if we destroy a node which only has one incoming edge.
         [TestMethod]
         public void DestroyNonImportant()
         {
@@ -573,6 +599,7 @@ namespace TestProject
             Assert.AreEqual(3, CountNonNullNodes(d));
         }
 
+        //Test if dropping different kind of item works
         [TestMethod]
         public void DropHealth()
         {
@@ -612,6 +639,7 @@ namespace TestProject
             Assert.AreEqual(1, s);
         }
 
+        //Check if the right amount of monsters are spawned
         [TestMethod]
         public void SpawnMonsters()
         {
@@ -630,6 +658,7 @@ namespace TestProject
 
         }
 
+        //Check if the sum of health of the monsters equals zero, if no monsters are on the map
         [TestMethod]
         public void SumMonstHealthNone()
         {
@@ -645,6 +674,7 @@ namespace TestProject
             }
         }
 
+        //Check if the sum of the health is correct when some monsters are damaged
         [TestMethod]
         public void SumMonstHealthDamaged()
         {
@@ -662,6 +692,7 @@ namespace TestProject
             Assert.AreEqual(exp, act);
         }
 
+        //Check if the sum of the health of the monsters is correct if none are damaged
         [TestMethod]
         public void SumMonstHealthFull()
         {
@@ -679,6 +710,7 @@ namespace TestProject
             }
         }
 
+        //Same two tests for health potions as above
         [TestMethod]
         public void SumHPotsNone()
         {
@@ -712,6 +744,7 @@ namespace TestProject
             }
         }
 
+        //Check if no nodes are reachable if no edges are present.
         [TestMethod]
         public void ReachableNodesNoNeighbours()
         {

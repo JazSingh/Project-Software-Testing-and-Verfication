@@ -7,8 +7,9 @@ namespace TestProject
     [TestClass]
     public class OracleTests
     {
+        //Check if Deciding can yield both true and false
         [TestMethod]
-        public void TestDecide() //Triviaal
+        public void TestDecide() 
         {
             bool exp = true;
             bool dec = Oracle.Decide();
@@ -16,6 +17,7 @@ namespace TestProject
             Assert.AreEqual(exp, act);
         }
 
+        //Check if expected values lies in range
         [TestMethod]
         public void TestBetweenTwoNumbersEqual()
         {
@@ -25,6 +27,7 @@ namespace TestProject
             Assert.AreEqual(act, exp);
         }
 
+        //Check if range is inclusive on both sides
         public void TestBetweenTwoNumbersInclusiveRanges()
         {
             int min = 0;
@@ -34,6 +37,7 @@ namespace TestProject
             Assert.IsTrue(inRanges);
         }
 
+        //Check if oracle doesnt crash if swapping min and max
         [TestMethod]
         public void TestTwoNumbersSwapMinMax()
         {
@@ -41,6 +45,7 @@ namespace TestProject
             Assert.IsTrue(r >= 0 && r <= 1);
         }
 
+        //Check ranges
         [TestMethod]
         public void TestOneNumber()
         {
@@ -48,6 +53,7 @@ namespace TestProject
             Assert.IsTrue(k >= 0 && k <= 100);
         }
 
+        //Check if behaviour is correct when range is [0,0]
         [TestMethod]
         public void TestOneNumberZero()
         {
@@ -55,6 +61,7 @@ namespace TestProject
             Assert.AreEqual(0, k);
         }
 
+        //Check behaviour if oracle is determenistic
         [TestMethod]
         public void TestDetermDecide()
         {
@@ -63,6 +70,7 @@ namespace TestProject
             Assert.IsTrue(Oracle.Decide());
         }
 
+        //Check deterministic behaviour for ranges
         [TestMethod]
         public void TestDetermTwoNum()
         {

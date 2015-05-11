@@ -15,7 +15,8 @@ namespace ST_Project
 
         private int initialPackDrops;
 
-
+        //Pre: n >= 0
+        //Post difficulty, dungeonSize, interval initialized
         public Dungeon(int n)
         {
             difficulty = n;
@@ -52,6 +53,8 @@ namespace ST_Project
             interval = interv;
         }
 
+        //Pre: a non existing graph
+        //Post: A connected grap in which all nodes are reachable
         public void GenerateDungeon()
         {
             //Initialize start and exit node
@@ -77,6 +80,8 @@ namespace ST_Project
                 AddRandomEdges(i);
         }
 
+        //Pre: for all n in nodes: n = null;
+        //Post: at least *difficulty* nodes are initialized
         public void CreateNodes()
         {
             int i = 1;
@@ -97,6 +102,8 @@ namespace ST_Project
 
         //[S...b_1>, [b_1..b_2>, ...., [b_n-1...E-1], [E]
         //Create a spanning tree for the nodes in a partition
+        //Pre: nodes[] contains at least 2 initialized nodes
+        //Post: The nodes in a partition form a spanning tree
         public void CreateSpanningTree(int partition)
         {
             //Create list with indices of nodes in the partition
@@ -122,6 +129,9 @@ namespace ST_Project
             }     
         }
 
+        //Pre: nodes[] has some nodes and the nodes have some neighbours
+        //Post: If there is a node which loosly hangs on the exit nodes,
+        //         is is connected to some node in the k-1 th parition.
         public void FixLooseEnds()
         {
             //Find node from end that only has the exit node as neighbour
@@ -160,6 +170,8 @@ namespace ST_Project
             nodes[v].AddNeighbour(nodes[u].ID);
         }
 
+        //Pre: nodes[n] != null, A fight is initiated
+        //Post: A boolean indicitaing whether a pack has retreated from the battle.
         public bool CheckRetreat(int pos)
         {
             Node n = GetNode(pos);
@@ -178,6 +190,8 @@ namespace ST_Project
             return false;
         }
 
+        //Pre: nodes[player] != null
+        //Post: Some packs might have moved through the dungeon
         public void MovePacks(int player)
         {
             for (int t = 0; t < nodes.Length; t++)
@@ -233,6 +247,8 @@ namespace ST_Project
             }
         }
 
+        //Pre: partition * interval < dungeonSize
+        //Post: Some edges might have been added in the partition
         public void AddRandomEdges(int partition)
         {
             int min = partition * interval;
@@ -255,6 +271,8 @@ namespace ST_Project
             }
         }
 
+        //Pre: u and v != null
+        //Post: A stack containing the minimal number of nodes to reach from u to v
         public Stack<Node> ShortestPath(Node u, Node v)
         {
             Stack<Node> path = new Stack<Node>();
@@ -295,6 +313,8 @@ namespace ST_Project
             return path;
         }
 
+        //Pre: u != null
+        //Post: nodes only has nodes which are reachable from the exit node
         public int Destroy(Node u)
         {
             int[] neighs = u.GetNeighbours();
@@ -324,6 +344,8 @@ namespace ST_Project
             return newpos;
         }
 
+        //Pre: length(visited) = dungeonSize, u != null
+        //Post: Nodes who are reachable from u are indicated with a true value in visited
         public void ReachableNodes(Node u, ref bool[] visited)
         {
             visited[u.ID] = true;
@@ -333,6 +355,8 @@ namespace ST_Project
                 if (!visited[v]) ReachableNodes(nodes[v], ref visited);
         }
 
+        //Pre: t is a valid itemtype
+        //Post: An item of type t is dropped at a random node.
         public void DropItem(ItemType t)
         {
             Item k;
@@ -352,6 +376,9 @@ namespace ST_Project
             Console.WriteLine("In " + selected + " wordt een Item gedropt.");
             nodes[selected].Add_Item(k);
         }
+
+        //Pre: nodes has some initialized nodes.
+        //Post: the number of packs spawned = sum (i = 0 to diff) i = n(n+1) / 2
         public void SpawnMonsters()
         {
             //spawn 1 on every bridge
@@ -380,6 +407,8 @@ namespace ST_Project
             return nodes[i];
         }
 
+        //Pre: - 
+        //Post: Total sum of health of monsters in the dungeon
         public int SumMonsterHealth()
         {
             int sum = 0;
@@ -389,6 +418,8 @@ namespace ST_Project
             return sum;
         }
 
+        //Pre:-
+        //Post: Sum of health potions lying on the map give
         public int SumHealPots()
         {
             int sum = 0;

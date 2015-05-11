@@ -7,6 +7,7 @@ namespace TestProject
     [TestClass]
     public class NodeTests
     {
+        //Check the number of neighbours if a node has none
         [TestMethod]
         public void NoNeighboursLength()
         {
@@ -14,6 +15,7 @@ namespace TestProject
             Assert.AreEqual(n.NumNeighbours, 0);
         }
 
+        //Check number of neighbours if a node has some
         [TestMethod]
         public void SomeNeighboursLength()
         {
@@ -21,6 +23,7 @@ namespace TestProject
             Assert.AreEqual(3, n.NumNeighbours);
         }
 
+        //Check if node always has a degree of 4
         [TestMethod]
         public void AdjLength()
         {
@@ -31,6 +34,7 @@ namespace TestProject
             }
         }
 
+        //Check for capacity
         [TestMethod]
         public void CapacityNormal()
         {
@@ -38,6 +42,7 @@ namespace TestProject
             Assert.AreEqual(9, n.GetCapacity());
         }
 
+        //Check for capacity of bridge nodes
         [TestMethod]
         public void CapacityBridge()
         {
@@ -49,6 +54,7 @@ namespace TestProject
             }
         }
 
+        //Check for capacity of starting node
         [TestMethod]
         public void BridgeStartNode()
         {
@@ -57,6 +63,7 @@ namespace TestProject
                 Assert.IsFalse(n.IsBridge(i));
         }
 
+        //Check if node has correct indentiefier
         [TestMethod]
         public void GetIdentifier()
         {
@@ -65,6 +72,7 @@ namespace TestProject
             Assert.AreEqual(k, n.ID);
         }
 
+        //Check if uppon initialization a node contains no items
         [TestMethod]
         public void NoItems()
         {
@@ -72,6 +80,7 @@ namespace TestProject
             Assert.AreEqual(0, n.get_Items().Count);
         }
 
+        //Check if adding items works
         [TestMethod]
         public void AddItems()
         {
@@ -86,6 +95,7 @@ namespace TestProject
             }
         }
 
+        //Removing from an empty node should still result in the node containing 0 items
         [TestMethod]
         public void RemoveItemsEmpty()
         {
@@ -94,6 +104,7 @@ namespace TestProject
             Assert.AreEqual(0, n.get_Items().Count);
         }
 
+        //Check if all items are removed upon pickup
         [TestMethod]
         public void RemoveItems()
         {
@@ -105,6 +116,7 @@ namespace TestProject
             Assert.AreEqual(0, n.get_Items().Count);
         }
 
+        //Check if the node has no items when initialized
         [TestMethod]
         public void NoPacks()
         {
@@ -112,6 +124,7 @@ namespace TestProject
             Assert.IsFalse(n.hasPack());
         }
 
+        //Check if adding an items changes the outcome 
         [TestMethod]
         public void AddPack()
         {
@@ -120,6 +133,7 @@ namespace TestProject
             Assert.IsTrue(n.hasPack());
         }
 
+        //Check if pushing a pack in an empty node works
         [TestMethod]
         public void PushPack()
         {
@@ -128,6 +142,7 @@ namespace TestProject
             Assert.IsTrue(n.hasPack());
         }
 
+        //Check if capacity isnt full when it shouldnt be
         [TestMethod]
         public void CapacityNotFull()
         {
@@ -136,6 +151,7 @@ namespace TestProject
             Assert.IsTrue(n.AddPack());
         }
 
+        //Check if capacity if full when it should be
         [TestMethod]
         public void CapacityFull()
         {
@@ -146,6 +162,7 @@ namespace TestProject
             Assert.IsFalse(n.AddPack());
         }
 
+        //Check if a node with no monsters yields the right some of monsters
         [TestMethod]
         public void NoMonsters()
         {
@@ -153,6 +170,7 @@ namespace TestProject
             Assert.AreEqual(0, n.TotalMonsters());
         }
 
+        //Check if a node one pack yields in the right number of monsters (3)
         [TestMethod]
         public void OnePack()
         {
@@ -161,6 +179,7 @@ namespace TestProject
             Assert.AreEqual(3, n.TotalMonsters());
         }
 
+        //Check max capacity
         [TestMethod]
         public void MaxCapacity()
         {
@@ -172,6 +191,7 @@ namespace TestProject
             Assert.AreEqual(9, n.TotalMonsters());
         }
 
+        //Check if capacity contraint can be broken
         [TestMethod]
         public void MaxCapacityRestriction()
         {
@@ -183,6 +203,7 @@ namespace TestProject
             Assert.AreEqual(9, n.TotalMonsters());
         }
 
+        //Check if adding a neighbour works
         [TestMethod]
         public void AddNeighbourNotFull()
         {
@@ -191,6 +212,7 @@ namespace TestProject
             Assert.IsTrue(n.IsNeighbour(2));
         }
 
+        //Check if adding a neighbour works correctly if the node already has four neighbours
         [TestMethod]
         public void AddNeighbourFull()
         {
@@ -199,6 +221,7 @@ namespace TestProject
             Assert.IsFalse(n.IsNeighbour(6));
         }
 
+        //Check if node doesnt correctly assume some other node is a neighbour when it isnt.
         [TestMethod]
         public void IsNeighbourNoNeighbours()
         {
@@ -206,6 +229,7 @@ namespace TestProject
             Assert.IsFalse(n.IsNeighbour(7));
         }
 
+        //Check if the node actually sees neighbours as neighbours
         [TestMethod]
         public void IsNeighbour()
         {
@@ -216,6 +240,7 @@ namespace TestProject
             Assert.IsTrue(n.IsNeighbour(5));
         }
 
+        //Check if node gives a null if there are no neighbours
         [TestMethod]
         public void GetNeighboursNoNeighbours()
         {
@@ -223,6 +248,7 @@ namespace TestProject
             Assert.IsNull(n.GetNeighbours());
         }
 
+        //Check if right neighbours are returned upon requesting them
         [TestMethod]
         public void GetNeighbours()
         {
@@ -233,6 +259,7 @@ namespace TestProject
                 Assert.IsTrue(n.IsNeighbour(k[i]));
         }
 
+        //Check if node is full when it actually should be empty
         [TestMethod]
         public void IsFullEmpty()
         {
@@ -240,6 +267,7 @@ namespace TestProject
             Assert.IsFalse(n.IsFull());
         }
 
+        //Check if node is full when it shouldnt be
         [TestMethod]
         public void IsFullFilled()
         {
@@ -248,6 +276,7 @@ namespace TestProject
             Assert.IsFalse(n.IsFull());
         }
 
+        //Check if node is full when it actually should be
         [TestMethod]
         public void IsFull()
         {
@@ -255,6 +284,7 @@ namespace TestProject
             Assert.IsTrue(n.IsFull());
         }
     
+        //Check if removing a neighbour from a node with no neighbour works still yields 0 neighbours
         [TestMethod]
         public void RemoveNeighbourEmpty()
         {
@@ -263,6 +293,7 @@ namespace TestProject
             Assert.AreEqual(0, n.NumNeighbours);
         }
 
+        //Check if removing works correctly if a valid neighbour is removed
         [TestMethod]
         public void RemoveNeighbourValid()
         {
@@ -272,6 +303,7 @@ namespace TestProject
             Assert.AreEqual(0, n.NumNeighbours);
         }
 
+        //Check if neighbours arent removed when trying to remove a node that isnt a neighbour
         [TestMethod]
         public void RemoveNeighBourInvalid()
         {
@@ -281,6 +313,7 @@ namespace TestProject
             Assert.AreEqual(1, n.NumNeighbours);
         }
     
+        //Check if sum of health of monsters equals 0 in an empty node
         [TestMethod]
         public void SumMonstersEmpty()
         {
@@ -288,6 +321,7 @@ namespace TestProject
             Assert.AreEqual(0, n.SumMonsterHealth());
         }
 
+        //Check if sum of health is correctly calculated when some monsters are damaged
         [TestMethod]
         public void SumMonstersDamaged()
         {
@@ -301,6 +335,7 @@ namespace TestProject
             Assert.AreEqual(10, init - end);
         }
 
+        //Check if sum of health is correct upon spawning a fresh pack of monsters
         [TestMethod]
         public void SumMonstersFullHealth()
         {
@@ -310,6 +345,7 @@ namespace TestProject
             Assert.AreEqual(p.GetPackHealth(), n.SumMonsterHealth());
         }
 
+        //Same tests as above for pots
         [TestMethod]
         public void SumHealEmpty()
         {
@@ -329,6 +365,7 @@ namespace TestProject
             Assert.AreEqual(0, n.SumHealPots());
         }
 
+        //Check total heal amount when mixed items are present on a node
         [TestMethod]
         public void SumHeal()
         {
@@ -358,6 +395,7 @@ namespace TestProject
             Assert.AreEqual(s, n.ToString());
         }
 
+        //Check if checking if the node is a bridge yields false when it isnt a bridge
         [TestMethod]
         public void InvalidBridge()
         {
@@ -365,6 +403,7 @@ namespace TestProject
             Assert.IsFalse(n.IsBridge(6));
         }
 
+        //Check if checking for a bridge returns true if it actually is a bridge
         [TestMethod]
         public void IsValidBridge()
         {
@@ -372,6 +411,7 @@ namespace TestProject
             Assert.IsTrue(n.IsBridge(5));
         }
 
+        //Check if monsters want to retreat when they shouldnt
         [TestMethod]
         public void NoRetreat()
         {
@@ -382,6 +422,7 @@ namespace TestProject
             Assert.AreEqual(6, n.TotalMonsters());
         }
 
+        //Check if monsters want to retreat when they should
         [TestMethod]
         public void Retreat()
         {
@@ -396,6 +437,7 @@ namespace TestProject
             Assert.IsTrue(n.Retreat());
         }
     
+        //Check if adding a neighbour that is already present doesnt yield a duplicate entry
         [TestMethod]
         public void AddNeighbourAlreadyNeighbour()
         {
