@@ -10,12 +10,13 @@ namespace ST_Project
     {
         private Stack<Monster> monsters; // group of monsters who form the pack
         private Monster current; // monster who will get damaged when the player attacks the pack
-        private Item item;
-        private int score, init_hp;
-        private bool isMoved;
+        private Item item;       // possible item the pack drops when killed
+        private int score, init_hp; 
+        private bool isMoved; // boolean used for moving the pack around in the Dungeon
 
         private const int packSize = 3;
 
+        // constructor
         public Pack(int val)
         {
             monsters = new Stack<Monster>();
@@ -24,17 +25,14 @@ namespace ST_Project
             monsters.Push(new Monster());
             monsters.Push(new Monster());
             init_hp = 3 * 15;
-            // NEEDS IMPROVEMENTS!!!
+            
             score = 9; 
-            //Random r = new Random();
-            //int val = r.Next(0, 19);
             if (val < 3)
                 item = new Health_Potion();
             if (val >= 3 && val < 6)
                 item = new Time_Crystal();
             if (val >= 6 && val < 9)
                 item = new Magic_Scroll();
-            //////////////////////////////////////
             isMoved = false;
         }
 
@@ -47,11 +45,13 @@ namespace ST_Project
             item = new Health_Potion();
         }
 
+        // returns current score
         public int get_Score()
         {
             return score;
         }
         
+        // returns if pack needs to retreat, based on rule of >= 70% hp-drop
         public bool retreat()
         {
             int current_hp = 0;
@@ -67,6 +67,7 @@ namespace ST_Project
             return false;
         }
 
+        // returns true if pack is killed
         public bool isDead()
         {
             if (current == null && monsters.Count == 0)
@@ -74,22 +75,26 @@ namespace ST_Project
             return false;
         }
 
+        // returns amount of monsters in the pack
         public int GetNumMonsters()
         {
             return current == null? monsters.Count : (monsters.Count + 1);
         }
 
+        // adds monster to pack
         public void Add_Monster(Monster i)
         {
             monsters.Push(i);
             init_hp += i.GetHP();
         }
 
+        // returns initial HP
         public int getInitialHP()
         {
             return init_hp;
         }
 
+        // returns total HP of pack
         public int GetPackHealth()
         {
             int sum = current == null ? 0 : current.GetHP();
@@ -172,16 +177,19 @@ namespace ST_Project
             return total;
         }
 
+        // returns possible Item of pack
         public Item GetItem()
         {
             return item;
         }
 
+        // sets boolean isMoved to a certain boolean t
         public void Moved(bool t)
         {
             isMoved = t;
         }
 
+        // returns boolean isMoved
         public bool is_Moved()
         {
             return isMoved;

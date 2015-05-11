@@ -10,8 +10,27 @@ namespace TestProject
         [TestMethod]
         public void HP_DamageTest()
         {
+            // tests method GetHP() and hits() of monster
             HPTest();
             damageTest(); 
+        }
+
+        public void HPTest()
+        {
+            // tests if a new Monster-object has 15 HP
+            Monster m = new Monster();
+            int expected = 15;
+            int actual = m.GetHP();
+            Assert.AreEqual(expected, actual);
+        }
+
+        public void damageTest()
+        {
+            // tests if a new Monster has as damage 3
+            Monster target = new Monster();
+            int expected = 3;
+            int actual = target.hits();
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
@@ -21,22 +40,11 @@ namespace TestProject
             get_hit_dead();
         }
 
-        [TestMethod]
-        public void TToString()
-        {
-            Monster m = new Monster();
-            string s = string.Empty;
-
-            s += "HP: " + 15 + Environment.NewLine;
-            s += "Damage: " + 3;
-
-            string expected = s;
-            string actual = m.ToString();
-            Assert.AreEqual(expected, actual);
-        }
 
         public void gets_hit_alive()
         {
+            // pre: new Monster, full health
+            // post: monster is hit once, still alive
             Monster target = new Monster();
             
             bool expected = false;
@@ -50,6 +58,8 @@ namespace TestProject
 
         public void get_hit_dead()
         {
+            // pre: monster is alive
+            // post: monster is killed after being hit
             Monster target = new Monster();
 
             bool expected = false;
@@ -65,19 +75,18 @@ namespace TestProject
             Assert.AreEqual(expected, actual);
         }
 
-        public void HPTest()
+        [TestMethod]
+        public void TToString()
         {
+            // tests the ToString-method of monster
             Monster m = new Monster();
-            int expected = 15;
-            int actual = m.GetHP();
-            Assert.AreEqual(expected, actual);
-        }
+            string s = string.Empty;
 
-        public void damageTest()
-        {
-            Monster target = new Monster();
-            int expected = 3;
-            int actual = target.hits();
+            s += "HP: " + 15 + Environment.NewLine;
+            s += "Damage: " + 3;
+
+            string expected = s;
+            string actual = m.ToString();
             Assert.AreEqual(expected, actual);
         }
     }

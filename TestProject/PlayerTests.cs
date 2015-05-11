@@ -14,6 +14,7 @@ namespace TestProject
         [TestMethod]
         public void GetHP()
         {
+            // tests if player returns it's current HP correctly
             Player p = new Player();
             int expected = 250;
             int actual = p.GetHP();
@@ -23,6 +24,7 @@ namespace TestProject
         [TestMethod]
         public void isAlive()
         {
+            // tests if player returns it's life-status correctly
             Player p = new Player();
             bool expected = true;
             bool actual = p.IsAlive();
@@ -32,6 +34,7 @@ namespace TestProject
         [TestMethod]
         public void GetScore()
         {
+            // tests if player returns it's score correctly
             Player p = new Player();
             int expected = 0;
             int actual = p.getScore();
@@ -41,11 +44,13 @@ namespace TestProject
         [TestMethod]
         public void Award_Score()
         {
+            // tests if player processes an award correctly
             AwardScore(10);
         }
 
         public void AwardScore(int i)
         {
+            // tests if player processes an award correctly
             Player p = new Player();
             int score = p.getScore();
             int expected = score + i;
@@ -55,18 +60,9 @@ namespace TestProject
         }
 
         [TestMethod]
-        public void set_and_getposition()
-        {
-            Player p = new Player();
-            p.set_position(10);
-            int expected = 10;
-            int actual = p.get_position();
-            Assert.AreEqual(expected, actual);
-        }
-
-        [TestMethod]
         public void getNRItems()
         {
+            // tests if player returns it's number of items (inventory) correctly
             Player p = new Player();
             int actual = p.getNRPotions();
             Assert.AreEqual(0, actual);
@@ -81,6 +77,7 @@ namespace TestProject
         [TestMethod]
         public void getItems()
         {
+            // tests if player returns it's items (inventory) correctly
             Player p = new Player();
             List<Item> actual = p.getItems();
             Assert.AreEqual(0, actual.Count);
@@ -89,6 +86,7 @@ namespace TestProject
         [TestMethod]
         public void getPosition()
         {
+            // tests if player returns it's position correctly
             Player p = new Player();
             int actual = p.get_position();
             Assert.AreEqual(0, actual);
@@ -97,6 +95,7 @@ namespace TestProject
         [TestMethod]
         public void setLocation()
         {
+            // tests if player sets it's position correctly
             Player p = new Player();
             p.set_position(8);
             Assert.AreEqual(8, p.get_position());
@@ -105,6 +104,7 @@ namespace TestProject
         [TestMethod]
         public void AddItem()
         {
+            // tests if player adds an Item to it's inventory correctly
             Player p = new Player();
             p.add(new Health_Potion());
             Assert.AreEqual(1, p.getNRPotions());
@@ -117,6 +117,7 @@ namespace TestProject
         [TestMethod]
         public void SetupPlayerCustomized()
         {
+            // tests if the load-constructor-method works correctly
             int hpmax = 100;
             int hp = 100;
             int damage = 10;
@@ -130,8 +131,9 @@ namespace TestProject
         }
 
         [TestMethod]
-        public void UseItem()
+        public void UseHealthPotion()
         {
+            // tets if a player uses a Health Potion correctly
             Player p = new Player();
             Dungeon d = new Dungeon(1);
             Pack pack = new Pack(8);
@@ -144,6 +146,7 @@ namespace TestProject
         [TestMethod]
         public void UpdateCurrentItem()
         {
+            // tests if player updates it's current item correctly
             Player p = new Player();
             Dungeon d = new Dungeon(1);
             p.use(d, new Magic_Scroll());
@@ -156,6 +159,7 @@ namespace TestProject
         [TestMethod]
         public void Save()
         {
+            // tests if the save-method of Player works correctly
             Player p = new Player();
             Dungeon d = new Dungeon(1);
             string filename = "test.txt";
@@ -165,6 +169,7 @@ namespace TestProject
         [TestMethod]
         public void Load()
         {
+            // tests if the load-method of Player works correctly
             Player p = new Player();
             string s = "stinrdnka";
             Assert.AreEqual(true, p.load(s));
@@ -173,6 +178,7 @@ namespace TestProject
         [TestMethod]
         public void ScrollActive()
         {
+            // tests if a player uses a Magic Scroll correctly
             Player p = new Player();
             Dungeon d = new Dungeon(5);
             Pack pa = new Pack(0);
@@ -186,6 +192,7 @@ namespace TestProject
         [TestMethod]
         public void CrystalActive()
         {
+            // tests if a player uses a Time Crystal correctly
             Player p = new Player();
             Dungeon d = new Dungeon(5);
             Pack pa = new Pack(0);
@@ -198,6 +205,7 @@ namespace TestProject
         [TestMethod]
         public void ItemExpire()
         {
+            // tests if an item is removed correctly, after it's consumed
             Player p = new Player();
             Dungeon d = new Dungeon(5);
             Pack pa = new Pack(0);
@@ -210,7 +218,7 @@ namespace TestProject
 
         [TestMethod]
         public void StringWithItems()
-        {
+        {   // tests if save-methods used for saving the players' items works correctly
             Player p = new Player();
             p.add(new Health_Potion());
             p.add(new Time_Crystal());

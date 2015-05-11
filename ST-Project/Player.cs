@@ -9,10 +9,11 @@ namespace ST_Project
 {
     public class Player
     {
-        private int HPmax, HP, damage, score, position;
-        private Item current;
-        private List<Item> Items;
+        private int HPmax, HP, damage, score, position; // obvious ints
+        private Item current; // current item of the player
+        private List<Item> Items; // items in players' inventory
 
+        // constructor
         public Player()
         {
             HPmax = 250;
@@ -23,6 +24,7 @@ namespace ST_Project
             Items = new List<Item>();
         }
 
+        // constructor used to load a save-file
         public Player(int hpmax, int hp, int dmg, int scr, Item item, List<Item> items)
         {
             HPmax = hpmax;
@@ -34,6 +36,7 @@ namespace ST_Project
             position = 0;
         }
 
+        // player uses a certain item i
         public void use(Dungeon d, Item i)
         {
             current = i;
@@ -48,6 +51,7 @@ namespace ST_Project
             }
         }
 
+        // update current item (decreases duration)
         public void UpdateCurrentItem()
         {
             if (current != null)
@@ -59,16 +63,19 @@ namespace ST_Project
             }
         }
 
+        // returns current item
         public Item getCurrentItem()
         {
             return current;
         }
 
+        // adds an item to players' inventory
         public void add(Item i)
         {
             Items.Add(i);
         }
 
+        // saves player in a certain save-file
         public bool save(Dungeon d, string filename)
         {
             string save = ToString() + Environment.NewLine + d.ToString();
@@ -76,24 +83,32 @@ namespace ST_Project
             return true;
         }
 
+        
         public bool load(string filename)
         {
             return true;
         }
 
+        // returns current HP
         public int GetHP()
         {
             return HP;
         }
 
+        // returns true when player is alive, else false
         public bool IsAlive()
         {
             return HP > 0;
         }
 
+        // method realizes a combat-round in a battle, 
+        // between the player and a certain pack.
+        // first the player hits the pack,
+        // then (if the pack is still alive) the pack 
+        // attacks the player.
         public void doCombatRound(Dungeon d, Pack p)
         {
-            // if player needs to attack
+            // if player uses an item at the moment
             if (current != null)
             {
                 if (current.type == ItemType.TimeCrystal)
@@ -108,6 +123,7 @@ namespace ST_Project
                 }
             }
 
+            // if player doesn't use an item
             else
             {
                 if (p.hit_pack(damage) == true)
@@ -122,10 +138,11 @@ namespace ST_Project
                 }
             }
 
-            // if pack needs to attack player
+            // pack attacks player
             HP -= p.hit_player();
         }
 
+        // players' score gets increases by integer "scr"
         public void AwardScore(int scr)
         {
             Console.WriteLine("Score was: " + score);
@@ -133,6 +150,7 @@ namespace ST_Project
             Console.WriteLine("Score is: " + score);
         }
 
+        // method used for saving
         public override string ToString()
         {
             string s = string.Empty;
@@ -169,21 +187,25 @@ namespace ST_Project
             return s;
         }
 
+        // sets current position of player
         public void set_position(int i)
         {
             position = i;
         }
 
+        // gets current position of player
         public int get_position()
         {
             return position;
         }
 
+        // sets current HP of player
         public void set_HP(int i)
         {
             HP = i;
         }
 
+        // gets number of potions inside the players' inventory
         public int getNRPotions()
         {
             int result = 0;
@@ -196,6 +218,7 @@ namespace ST_Project
             return result;
         }
 
+        // gets number of Time Crystals inside the players' inventory
         public int getNRCrystals()
         {
             int result = 0;
@@ -208,6 +231,7 @@ namespace ST_Project
             return result;
         }
 
+        // gets number of Magic Scrolls inside the players' inventory
         public int getNRScrolls()
         {
             int result = 0;
@@ -219,11 +243,13 @@ namespace ST_Project
             return result;
         }
 
+        // returns item in inventory
         public List<Item> getItems()
         {
             return Items;
         }
 
+        // returns score
         public int getScore()
         {
             return score;
