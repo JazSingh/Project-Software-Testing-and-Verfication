@@ -1,4 +1,11 @@
 # ST-Project
+
+Project by:
+
+Daan Jacobs, 4123581 
+Jaspreet Singh, 3754022 
+Daniël Stekelenburg, 4153286
+
 To build the project: clone the solution and open the the solution file in Visual Studio.
 The project and test project are situated in the same solution.
 
