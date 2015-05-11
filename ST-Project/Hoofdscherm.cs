@@ -59,14 +59,15 @@ namespace ST_Project
                 List<Item> items = new List<Item>();
                 string type = filelines[5].Split(' ')[2];
                 item = GenerateItem(type);
-                int numitems = Convert.ToInt32(filelines[6].Split(' ')[1]);
-
-                for (int i = 0; i < numitems; i++)
-                {
-                    string typ = filelines[7+i];
-
-                    items.Add(GenerateItem(typ));
-                }
+                //6
+                int hpcount = Convert.ToInt32(filelines[6].Split(' ')[1]);
+                //7
+                int tccount = Convert.ToInt32(filelines[7].Split(' ')[1]);
+                //8
+                int mscount = Convert.ToInt32(filelines[8].Split(' ')[1]);
+                for (int i = 0; i < hpcount; i++) items.Add(new Health_Potion());
+                for (int i = 0; i < tccount; i++) items.Add(new Time_Crystal());
+                for (int i = 0; i < mscount; i++) items.Add(new Magic_Scroll());
 
                 Player p = new Player(hpmax, hp, damage, score, item, items);
 
@@ -74,30 +75,26 @@ namespace ST_Project
 
                 #region dungeon
 
-                int index = 8;
-                while (filelines[index] != "DUNGEON")
-                {
-                    index++;
-                }
+                int size = Convert.ToInt32(filelines[11].Split(' ')[1]);
+                int interval = Convert.ToInt32(filelines[12].Split(' ')[1]);
+                int difficulty = Convert.ToInt32(filelines[13].Split(' ')[1]);
 
-                int size = Convert.ToInt32(filelines[index + 1].Split(' ')[1]);
-                int interval = Convert.ToInt32(filelines[index + 2].Split(' ')[1]);
-                int difficulty = Convert.ToInt32(filelines[index + 3].Split(' ')[1]);
-                index += 4;
                 Node[] nodes = new Node[size];
-                int z = 0;
-                while(index + z < filelines.Length)
+
+                for (int i = 14; i < filelines.Length; i++)
                 {
-                    string[] nodeline = filelines[index + z].Split(' ');
+                    string[] nodeline = filelines[i].Split(' ');
+
                     int identifier = Convert.ToInt32(nodeline[1]);
-                    int[] adj = new int[nodeline.Length - 1];
+                    int[] adj = new int[nodeline.Length - 3];
+
                     for (int j = 2; j < nodeline.Length-1; j++)
                     {
                         adj[j - 2] = Convert.ToInt32(nodeline[j]);
                     }
+
                     Node n = new Node(identifier, adj);
                     nodes[identifier] = n;
-                    z++;
                 }
 
 

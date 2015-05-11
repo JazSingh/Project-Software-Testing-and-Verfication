@@ -31,6 +31,7 @@ namespace ST_Project
             score = scr;
             current = item;
             Items = items;
+            position = 0;
         }
 
         public void use(Dungeon d, Item i)
@@ -146,14 +147,26 @@ namespace ST_Project
             else
                 s += current.ToString();
             s += Environment.NewLine;
-            s += "Items: " + Items.Count + Environment.NewLine;
 
-            foreach(Item i in Items)
+            int mscount = 0;
+            int hpcount = 0;
+            int tccount = 0;
+            foreach (Item i in Items)
             {
-                s += i.ToString() + Environment.NewLine;
+                if (i.ToString() == "TimeCrystal")
+                    tccount++;
+                if (i.ToString() == "HealthPotion")
+                    hpcount++;
+                if (i.ToString() == "MagicScroll")
+                    mscount++;
             }
+               
 
-                return s;
+            s += "HealthPotions " + hpcount + Environment.NewLine;
+            s += "TimeCrystals " + tccount + Environment.NewLine;
+            s += "MagicScrolls " + mscount + Environment.NewLine;
+            
+            return s;
         }
 
         public void set_position(int i)

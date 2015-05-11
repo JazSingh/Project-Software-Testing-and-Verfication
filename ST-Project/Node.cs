@@ -28,8 +28,13 @@ namespace ST_Project
         public Node(int ident, int[] adje)
         {
             identifier = ident;
-            adj = adje;
-            numNeighbours = adj.Length;
+            adj = new int[4];
+            numNeighbours = 0;
+            for (int i = 0; i < adje.Length; i++)
+            {
+                numNeighbours++;
+                adj[i] = adje[i];
+            }
             packs = new Stack<Pack>();
             items = new List<Item>();
         }
@@ -121,7 +126,7 @@ namespace ST_Project
 
         public int[] GetNeighbours()
         {
-            if(numNeighbours == 0) return null;
+            if (numNeighbours == 0) return null;
             int[] neighs = new int[numNeighbours];
             for (int i = 0; i < numNeighbours; i++)
                 neighs[i] = adj[i];
