@@ -7,7 +7,7 @@ using System.IO;
 
 namespace ST_Project
 {
-
+    //controller
     public class GameManager
     {
         private GameState state;
