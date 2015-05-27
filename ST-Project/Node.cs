@@ -229,5 +229,10 @@ namespace ST_Project
         {
             return MaxCapacity;
         }
+
+        public int getNumPacks()
+        {
+            return packs.Count;
+        }
     }
 }

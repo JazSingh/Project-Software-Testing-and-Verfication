@@ -280,7 +280,6 @@ namespace ST_Project
         public void UpdateTime()
         {
             p.UpdateCurrentItem();
-            PackMoves();
         }
 
         // Move all packs in the dungeon, depending on the players current location

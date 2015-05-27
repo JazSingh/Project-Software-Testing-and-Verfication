@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ST_Project
 {
-    public struct Pack
+    public class Pack
     {
         private Stack<Monster> monsters; // group of monsters who form the pack
         private Monster current = null; // monster who will get damaged when the player attacks the pack

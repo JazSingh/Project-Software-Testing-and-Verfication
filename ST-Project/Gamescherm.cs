@@ -63,6 +63,7 @@ namespace ST_Project
         private void UpdateLabels()
         {
             total_packs.Text = parent.GetDungeon().getNumPacks().ToString();
+            packs_node.Text = parent.GetDungeon().GetNode(parent.GetPlayer().get_position()).getNumPacks().ToString();
             NRpotions.Text = parent.GetPlayer().getNRPotions().ToString();
             NRcrystals.Text = parent.GetPlayer().getNRCrystals().ToString();
             NRscrolls.Text = parent.GetPlayer().getNRScrolls().ToString();
@@ -72,11 +73,18 @@ namespace ST_Project
 
             if (parent.GetState().fighting())
             {
-                Pack p = parent.GetDungeon().nodes[parent.GetPlayer().get_position()].popPack();
+                Pack p = parent.GetDungeon().nodes[parent.GetPlayer().get_position()].popPack(); // gets pack
+
                 p_hp.Text = p.GetPackHealth().ToString();
                 p_monsters.Text = p.GetNumMonsters().ToString();
-                //p_item.Text = p.GetItem().ToString();
-                parent.GetDungeon().nodes[parent.GetPlayer().get_position()].pushPack(p);
+                
+                Item i = p.GetItem();
+                if (i != null)
+                    p_item.Text = i.ToString();
+                else
+                    p_item.Text = "None";
+                
+                parent.GetDungeon().nodes[parent.GetPlayer().get_position()].pushPack(p); // returns pack
             }
         }
 
@@ -251,8 +259,9 @@ namespace ST_Project
                 int b_x = locations[buren[t]].Item1 + (int)(0.5 * w);
                 int b_y = locations[buren[t]].Item2 + (int)(0.5 * h);
 
-                if (Math.Abs(b_x - x) < 0.5 * w &&
-                    Math.Abs(b_y - y) < 0.5 * h)
+                if ((Math.Abs(b_x - x) < 0.5 * w) &&
+                    (Math.Abs(b_y - y) < 0.5 * h) &&
+                     (buren[t] != pos))
                 {
                     Console.WriteLine("Verplaats speler naar buur " + buren[t]);
                     parent.PlayerMoved(buren[t]);
