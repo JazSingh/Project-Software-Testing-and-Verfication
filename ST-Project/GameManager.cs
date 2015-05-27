@@ -156,6 +156,16 @@ namespace ST_Project
         private Tuple<string, int>[] ReadHighscores()
         {
             Tuple<string, int>[] scores = new Tuple<string, int>[10];
+
+            if (!File.Exists("highscores.txt"))
+            {
+                string[] contents = new string[10];
+                for (int i = 0; i < 10; i++)
+                    contents[i] = "Empty 0";
+
+                File.WriteAllLines("highscores.txt", contents);
+            }
+
             string[] lines = File.ReadAllLines("highscores.txt");
 
             for (int i = 0; i < 10; i++)
@@ -167,6 +177,7 @@ namespace ST_Project
                     name += split[j];
                 scores[i] = new Tuple<string, int>(name, score);
             }
+
             return scores;
         }
 
