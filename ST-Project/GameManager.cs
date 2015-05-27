@@ -77,7 +77,6 @@ namespace ST_Project
         public void SetHighScore(int name)
         {
             int sc = state.GetPlayer().getScore();
-
         }
 
         public int NewHighscore()

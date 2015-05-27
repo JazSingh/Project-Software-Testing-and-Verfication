@@ -492,6 +492,44 @@ namespace TestProject
             Fight_PackAlive_Retreat();
         }
 
+        [TestMethod]
+        public void FightInNode()
+        {
+            // checks if a player is in a node which has multiple packs,
+            // the player only attacks one pack.
+            GameState gst = new GameState(3);
+            Player p = gst.GetPlayer();
+            int position = 2;
+            p.set_position(position);
+            Node n = new Node(position);
+            n.AddPack();
+            n.AddPack();
+            Dungeon d = gst.GetDungeon();
+            d.nodes[position] = n;
+            bool actual = gst.Fight();
+            Assert.AreEqual(false, actual);
+
+
+            Stack<Pack> s = d.nodes[position].getPacks();
+            for (int t =0;t<2;t++)
+            {
+                Pack pak = s.Pop();
+                if (t ==0)
+                {
+                    Assert.AreEqual(7, pak.getCurrent().GetHP());
+                    Assert.AreEqual(15, pak.getMonsters().Pop().GetHP());
+                    Assert.AreEqual(15, pak.getMonsters().Pop().GetHP());
+                }
+                else if (t==1)
+                {
+                    Assert.AreEqual(15, pak.getMonsters().Pop().GetHP());
+                    Assert.AreEqual(15, pak.getMonsters().Pop().GetHP());
+                    Assert.AreEqual(15, pak.getMonsters().Pop().GetHP());
+                }
+            }
+
+        }
+
         // check if Fight returns true if there is a pack remaining but it retreats
         private void Fight_PackAlive_Retreat()
         {

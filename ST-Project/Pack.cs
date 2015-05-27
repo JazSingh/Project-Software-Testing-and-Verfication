@@ -132,6 +132,15 @@ namespace ST_Project
             return false; // pack is still alive
         }
 
+        public Monster getCurrent()
+        {
+            return current;
+        }
+        public Stack<Monster> getMonsters()
+        {
+            return monsters;
+        }
+
         // Time Crystal-variant of hitting a pack.
         public bool hit_pack_Time_Crystal_variant(int i)
         {

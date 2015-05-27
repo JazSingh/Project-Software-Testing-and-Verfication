@@ -232,6 +232,7 @@ namespace ST_Project
                     {
                         parent.NotifyFinished();
                     }
+                    break;
                 }
             }
             Invalidate();
@@ -278,7 +279,6 @@ namespace ST_Project
             if (parent.Fight())
                 fight_button.Visible = false;
             Invalidate();
-            UpdateLabels();
         }
 
         private void use_pot_Click(object sender, EventArgs e)

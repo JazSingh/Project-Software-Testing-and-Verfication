@@ -215,7 +215,7 @@ namespace ST_Project
                                 {
                                     p.Moved(true); // to prevent the system from moving the same pack again, later in this for-loop
                                     nodes[z].pushPack(p);
-                                    Console.WriteLine("Pack moves naar node " + z);
+                                    Console.WriteLine("Pack moves naar node " + z+" HP: "+p.GetPackHealth());
                                 }
                                 else // if the node the pack wants to move to, is full
                                     nodes[t].pushPack(p);

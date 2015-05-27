@@ -93,7 +93,7 @@ namespace TestProject
         }
 
         [TestMethod]
-        public void setLocation()
+        public void setPosition()
         {
             // tests if player sets it's position correctly
             Player p = new Player();
@@ -226,6 +226,15 @@ namespace TestProject
             p.use(new Dungeon(1), new Time_Crystal());
             string s = p.ToString();
             Assert.IsTrue(s.Contains(new Health_Potion().ToString()) && s.Contains(new Time_Crystal().ToString()) && s.Contains(new Magic_Scroll().ToString()));
+        }
+
+        [TestMethod]
+        public void AttackPack()
+        {
+            Player p = new Player();
+            p.set_position(0);
+            Node n = new Node(0);
+
         }
     }
 }

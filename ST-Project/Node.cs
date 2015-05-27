@@ -98,6 +98,11 @@ namespace ST_Project
             return true;
         }
 
+        public Stack<Pack> getPacks()
+        {
+            return packs;
+        }
+
         //Remove pack from stack
         public Pack popPack()
         {
