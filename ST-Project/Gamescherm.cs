@@ -253,7 +253,7 @@ namespace ST_Project
 
             int pos = parent.GetPlayer().get_position();
 
-            int[] buren = parent.GetState().GetDungeon().GetNode(pos).get_Adj();
+            int[] buren = parent.GetState().GetDungeon().GetNode(pos).GetNeighbours();
             for (int t = 0; t < buren.Length; t++)
             {
                 int b_x = locations[buren[t]].Item1 + (int)(0.5 * w);
