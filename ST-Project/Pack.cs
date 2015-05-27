@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ST_Project
 {
-    public class Pack
+    public struct Pack
     {
         private Stack<Monster> monsters; // group of monsters who form the pack
-        private Monster current; // monster who will get damaged when the player attacks the pack
-        private Item item;       // possible item the pack drops when killed
+        private Monster current = null; // monster who will get damaged when the player attacks the pack
+        private Item item = null;       // possible item the pack drops when killed
         private int score, init_hp; 
-        private bool isMoved; // boolean used for moving the pack around in the Dungeon
+        private bool isMoved = false; // boolean used for moving the pack around in the Dungeon
 
         private const int packSize = 3;
 
@@ -25,7 +25,6 @@ namespace ST_Project
             monsters.Push(new Monster());
             monsters.Push(new Monster());
             init_hp = 3 * 15;
-            
             score = 9; 
             if (val < 3)
                 item = new Health_Potion();
@@ -33,7 +32,6 @@ namespace ST_Project
                 item = new Time_Crystal();
             if (val >= 6 && val < 9)
                 item = new Magic_Scroll();
-            isMoved = false;
         }
 
         //Test Constructor

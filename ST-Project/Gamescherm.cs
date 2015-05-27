@@ -36,19 +36,48 @@ namespace ST_Project
         private void check_fight()
         {
             if (parent.GetState().fighting())
+            { 
                 fight_button.Visible = true;
+                pack1.Visible = true;
+                pack_hp.Visible = true;
+                pack_monsters.Visible = true;
+                pack_item.Visible = true;
+
+                p_hp.Visible = true;
+                p_monsters.Visible = true;
+                p_item.Visible = true;
+            }
             else
+            { 
                 fight_button.Visible = false;
+                pack1.Visible = false;
+                pack_hp.Visible = false;
+                pack_monsters.Visible = false;
+                pack_item.Visible = false;
+                p_hp.Visible = false;
+                p_monsters.Visible = false;
+                p_item.Visible = false;
+            }
         }
 
         private void UpdateLabels()
         {
+            total_packs.Text = parent.GetDungeon().getNumPacks().ToString();
             NRpotions.Text = parent.GetPlayer().getNRPotions().ToString();
             NRcrystals.Text = parent.GetPlayer().getNRCrystals().ToString();
             NRscrolls.Text = parent.GetPlayer().getNRScrolls().ToString();
             NRhealth.Text = parent.GetPlayer().GetHP().ToString();
             NRScore.Text = parent.GetPlayer().getScore().ToString();
             NRLevel.Text = parent.GetDungeon().difficulty.ToString();
+
+            if (parent.GetState().fighting())
+            {
+                Pack p = parent.GetDungeon().nodes[parent.GetPlayer().get_position()].popPack();
+                p_hp.Text = p.GetPackHealth().ToString();
+                p_monsters.Text = p.GetNumMonsters().ToString();
+                //p_item.Text = p.GetItem().ToString();
+                parent.GetDungeon().nodes[parent.GetPlayer().get_position()].pushPack(p);
+            }
         }
 
         private void drawDungeon(PaintEventArgs e)
@@ -298,6 +327,7 @@ namespace ST_Project
             parent.UseScroll();
             UpdateLabels();
         }
+
     }
 }
 

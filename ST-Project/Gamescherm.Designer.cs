@@ -44,6 +44,15 @@
             this.NRScore = new System.Windows.Forms.Label();
             this.level_lbl = new System.Windows.Forms.Label();
             this.NRLevel = new System.Windows.Forms.Label();
+            this.pack1 = new System.Windows.Forms.Label();
+            this.pack_hp = new System.Windows.Forms.Label();
+            this.pack_monsters = new System.Windows.Forms.Label();
+            this.pack_item = new System.Windows.Forms.Label();
+            this.p_hp = new System.Windows.Forms.Label();
+            this.p_monsters = new System.Windows.Forms.Label();
+            this.p_item = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.total_packs = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // potions_lbl
@@ -128,9 +137,9 @@
             // fight_button
             // 
             this.fight_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fight_button.Location = new System.Drawing.Point(750, 449);
+            this.fight_button.Location = new System.Drawing.Point(685, 450);
             this.fight_button.Name = "fight_button";
-            this.fight_button.Size = new System.Drawing.Size(222, 113);
+            this.fight_button.Size = new System.Drawing.Size(196, 128);
             this.fight_button.TabIndex = 8;
             this.fight_button.Text = "Fight!";
             this.fight_button.UseVisualStyleBackColor = true;
@@ -196,21 +205,118 @@
             this.level_lbl.TabIndex = 14;
             this.level_lbl.Text = "Level:";
             // 
-            // Level
+            // NRLevel
             // 
             this.NRLevel.AutoSize = true;
             this.NRLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NRLevel.Location = new System.Drawing.Point(653, 28);
-            this.NRLevel.Name = "Level";
+            this.NRLevel.Name = "NRLevel";
             this.NRLevel.Size = new System.Drawing.Size(32, 33);
             this.NRLevel.TabIndex = 15;
             this.NRLevel.Text = "0";
+            // 
+            // pack1
+            // 
+            this.pack1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pack1.Location = new System.Drawing.Point(940, 390);
+            this.pack1.Name = "pack1";
+            this.pack1.Size = new System.Drawing.Size(218, 33);
+            this.pack1.TabIndex = 16;
+            this.pack1.Text = "Current Pack";
+            this.pack1.Visible = false;
+            // 
+            // pack_hp
+            // 
+            this.pack_hp.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pack_hp.Location = new System.Drawing.Point(1019, 463);
+            this.pack_hp.Name = "pack_hp";
+            this.pack_hp.Size = new System.Drawing.Size(67, 33);
+            this.pack_hp.TabIndex = 17;
+            this.pack_hp.Text = "HP:";
+            this.pack_hp.Visible = false;
+            // 
+            // pack_monsters
+            // 
+            this.pack_monsters.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pack_monsters.Location = new System.Drawing.Point(904, 505);
+            this.pack_monsters.Name = "pack_monsters";
+            this.pack_monsters.Size = new System.Drawing.Size(182, 33);
+            this.pack_monsters.TabIndex = 18;
+            this.pack_monsters.Text = "# Monsters:";
+            this.pack_monsters.Visible = false;
+            // 
+            // pack_item
+            // 
+            this.pack_item.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pack_item.Location = new System.Drawing.Point(904, 545);
+            this.pack_item.Name = "pack_item";
+            this.pack_item.Size = new System.Drawing.Size(182, 33);
+            this.pack_item.TabIndex = 19;
+            this.pack_item.Text = "Drops Item:";
+            this.pack_item.Visible = false;
+            // 
+            // p_hp
+            // 
+            this.p_hp.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.p_hp.Location = new System.Drawing.Point(1116, 463);
+            this.p_hp.Name = "p_hp";
+            this.p_hp.Size = new System.Drawing.Size(68, 33);
+            this.p_hp.TabIndex = 20;
+            this.p_hp.Text = "num";
+            this.p_hp.Visible = false;
+            // 
+            // p_monsters
+            // 
+            this.p_monsters.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.p_monsters.Location = new System.Drawing.Point(1116, 505);
+            this.p_monsters.Name = "p_monsters";
+            this.p_monsters.Size = new System.Drawing.Size(68, 33);
+            this.p_monsters.TabIndex = 21;
+            this.p_monsters.Text = "num";
+            this.p_monsters.Visible = false;
+            // 
+            // p_item
+            // 
+            this.p_item.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.p_item.Location = new System.Drawing.Point(1092, 547);
+            this.p_item.Name = "p_item";
+            this.p_item.Size = new System.Drawing.Size(160, 33);
+            this.p_item.TabIndex = 23;
+            this.p_item.Text = "item";
+            this.p_item.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 345);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(195, 33);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "Total Packs:";
+            // 
+            // total_packs
+            // 
+            this.total_packs.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.total_packs.Location = new System.Drawing.Point(213, 345);
+            this.total_packs.Name = "total_packs";
+            this.total_packs.Size = new System.Drawing.Size(76, 33);
+            this.total_packs.TabIndex = 25;
+            this.total_packs.Text = "0";
             // 
             // Gamescherm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.total_packs);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.p_item);
+            this.Controls.Add(this.p_monsters);
+            this.Controls.Add(this.p_hp);
+            this.Controls.Add(this.pack_item);
+            this.Controls.Add(this.pack_monsters);
+            this.Controls.Add(this.pack_hp);
+            this.Controls.Add(this.pack1);
             this.Controls.Add(this.NRLevel);
             this.Controls.Add(this.level_lbl);
             this.Controls.Add(this.NRScore);
@@ -258,6 +364,15 @@
         private System.Windows.Forms.Label NRScore;
         private System.Windows.Forms.Label level_lbl;
         private System.Windows.Forms.Label NRLevel;
+        private System.Windows.Forms.Label pack1;
+        private System.Windows.Forms.Label pack_hp;
+        private System.Windows.Forms.Label pack_monsters;
+        private System.Windows.Forms.Label pack_item;
+        private System.Windows.Forms.Label p_hp;
+        private System.Windows.Forms.Label p_monsters;
+        private System.Windows.Forms.Label p_item;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label total_packs;
 
     }
 }

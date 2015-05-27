@@ -443,5 +443,20 @@ namespace ST_Project
 
             return s;
         }
+
+        public int getNumPacks()
+        {
+            int res = 0;
+            for (int t =0;t<nodes.Length;t++)
+            {
+                if (nodes[t] != null)
+                {
+                    Stack<Pack> ps = nodes[t].getPacks();
+                    res += ps.Count();
+                }
+            }
+
+            return res;
+        }
     }
 }
