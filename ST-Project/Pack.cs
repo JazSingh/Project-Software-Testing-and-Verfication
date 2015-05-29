@@ -16,6 +16,10 @@ namespace ST_Project
 
         private const int packSize = 3;
 
+        public bool hunt = false;
+        public bool defend = false;
+        public Stack<Node> sp;
+
         // constructor
         public Pack(int val)
         {
@@ -200,6 +204,18 @@ namespace ST_Project
         public bool is_Moved()
         {
             return isMoved;
+        }
+
+        public void SetDefend()
+        {
+            defend = true;
+            hunt = false;
+        }
+
+        public void SetHunt()
+        {
+            hunt = true;
+            defend = false;
         }
     }
 }
