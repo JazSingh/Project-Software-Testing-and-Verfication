@@ -31,6 +31,7 @@
             this.newgame_b = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.cb_logging = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // newgame_b
@@ -66,11 +67,23 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // cb_logging
+            // 
+            this.cb_logging.AutoSize = true;
+            this.cb_logging.Location = new System.Drawing.Point(325, 146);
+            this.cb_logging.Name = "cb_logging";
+            this.cb_logging.Size = new System.Drawing.Size(60, 17);
+            this.cb_logging.TabIndex = 10;
+            this.cb_logging.Text = "logging";
+            this.cb_logging.UseVisualStyleBackColor = true;
+            this.cb_logging.CheckedChanged += new System.EventHandler(this.cb_logging_CheckedChanged);
+            // 
             // Hoofdscherm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(962, 526);
+            this.Controls.Add(this.cb_logging);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.newgame_b);
@@ -81,6 +94,7 @@
             this.Text = "Hoofdscherm";
             this.Load += new System.EventHandler(this.DungeonRPG_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -90,6 +104,7 @@
         private System.Windows.Forms.Button newgame_b;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox cb_logging;
     }
 }
 

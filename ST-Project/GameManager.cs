@@ -13,11 +13,24 @@ namespace ST_Project
         private GameState state;
         private Gamescherm gs;
         public Hoofdscherm hs;
+        private bool logging;
 
         public GameManager()
         {
+            logging = false;
             Hoofdscherm hs = new Hoofdscherm(this);
             hs.Show();
+        }
+
+        public void Logging()
+        {
+            logging = !logging;
+
+            if (logging)
+            {
+                Oracle.DETERM = true;
+                Oracle.DETERMF = true;
+            }
         }
 
         //Methods called from View
@@ -29,6 +42,21 @@ namespace ST_Project
             gs = new Gamescherm(state.GetDungeon().difficulty, this);
             state.SetPosition(0);
             gs.Show();
+
+            if (logging)
+            {
+                string[] dungeon = state.GetDungeon().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+                string[] player = state.GetPlayer().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+
+                using (StreamWriter sw = File.AppendText("log.txt"))
+                {
+                    sw.WriteLine(Environment.NewLine);
+                    foreach (string line in dungeon)
+                        sw.WriteLine(line);
+                    foreach (string line in player)
+                        sw.WriteLine(line);
+                }
+            }
         }
 
         public void Save(string filename)
@@ -55,6 +83,14 @@ namespace ST_Project
                     state.SetPosition(newNode);
                     state.UpdateTime();
                     state.PackMoves();
+
+                    if (logging)
+                    {
+                        using (StreamWriter sw = File.AppendText("log.txt"))
+                        {
+                            sw.WriteLine("Moving to " + newNode);
+                        }
+                    }
                 }
             }
             gs.Invalidate();
@@ -62,6 +98,14 @@ namespace ST_Project
 
         public bool Fight()
         {
+            if (logging)
+            {
+                using (StreamWriter sw = File.AppendText("log.txt"))
+                {
+                    sw.WriteLine("Fighting");
+                }
+            }
+
             state.PackMoves();
             if (state.Fight())
             {
@@ -82,7 +126,7 @@ namespace ST_Project
         public int NewHighscore()
         {
             int sc = state.GetPlayer().getScore();
-            Tuple<string, int>[] highs= ReadHighscores();
+            Tuple<string, int>[] highs = ReadHighscores();
             for (int i = 0; i < 10; i++)
                 if (highs[i].Item2 < sc)
                     return i;
@@ -127,6 +171,8 @@ namespace ST_Project
             gs = new Gamescherm(diff, this);
             gs.Show();
             gs.Invalidate();
+
+            LoggingSetup();
         }
 
         public void GameLoadNotify(GameState st, int diff)
@@ -135,6 +181,28 @@ namespace ST_Project
             gs = new Gamescherm(diff, this);
             gs.Show();
             gs.Invalidate();
+
+            LoggingSetup();
+        }
+
+        private void LoggingSetup()
+        {
+            if (logging)
+            {
+                string[] dungeon = state.GetDungeon().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+                string[] player = state.GetPlayer().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+
+                var v = File.Create("log.txt");
+                v.Close();
+
+                using (StreamWriter sw = File.AppendText("log.txt"))
+                {
+                    foreach (string line in dungeon)
+                        sw.WriteLine(line);
+                    foreach (string line in player)
+                        sw.WriteLine(line);
+                }
+            }
         }
 
         //Convience methods
@@ -192,21 +260,45 @@ namespace ST_Project
         public void UsePotion()
         {
             state.UsePotion();
+
+            if (logging)
+            {
+                using (StreamWriter sw = File.AppendText("log.txt"))
+                {
+                    sw.WriteLine("using potion");
+                }
+            }
         }
 
         public void UseCrystal()
         {
             state.UseCrystal();
+
+            if (logging)
+            {
+                using (StreamWriter sw = File.AppendText("log.txt"))
+                {
+                    sw.WriteLine("using crystal");
+                }
+            }
         }
 
         public void UseScroll()
         {
             if (state.UseScroll())
             {
+                if (logging)
+                {
+                    using (StreamWriter sw = File.AppendText("log.txt"))
+                    {
+                        sw.WriteLine("using scroll");
+                    }
+                }
+
                 if (state.CheckFinished())
                     NotifyFinished();
-                else 
-                { 
+                else
+                {
                     //gs.locations =  new Dictionary<int, Tuple<int, int>>();
                     gs.Invalidate();
                 }

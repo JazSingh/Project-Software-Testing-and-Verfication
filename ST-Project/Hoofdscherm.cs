@@ -134,5 +134,10 @@ namespace ST_Project
         {
             parent.ShowHighScores();
         }
+
+        private void cb_logging_CheckedChanged(object sender, EventArgs e)
+        {
+            parent.Logging();
+        }
     }
 }
