@@ -297,7 +297,7 @@ namespace TestProject
             ns[1].AddNeighbour(0);
 
             Dungeon d = new Dungeon(ns, diff, dsize, 2);
-            d.MovePacks(0);
+            d.MovePacks(0, 0, 0);
             Assert.IsFalse(d.nodes[1].hasPack());
         }
 
@@ -317,7 +317,7 @@ namespace TestProject
             ns[1].AddNeighbour(0);
 
             Dungeon d = new Dungeon(ns, diff, dsize, 2);
-            d.MovePacks(2);
+            d.MovePacks(2, 0, 0);
             Assert.IsFalse(d.nodes[0].hasPack());
         }
 
@@ -336,7 +336,7 @@ namespace TestProject
             ns[1].AddNeighbour(0);
 
             Dungeon d = new Dungeon(ns, diff, dsize, 2);
-            d.MovePacks(0);
+            d.MovePacks(0, 0, 0);
             Assert.IsTrue(d.nodes[0].hasPack());
         }
 
@@ -371,7 +371,7 @@ namespace TestProject
 
             ns[2] = new Node(2);
             Dungeon d = new Dungeon(ns, diff, dsize, 2);
-            d.MovePacks(2);
+            d.MovePacks(2, 0, 0);
 
             Pack p5 = new Pack(5);
             Assert.IsTrue(ns[0].popPack().GetPackHealth() == p5.GetPackHealth() - 2);
@@ -392,7 +392,7 @@ namespace TestProject
 
                 Dungeon d = new Dungeon(i);
                 d.SpawnMonsters();
-                d.MovePacks(0);
+                d.MovePacks(0, 0, 0);
                 Assert.IsTrue(som + 1 >= d.SumMonsterHealth() / 45 
                     &&        som - 1 <= d.SumMonsterHealth() / 45);
             }
@@ -427,7 +427,7 @@ namespace TestProject
 
             ns[2] = new Node(2);
             Dungeon d = new Dungeon(ns, diff, dsize, 2);
-            d.MovePacks(2);
+            d.MovePacks(2, 0, 0);
 
             Pack p5 = new Pack(5);
             Assert.IsTrue(ns[0].popPack().GetPackHealth() != p5.GetPackHealth() - 2

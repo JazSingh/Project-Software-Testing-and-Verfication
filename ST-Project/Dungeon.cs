@@ -192,7 +192,7 @@ namespace ST_Project
 
         //Pre: nodes[player] != null
         //Post: Some packs might have moved through the dungeon
-        public void MovePacks(int player)
+        public void MovePacks(int player, int LKP, int defend)
         {
             for (int t = 0; t < nodes.Length; t++)
             {
@@ -201,36 +201,54 @@ namespace ST_Project
                 {
                     if (n.hasPack())
                     {
-                        Stack<Pack> packs = n.getPacks();
+                        Stack<Pack> packs = n.getPacks(); // packs of node n
+                        Stack<Pack> returns = new Stack<Pack>(); // stack where the packs which will contain the packs who won't move (this round)
 
                         for (int a = 0; a < packs.Count; a++)
                         {
                             Pack p = packs.Pop();
                             if (!p.is_Moved())
                             {
-                                int[] adj = n.GetNeighbours();
-                                Random r = new Random();
-                                int z = adj[r.Next(0, adj.Length)];
-                                if (z != nodes.Length - 1) // != end-node
+                                if (p.getHunt()) // if Pack is a Hunter
                                 {
-                                    Node zz = GetNode(z);
-                                    int total = zz.TotalMonsters();
-                                    if (total + p.GetNumMonsters() <= zz.maxCap())
-                                    {
-                                        p.Moved(true); // to prevent the system from moving the same pack again, later in this for-loop
-                                        nodes[z].pushPack(p);
-                                        Console.WriteLine("Pack moves van " + t + " naar node " + z + " HP: " + p.GetPackHealth());
-                                    }
-                                    else // if the node the pack wants to move to, is full
-                                        packs.Push(p);
+                                    bool moved = pack_Hunt(p, t, LKP);   // realize the Hunt-order
+                                    if (!moved) // pack didn't move
+                                    { returns.Push(p); Console.WriteLine("Hunter is niet verplaatst."); }
                                 }
-                                else
-                                    packs.Push(p);
+
+                                else if (p.getDefend()) // if Pack is a Defender
+                                {
+                                    bool moved = pack_Defend(p, t, defend);         // realize the Defend-order
+                                    if (!moved) // pack didn't move
+                                    { returns.Push(p); Console.WriteLine("Defender is niet verplaatst."); }
+                                }
+
+                                else // normal random movement
+                                {
+                                    int[] adj = n.GetNeighbours();
+                                    Random r = new Random();
+                                    int z = adj[r.Next(0, adj.Length)];
+                                    if (z != nodes.Length - 1) // != end-node
+                                    {
+                                        Node zz = GetNode(z);
+                                        int total = zz.TotalMonsters();
+                                        if (total + p.GetNumMonsters() <= zz.maxCap())
+                                        {
+                                            p.Moved(true); // to prevent the system from moving the same pack again, later in this for-loop
+                                            nodes[z].pushPack(p);
+                                            Console.WriteLine("Pack moves van " + t + " naar node " + z + " HP: " + p.GetPackHealth());
+                                        }
+                                        else // if the node the pack wants to move to, is full
+                                            returns.Push(p);
+                                    }
+                                    else
+                                        returns.Push(p);
+                                }
                             }
                             else // if the pack moved already
-                                packs.Push(p);
+                                returns.Push(p);
                         }
-                        nodes[t].setPacks(packs);
+                        nodes[t].setPacks(returns);
                     }
                 }
             }
@@ -255,6 +273,48 @@ namespace ST_Project
             }
         }
 
+        private bool pack_Hunt(Pack p, int pos, int LKP)
+        {
+            if (pos == LKP)
+                return false;
+            else
+            {
+                Stack<Node> path = ShortestPath(nodes[pos], nodes[LKP]);
+                Node target = path.Pop(); // node the Pack needs to move to in this round
+                int total = target.TotalMonsters();
+                
+                if (total + p.GetNumMonsters() <= target.maxCap())
+                {
+                    p.Moved(true); // to prevent the system from moving the same pack again, later in this for-loop
+                    nodes[target.ID].pushPack(p);
+                    Console.WriteLine("HUNTER moves van " + pos + " naar node " + target.ID + " HP: " + p.GetPackHealth());
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        private bool pack_Defend(Pack p, int pos, int defend)
+        {
+            if (pos == defend)
+                return false;
+            else 
+            {
+                Stack<Node> path = ShortestPath(nodes[pos], nodes[defend]);
+                Node target = path.Pop(); // node the Pack needs to move to in this round
+                int total = target.TotalMonsters();
+
+                if (total + p.GetNumMonsters() <= target.maxCap())
+                {
+                    p.Moved(true); // to prevent the system from moving the same pack again, later in this for-loop
+                    nodes[target.ID].pushPack(p);
+                    Console.WriteLine("DEFENDER moves van " + pos + " naar node " + target.ID + " HP: " + p.GetPackHealth());
+                    return true;
+                }
+                return false;
+            }
+            
+        }
         //Pre: partition * interval < dungeonSize
         //Post: Some edges might have been added in the partition
         public void AddRandomEdges(int partition)

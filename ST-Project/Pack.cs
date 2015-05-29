@@ -14,10 +14,8 @@ namespace ST_Project
         private int score, init_hp;
         private bool isMoved = false; // boolean used for moving the pack around in the Dungeon
         private bool hunt = false;
-
+        private bool defend = false;
         private const int packSize = 3;
-
-        public bool defend = false;
         public Stack<Node> sp;
 
         // constructor
@@ -53,15 +51,27 @@ namespace ST_Project
             return score;
         }
 
+        public bool getHunt()
+        {
+            return hunt;
+        }
+
+        public bool getDefend()
+        {
+        return defend;
+        }
+
         // sets hunt-boolean to true os the pack will hunt the player
-        public void GoHunt()
+        public void SetHunt()
         {
             hunt = true;
+            defend = false;
         }
 
         // sets hunt-boolean to true os the pack won't hunt the player anymore
-        public void StopHunt()
+        public void SetDefend()
         {
+            defend = true;
             hunt = false;
         }
         
@@ -216,18 +226,6 @@ namespace ST_Project
         public bool is_Moved()
         {
             return isMoved;
-        }
-
-        public void SetDefend()
-        {
-            defend = true;
-            hunt = false;
-        }
-
-        public void SetHunt()
-        {
-            hunt = true;
-            defend = false;
         }
     }
 }
