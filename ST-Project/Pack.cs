@@ -17,7 +17,6 @@ namespace ST_Project
 
         private const int packSize = 3;
 
-        public bool hunt = false;
         public bool defend = false;
         public Stack<Node> sp;
 

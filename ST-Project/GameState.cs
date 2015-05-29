@@ -253,11 +253,7 @@ namespace ST_Project
         // gives certain packs in the game the Order to Hunt the player
         private void Hunt()
         {
-            int amount = d.getNumPacks();
-            for (int t =0;t<amount;t++)
-            {
-                
-            }
+
         }
 
         // check wether a magic scroll is available in the players item list and remove it
