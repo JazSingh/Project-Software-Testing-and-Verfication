@@ -12,6 +12,7 @@ namespace ST_Project
         private int HPmax, HP, damage, score, position; // obvious ints
         private Item current; // current item of the player
         private List<Item> Items; // items in players' inventory
+        private int LKP; // Last-Known-Position
 
         // constructor
         public Player()
@@ -21,6 +22,7 @@ namespace ST_Project
             damage = 8;
             score = 0;
             position = 0; // ID of current node the player's in
+            LKP = 0;
             Items = new List<Item>();
         }
 
@@ -34,6 +36,17 @@ namespace ST_Project
             current = item;
             Items = items;
             position = 0;
+            LKP = 0;
+        }
+
+        public int getLKP()
+        {
+            return LKP;
+        }
+
+        public void setLKP(int x)
+        {
+            LKP = x;
         }
 
         // player uses a certain item i

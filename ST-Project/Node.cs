@@ -234,5 +234,10 @@ namespace ST_Project
         {
             return packs.Count;
         }
+
+        public void setPacks(Stack<Pack> p)
+        {
+            packs = p;
+        }
     }
 }

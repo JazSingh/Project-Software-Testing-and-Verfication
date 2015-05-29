@@ -156,6 +156,7 @@ namespace ST_Project
         public bool Fight()
         {
             int pos = p.get_position();
+            p.setLKP(pos); // refresh last-known-position
             Pack pack = d.nodes[pos].popPack();
 
             Console.WriteLine("before combat-round: " + pack.GetNumMonsters());
@@ -240,11 +241,22 @@ namespace ST_Project
             {
                 if (items[t].type == ItemType.TimeCrystal)
                 {
-                    PackMoves();
                     p.use(d, items[t]); items.Remove(items[t]);
+                    Hunt();
+                    PackMoves();
                     UpdateTime();
                     break;
                 }
+            }
+        }
+
+        // gives certain packs in the game the Order to Hunt the player
+        private void Hunt()
+        {
+            int amount = d.getNumPacks();
+            for (int t =0;t<amount;t++)
+            {
+                
             }
         }
 
