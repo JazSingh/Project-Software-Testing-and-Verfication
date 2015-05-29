@@ -11,7 +11,7 @@ namespace ST_Project
         Dungeon d;
         Player p;
         int LKP = 0;    // Last-Known-Position of the Player
-        int defend = 0; // contains ID of bridge the packs with a Defend-Order need to defend
+        int defend = 1; // contains ID of bridge the packs with a Defend-Order need to defend
 
         // Constructor for creating a new game
         public GameState(int i)
@@ -106,6 +106,10 @@ namespace ST_Project
         public void SetPosition(int i)
         {
             p.set_position(i);
+            if (i/d.interval < d.difficulty && d.nodes[i].IsBridge(d.interval) && !d.overcome[i / d.interval] && i + d.interval < d.dungeonSize) 
+                d.GiveDefendOrder((i / d.interval) + 1);
+            defend = i + d.interval < d.dungeonSize ? ((i / d.interval) + 1) * d.interval : d.dungeonSize - 1;
+            Console.WriteLine("DEFEND {0}", defend);
             CheckItemsFound();
         }
 
@@ -255,7 +259,8 @@ namespace ST_Project
         // gives certain packs in the game the Order to Hunt the player
         private void Hunt()
         {
-            // JASPREET HIER BEESTENNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+            Console.WriteLine("\t\tHUNT!!!");
+            d.GiveHuntOrder();
         }
 
         // check wether a magic scroll is available in the players item list and remove it

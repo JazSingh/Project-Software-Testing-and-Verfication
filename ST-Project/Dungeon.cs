@@ -12,6 +12,7 @@ namespace ST_Project
         public int difficulty;
         public int dungeonSize;
         public int interval;
+        public bool[] overcome;
 
         private int initialPackDrops;
 
@@ -20,6 +21,7 @@ namespace ST_Project
         public Dungeon(int n)
         {
             difficulty = n;
+            overcome = new bool[n];
             int k = 5; //Oracle.GiveNumber(4,6);
             dungeonSize = k * n + n + 2;
             interval = (int) Math.Ceiling((double) dungeonSize / (difficulty + 1));
@@ -35,6 +37,7 @@ namespace ST_Project
         public Dungeon(int n, bool mock)
         {
             difficulty = n;
+            overcome = new bool[n];
             int k = 5; //Oracle.GiveNumber(4,6);
             dungeonSize = k * n + n + 2;
             interval = (int)Math.Ceiling((double)dungeonSize / (difficulty + 1));
@@ -47,6 +50,7 @@ namespace ST_Project
         // Load constructor
         public Dungeon(Node[] nds, int diff, int size, int interv)
         {
+            overcome = new bool[diff];
             nodes = nds;
             difficulty = diff;
             dungeonSize = size;
@@ -525,6 +529,63 @@ namespace ST_Project
             }
 
             return res;
+        }
+
+        public void GiveHuntOrder()
+        {
+            int numOrders = 3;
+            for (int i = 0; i < nodes.Length; i++)
+            {
+                if (nodes[i] != null)
+                {
+                    var packs = nodes[i].getPacks();
+                    Stack<Pack> newpacks = new Stack<Pack>();
+                    while (packs.Count > 0 && numOrders > 0)
+                    {
+                        Pack p = packs.Pop();
+                        if (!p.getHunt() && !p.getDefend())
+                        {
+                            if (numOrders == 3)
+                                p.SetHunt();
+                            else if (numOrders == 2 && Oracle.Decide())
+                                p.SetHunt();
+                            else if (numOrders == 1 && Oracle.Decide() && Oracle.Decide())
+                                p.SetHunt();
+                            numOrders--;
+                        }
+                        newpacks.Push(p);
+                    }
+                    foreach (Pack p in newpacks)
+                        nodes[i].pushPack(p);
+                }
+            }
+        }
+
+        public void GiveDefendOrder(int bridgeLevel)
+        {
+            Console.WriteLine("DefendOrder received!!");
+            if (bridgeLevel > difficulty) return;
+            int resCap = nodes[bridgeLevel * interval].GetCapacity() - nodes[bridgeLevel * interval].TotalMonsters();
+            for (int i = 0; i < nodes.Length; i++)
+            {
+                if (nodes[i] != null && i != bridgeLevel * interval)
+                {
+                    var packs = nodes[i].getPacks();
+                    Stack<Pack> newpacks = new Stack<Pack>();
+                    while (packs.Count > 0 && resCap > 0)
+                    {
+                        Pack p = packs.Pop();
+                        if (!p.getHunt() && !p.getDefend() && resCap - p.GetNumMonsters() >= 0)
+                        {
+                            p.SetDefend();
+                            resCap -= p.GetNumMonsters();
+                        }
+                        newpacks.Push(p);
+                    }
+                    foreach (Pack p in newpacks)
+                        nodes[i].pushPack(p);
+                }
+            }
         }
     }
 }
