@@ -201,30 +201,36 @@ namespace ST_Project
                 {
                     if (n.hasPack())
                     {
-                        Pack p = nodes[t].popPack();
-                        if (!p.is_Moved())
+                        Stack<Pack> packs = n.getPacks();
+
+                        for (int a = 0; a < packs.Count; a++)
                         {
-                            int[] adj = n.GetNeighbours();
-                            Random r = new Random();
-                            int z = adj[r.Next(0, adj.Length)];
-                            if (z != nodes.Length - 1) // != end-node
+                            Pack p = packs.Pop();
+                            if (!p.is_Moved())
                             {
-                                Node zz = GetNode(z);
-                                int total = zz.TotalMonsters();
-                                if (total + p.GetNumMonsters() <= zz.maxCap())
+                                int[] adj = n.GetNeighbours();
+                                Random r = new Random();
+                                int z = adj[r.Next(0, adj.Length)];
+                                if (z != nodes.Length - 1) // != end-node
                                 {
-                                    p.Moved(true); // to prevent the system from moving the same pack again, later in this for-loop
-                                    nodes[z].pushPack(p);
-                                    Console.WriteLine("Pack moves van " + t + " naar node " + z + " HP: " + p.GetPackHealth());
+                                    Node zz = GetNode(z);
+                                    int total = zz.TotalMonsters();
+                                    if (total + p.GetNumMonsters() <= zz.maxCap())
+                                    {
+                                        p.Moved(true); // to prevent the system from moving the same pack again, later in this for-loop
+                                        nodes[z].pushPack(p);
+                                        Console.WriteLine("Pack moves van " + t + " naar node " + z + " HP: " + p.GetPackHealth());
+                                    }
+                                    else // if the node the pack wants to move to, is full
+                                        packs.Push(p);
                                 }
-                                else // if the node the pack wants to move to, is full
-                                    nodes[t].pushPack(p);
+                                else
+                                    packs.Push(p);
                             }
-                            else
-                                nodes[t].pushPack(p);
+                            else // if the pack moved already
+                                packs.Push(p);
                         }
-                        else // if the pack moved already
-                            nodes[t].pushPack(p);
+                        nodes[t].setPacks(packs);
                     }
                 }
             }

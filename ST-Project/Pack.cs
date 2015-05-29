@@ -11,8 +11,9 @@ namespace ST_Project
         private Stack<Monster> monsters; // group of monsters who form the pack
         private Monster current = null; // monster who will get damaged when the player attacks the pack
         private Item item = null;       // possible item the pack drops when killed
-        private int score, init_hp; 
+        private int score, init_hp;
         private bool isMoved = false; // boolean used for moving the pack around in the Dungeon
+        private bool hunt = false;
 
         private const int packSize = 3;
 
@@ -51,6 +52,18 @@ namespace ST_Project
         public int get_Score()
         {
             return score;
+        }
+
+        // sets hunt-boolean to true os the pack will hunt the player
+        public void GoHunt()
+        {
+            hunt = true;
+        }
+
+        // sets hunt-boolean to true os the pack won't hunt the player anymore
+        public void StopHunt()
+        {
+            hunt = false;
         }
         
         // returns if pack needs to retreat, based on rule of >= 70% hp-drop
