@@ -10,6 +10,8 @@ namespace ST_Project
     {
         Dungeon d;
         Player p;
+        int LKP = 0;    // Last-Known-Position of the Player
+        int defend = 0; // contains ID of bridge the packs with a Defend-Order need to defend
 
         // Constructor for creating a new game
         public GameState(int i)
@@ -242,7 +244,7 @@ namespace ST_Project
                 if (items[t].type == ItemType.TimeCrystal)
                 {
                     p.use(d, items[t]); items.Remove(items[t]);
-                    Hunt();
+                    Hunt(); // Trigger Hunt-Orders!
                     PackMoves();
                     UpdateTime();
                     break;
@@ -253,11 +255,7 @@ namespace ST_Project
         // gives certain packs in the game the Order to Hunt the player
         private void Hunt()
         {
-            int amount = d.getNumPacks();
-            for (int t =0;t<amount;t++)
-            {
-                
-            }
+            // JASPREET HIER BEESTENNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
         }
 
         // check wether a magic scroll is available in the players item list and remove it
@@ -297,7 +295,7 @@ namespace ST_Project
         // Move all packs in the dungeon, depending on the players current location
         public void PackMoves()
         {
-            d.MovePacks(p.get_position());
+            d.MovePacks(p.get_position(), LKP, defend);
         }
     }
 }

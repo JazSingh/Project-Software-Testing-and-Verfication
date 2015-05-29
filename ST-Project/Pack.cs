@@ -14,6 +14,7 @@ namespace ST_Project
         private int score, init_hp;
         private bool isMoved = false; // boolean used for moving the pack around in the Dungeon
         private bool hunt = false;
+        private bool defend = false;
 
         private const int packSize = 3;
 
@@ -65,6 +66,9 @@ namespace ST_Project
         // returns if pack needs to retreat, based on rule of >= 70% hp-drop
         public bool retreat()
         {
+            if (hunt || defend) // a Pack with an order NEVER retreats!!!
+                return false;
+
             int current_hp = 0;
             if (current != null)
                 current_hp += current.GetHP();
@@ -213,6 +217,16 @@ namespace ST_Project
         public bool is_Moved()
         {
             return isMoved;
+        }
+
+        public bool getHunt()
+        {
+            return hunt;
+        }
+
+        internal bool getDefend()
+        {
+            return defend;
         }
     }
 }
