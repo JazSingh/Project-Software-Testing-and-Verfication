@@ -230,23 +230,22 @@ namespace ST_Project
                                 else // normal random movement
                                 {
                                     int[] adj = n.GetNeighbours();
-                                    Random r = new Random();
-                                    int z = adj[r.Next(0, adj.Length)];
-                                    if (z != nodes.Length - 1) // != end-node
-                                    {
-                                        Node zz = GetNode(z);
-                                        int total = zz.TotalMonsters();
-                                        if (total + p.GetNumMonsters() <= zz.maxCap())
+                                    int z = adj[Oracle.GiveNumber(0, adj.Length - 1)];
+                                        if (z != nodes.Length - 1) // != end-node
                                         {
-                                            p.Moved(true); // to prevent the system from moving the same pack again, later in this for-loop
-                                            nodes[z].pushPack(p);
-                                            Console.WriteLine("Pack moves van " + t + " naar node " + z + " HP: " + p.GetPackHealth());
+                                            Node zz = GetNode(z);
+                                            int total = zz.TotalMonsters();
+                                            if (total + p.GetNumMonsters() <= zz.maxCap())
+                                            {
+                                                p.Moved(true); // to prevent the system from moving the same pack again, later in this for-loop
+                                                nodes[z].pushPack(p);
+                                                Console.WriteLine("Pack moves van " + t + " naar node " + z + " HP: " + p.GetPackHealth());
+                                            }
+                                            else // if the node the pack wants to move to, is full
+                                                returns.Push(p);
                                         }
-                                        else // if the node the pack wants to move to, is full
+                                        else
                                             returns.Push(p);
-                                    }
-                                    else
-                                        returns.Push(p);
                                 }
                             }
                             else // if the pack moved already
