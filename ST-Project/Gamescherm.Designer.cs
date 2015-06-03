@@ -55,6 +55,10 @@
             this.total_packs = new System.Windows.Forms.Label();
             this.packs_node = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.cur_item = new System.Windows.Forms.Label();
+            this.itdur = new System.Windows.Forms.Label();
+            this.current_item = new System.Windows.Forms.Label();
+            this.item_duration = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // potions_lbl
@@ -323,11 +327,51 @@
             this.label3.TabIndex = 26;
             this.label3.Text = "Packs in this node:";
             // 
+            // cur_item
+            // 
+            this.cur_item.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cur_item.Location = new System.Drawing.Point(391, 324);
+            this.cur_item.Name = "cur_item";
+            this.cur_item.Size = new System.Drawing.Size(204, 33);
+            this.cur_item.TabIndex = 28;
+            this.cur_item.Text = "Current Item:";
+            // 
+            // itdur
+            // 
+            this.itdur.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.itdur.Location = new System.Drawing.Point(391, 368);
+            this.itdur.Name = "itdur";
+            this.itdur.Size = new System.Drawing.Size(145, 33);
+            this.itdur.TabIndex = 29;
+            this.itdur.Text = "Duration:";
+            // 
+            // current_item
+            // 
+            this.current_item.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.current_item.Location = new System.Drawing.Point(594, 324);
+            this.current_item.Name = "current_item";
+            this.current_item.Size = new System.Drawing.Size(204, 33);
+            this.current_item.TabIndex = 30;
+            this.current_item.Text = "None";
+            // 
+            // item_duration
+            // 
+            this.item_duration.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.item_duration.Location = new System.Drawing.Point(531, 368);
+            this.item_duration.Name = "item_duration";
+            this.item_duration.Size = new System.Drawing.Size(76, 33);
+            this.item_duration.TabIndex = 31;
+            this.item_duration.Text = "0";
+            // 
             // Gamescherm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.item_duration);
+            this.Controls.Add(this.current_item);
+            this.Controls.Add(this.itdur);
+            this.Controls.Add(this.cur_item);
             this.Controls.Add(this.packs_node);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.total_packs);
@@ -397,6 +441,10 @@
         private System.Windows.Forms.Label total_packs;
         private System.Windows.Forms.Label packs_node;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label cur_item;
+        private System.Windows.Forms.Label itdur;
+        private System.Windows.Forms.Label current_item;
+        private System.Windows.Forms.Label item_duration;
 
     }
 }

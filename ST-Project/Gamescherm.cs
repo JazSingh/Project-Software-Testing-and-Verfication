@@ -71,6 +71,22 @@ namespace ST_Project
             NRScore.Text = parent.GetPlayer().getScore().ToString();
             NRLevel.Text = parent.GetDungeon().difficulty.ToString();
 
+            Player pl = parent.GetPlayer();
+            Item cur = pl.getCurrentItem();
+            string val = "";
+            int dur = 0;
+            if (cur == null)
+                val = "None";
+            else if (cur.type == ItemType.HealthPotion)
+            {   val = "Health Potion"; dur = cur.duration; }
+            else if (cur.type == ItemType.MagicScroll)
+            {   val = "Magic Scroll"; dur = cur.duration; }
+            else
+            {   val = "Time Scroll"; dur = cur.duration; }
+
+            current_item.Text = val;
+            item_duration.Text = dur.ToString();
+
             if (parent.GetState().fighting())
             {
                 Pack p = parent.GetDungeon().nodes[parent.GetPlayer().get_position()].popPack(); // gets pack
