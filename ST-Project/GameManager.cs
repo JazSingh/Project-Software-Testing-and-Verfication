@@ -37,11 +37,11 @@ namespace ST_Project
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
                     logpath = sfd.FileName;
-                }
+            }
                 else
                 {
                     logpath = "log.txt";
-                }
+        }
             }
         }
 
@@ -65,16 +65,16 @@ namespace ST_Project
                 {
                     logpath = sfd.FileName;
                     
-                    string[] dungeon = state.GetDungeon().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
-                    string[] player = state.GetPlayer().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+                string[] dungeon = state.GetDungeon().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+                string[] player = state.GetPlayer().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
 
                     using (StreamWriter sw = File.AppendText(logpath))
-                    {
-                        sw.WriteLine(Environment.NewLine);
+                {
+                    sw.WriteLine(Environment.NewLine);
                         foreach (string line in player)
                             sw.WriteLine(line);
-                        foreach (string line in dungeon)
-                            sw.WriteLine(line);
+                    foreach (string line in dungeon)
+                        sw.WriteLine(line);
                     }
                 }
             }
@@ -119,6 +119,7 @@ namespace ST_Project
 
         public bool Fight()
         {
+            state.UpdateLKP();
             if (logging)
             {
                 using (StreamWriter sw = File.AppendText(logpath))
@@ -160,6 +161,13 @@ namespace ST_Project
             Tuple<string, int> newhs = new Tuple<string, int>(name, sc);
             int index = NewHighscore();
             Tuple<string, int>[] hss = ReadHighscores();
+            //hss[index] = newhs;
+            int i = hss.Length;
+            while(i - index > 0)
+            {
+                hss[i] = hss[i - 1];
+                i--;
+            }
             hss[index] = newhs;
 
             WriteHighscoresToFile(hss);
@@ -282,6 +290,7 @@ namespace ST_Project
         public void UsePotion()
         {
             state.UsePotion();
+            state.UpdateLKP();
 
             if (logging)
             {
@@ -294,6 +303,7 @@ namespace ST_Project
 
         public void UseCrystal()
         {
+            state.UpdateLKP();
             state.UseCrystal();
 
             if (logging)
@@ -307,6 +317,7 @@ namespace ST_Project
 
         public void UseScroll()
         {
+            state.UpdateLKP();
             if (state.UseScroll())
             {
                 if (logging)

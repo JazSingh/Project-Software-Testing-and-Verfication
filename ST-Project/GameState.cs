@@ -263,6 +263,11 @@ namespace ST_Project
             d.GiveHuntOrder();
         }
 
+        public void UpdateLKP()
+        {
+            LKP = p.get_position();
+        }
+
         // check wether a magic scroll is available in the players item list and remove it
         // if a scroll is available the player will use it, this counts as a turn
         // has a small chance to blow up the current node the player is in, the player will be blown to the nearest node from which the end node can be reached
