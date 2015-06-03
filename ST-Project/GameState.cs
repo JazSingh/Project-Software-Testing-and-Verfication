@@ -12,6 +12,7 @@ namespace ST_Project
         Player p;
         int LKP = 0;    // Last-Known-Position of the Player
         int defend = 1; // contains ID of bridge the packs with a Defend-Order need to defend
+        public GameManager parent;
 
         // Constructor for creating a new game
         public GameState(int i)
@@ -305,7 +306,19 @@ namespace ST_Project
         // Move all packs in the dungeon, depending on the players current location
         public void PackMoves()
         {
+            if (parent != null && parent.isLogging())
+            {
+
+            }
+
             d.MovePacks(p.get_position(), LKP, defend);
+        }
+
+        public void iAmYourFather(GameManager gm)
+        {
+            parent = gm;
+
+            d.iAmYourFather(this);
         }
     }
 }

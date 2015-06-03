@@ -8,6 +8,7 @@ namespace ST_Project
 {
     public class Dungeon
     {
+        GameState parent;
         public Node[] nodes;
         public int difficulty;
         public int dungeonSize;
@@ -239,6 +240,8 @@ namespace ST_Project
                                             {
                                                 p.Moved(true); // to prevent the system from moving the same pack again, later in this for-loop
                                                 nodes[z].pushPack(p);
+                                                if(parent != null)
+                                                    parent.parent.unlogged.Enqueue("Pack moves van " + t + " naar node " + z + " HP: " + p.GetPackHealth());
                                                 Console.WriteLine("Pack moves van " + t + " naar node " + z + " HP: " + p.GetPackHealth());
                                             }
                                             else // if the node the pack wants to move to, is full
@@ -290,6 +293,8 @@ namespace ST_Project
                 {
                     p.Moved(true); // to prevent the system from moving the same pack again, later in this for-loop
                     nodes[target.ID].pushPack(p);
+                    if(parent != null)
+                        parent.parent.unlogged.Enqueue("HUNTER moves van " + pos + " naar node " + target.ID + " HP: " + p.GetPackHealth());
                     Console.WriteLine("HUNTER moves van " + pos + " naar node " + target.ID + " HP: " + p.GetPackHealth());
                     return true;
                 }
@@ -311,6 +316,8 @@ namespace ST_Project
                 {
                     p.Moved(true); // to prevent the system from moving the same pack again, later in this for-loop
                     nodes[target.ID].pushPack(p);
+                    if(parent != null)
+                        parent.parent.unlogged.Enqueue("DEFENDER moves van " + pos + " naar node " + target.ID + " HP: " + p.GetPackHealth());
                     Console.WriteLine("DEFENDER moves van " + pos + " naar node " + target.ID + " HP: " + p.GetPackHealth());
                     return true;
                 }
@@ -445,6 +452,8 @@ namespace ST_Project
 
             int selected = dropNodes[Oracle.GiveNumber(dropNodes.Count-1)];
             Console.WriteLine("In " + selected + " wordt een Item gedropt.");
+            if(parent != null)
+                parent.parent.unlogged.Enqueue("In " + selected + " wordt een Item gedropt.");
             nodes[selected].Add_Item(k);
         }
 
@@ -587,6 +596,11 @@ namespace ST_Project
                         nodes[i].pushPack(p);
                 }
             }
+        }
+
+        public void iAmYourFather(GameState gs)
+        {
+            parent = gs;
         }
     }
 }

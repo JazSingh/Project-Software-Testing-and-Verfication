@@ -16,6 +16,7 @@ namespace ST_Project
         public Hoofdscherm hs;
         private bool logging;
         string logpath;
+        public Queue<string> unlogged;
 
         public GameManager()
         {
@@ -26,6 +27,7 @@ namespace ST_Project
 
         public void Logging()
         {
+            unlogged = new Queue<string>();
             logging = !logging;
 
             if (logging)
@@ -37,12 +39,17 @@ namespace ST_Project
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
                     logpath = sfd.FileName;
-            }
+                }
                 else
                 {
-                    logpath = "log.txt";
-        }
+                    logpath = "log.txt"; // for safety
+                }
             }
+        }
+
+        public bool isLogging()
+        {
+            return logging;
         }
 
         //Methods called from View
@@ -57,6 +64,7 @@ namespace ST_Project
 
             if (logging)
             {
+                state.iAmYourFather(this);
                 using (StreamWriter sw = File.AppendText(logpath))
                 {
                     sw.WriteLine("End node");
@@ -80,6 +88,10 @@ namespace ST_Project
                         foreach (string line in player)
                             sw.WriteLine(line);
                         sw.WriteLine("ACTIONS");
+                        while (unlogged.Count > 0)
+                        {
+                            sw.WriteLine(unlogged.Dequeue());
+                        }
                     }
                 }
             }
@@ -114,6 +126,11 @@ namespace ST_Project
                     {
                         using (StreamWriter sw = File.AppendText(logpath))
                         {
+                            while (unlogged.Count > 0)
+                            {
+                                sw.WriteLine(unlogged.Dequeue());
+                            }
+
                             sw.WriteLine("Moving to " + newNode);
                         }
                     }
@@ -134,6 +151,18 @@ namespace ST_Project
             }
 
             state.PackMoves();
+
+            if (logging)
+            {
+                using (StreamWriter sw = File.AppendText(logpath))
+                {
+                    while (unlogged.Count > 0)
+                    {
+                        sw.WriteLine(unlogged.Dequeue());
+                    }
+                }
+            }
+
             if (state.Fight())
             {
                 if (state.PlayerDead())
@@ -223,6 +252,8 @@ namespace ST_Project
         {
             if (logging)
             {
+                state.iAmYourFather(this);
+
                 string[] dungeon = state.GetDungeon().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
                 string[] player = state.GetPlayer().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
 
@@ -233,6 +264,10 @@ namespace ST_Project
                     foreach (string line in player)
                         sw.WriteLine(line);
                     sw.WriteLine("ACTIONS");
+                    while (unlogged.Count > 0)
+                    {
+                        sw.WriteLine(unlogged.Dequeue());
+                    }
                 }
             }
         }
