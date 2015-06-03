@@ -240,7 +240,7 @@ namespace ST_Project
                                             {
                                                 p.Moved(true); // to prevent the system from moving the same pack again, later in this for-loop
                                                 nodes[z].pushPack(p);
-                                                if(parent != null)
+                                                if(parent.parent.isLogging())
                                                     parent.parent.unlogged.Enqueue("Pack moves van " + t + " naar node " + z + " HP: " + p.GetPackHealth());
                                                 Console.WriteLine("Pack moves van " + t + " naar node " + z + " HP: " + p.GetPackHealth());
                                             }
@@ -294,7 +294,7 @@ namespace ST_Project
                 {
                     p.Moved(true); // to prevent the system from moving the same pack again, later in this for-loop
                     nodes[target.ID].pushPack(p);
-                    if(parent != null)
+                    if(parent.parent.isLogging())
                         parent.parent.unlogged.Enqueue("HUNTER moves van " + pos + " naar node " + target.ID + " HP: " + p.GetPackHealth());
                     Console.WriteLine("HUNTER moves van " + pos + " naar node " + target.ID + " HP: " + p.GetPackHealth());
                     return true;
@@ -318,7 +318,7 @@ namespace ST_Project
                 {
                     p.Moved(true); // to prevent the system from moving the same pack again, later in this for-loop
                     nodes[target.ID].pushPack(p);
-                    if(parent != null)
+                    if(parent.parent.isLogging())
                         parent.parent.unlogged.Enqueue("DEFENDER moves van " + pos + " naar node " + target.ID + " HP: " + p.GetPackHealth());
                     Console.WriteLine("DEFENDER moves van " + pos + " naar node " + target.ID + " HP: " + p.GetPackHealth());
                     return true;
@@ -455,7 +455,7 @@ namespace ST_Project
             int selected = dropNodes[Oracle.GiveNumber(dropNodes.Count-1)];
 
             Console.WriteLine("In " + selected + " wordt een Item gedropt.");
-            if(parent != null)
+            if(parent.parent.isLogging())
                 parent.parent.unlogged.Enqueue("In " + selected + " wordt een Item gedropt: " + k.ToString());
             nodes[selected].Add_Item(k);
         }
@@ -467,20 +467,32 @@ namespace ST_Project
             //spawn 1 on every bridge
             int dropped = 0;
             for (int i = 1; i <= difficulty; i++)
+            {
                 nodes[i * interval].AddPack();
+                if (parent.parent.isLogging())
+                    parent.parent.unlogged.Enqueue("spawned pack on " + i * interval);
+            }
             dropped = difficulty;
                 //drop on random nodes
             for (int i = 1; i < dungeonSize - 2; i++)
-                if (initialPackDrops - dropped > 0 
-                    && nodes[i] != null 
+                if (initialPackDrops - dropped > 0
+                    && nodes[i] != null
                     && Oracle.Decide() && nodes[i].AddPack())
+                {
                     dropped++;
+                    if (parent.parent.isLogging())
+                        parent.parent.unlogged.Enqueue("spawned pack on " + i);
+                }
             //fill bridges with amount that is left
             int j = difficulty;
             while(initialPackDrops - dropped > 0)
             {
                 if (nodes[j * interval].AddPack())
+                {
                     dropped++;
+                    if (parent.parent.isLogging())
+                        parent.parent.unlogged.Enqueue("spawned pack on " + j*interval);
+                }
                 j = j == 1 ? difficulty : j - 1;
             }
         }
