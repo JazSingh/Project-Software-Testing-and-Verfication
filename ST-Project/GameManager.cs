@@ -324,9 +324,10 @@ namespace ST_Project
             {
                 if (logging)
                 {
+                    int pos = state.GetPlayer().get_position();
                     using (StreamWriter sw = File.AppendText(logpath))
                     {
-                        sw.WriteLine("using scroll, node explodes");
+                        sw.WriteLine("using scroll, explode, moving to " + pos);
                     }
                 }
 
