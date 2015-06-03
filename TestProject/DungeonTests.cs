@@ -340,64 +340,6 @@ namespace TestProject
             Assert.IsTrue(d.nodes[0].hasPack());
         }
 
-        //It shouldnt be possible to move a pack to a node if it will breach its maximum capacity
-        [TestMethod]
-        public void MovePackMaxCap()
-        {
-            int diff = 1;
-            int dsize = 3;
-            Node[] ns = new Node[dsize];
-
-            ns[0] = new Node(0);
-            ns[0].AddPack();
-            Pack p1 = new Pack(1);
-            p1.hit_pack(1);
-            ns[0].pushPack(p1);
-            Pack p2 = new Pack(2);
-            p2.hit_pack(2);
-            ns[0].pushPack(p2);
-
-            ns[1] = new Node(1);
-            ns[1].AddPack();
-            Pack p3 = new Pack(3);
-            p3.hit_pack(3);
-            ns[1].pushPack(p3);
-            Pack p4 = new Pack(4);
-            p4.hit_pack(4);
-            ns[1].pushPack(p4);
-
-            ns[0].AddNeighbour(1);
-            ns[1].AddNeighbour(0);
-
-            ns[2] = new Node(2);
-            Dungeon d = new Dungeon(ns, diff, dsize, 2);
-            d.MovePacks(2, 0, 0);
-
-            Pack p5 = new Pack(5);
-            Assert.IsTrue(ns[0].popPack().GetPackHealth() == p5.GetPackHealth() - 2);
-            Assert.IsTrue(ns[0].popPack().GetPackHealth() == p5.GetPackHealth() - 1);
-            Assert.IsTrue(ns[1].popPack().GetPackHealth() == p5.GetPackHealth() - 4);
-            Assert.IsTrue(ns[1].popPack().GetPackHealth() == p5.GetPackHealth() - 3);
-        }
-
-        //Check if packs dont disspear when moving them around
-        [TestMethod]
-        public void MovePack()
-        {
-            for (int i = 1; i <= 100; i++)
-            {
-                int som = 0;
-                for (int j = 1; j <= i; j++)
-                    som += j;
-
-                Dungeon d = new Dungeon(i);
-                d.SpawnMonsters();
-                d.MovePacks(0, 0, 0);
-                Assert.IsTrue(som + 1 >= d.SumMonsterHealth() / 45 
-                    &&        som - 1 <= d.SumMonsterHealth() / 45);
-            }
-        }
-
         //Check if packs still have the same health when moves
         [TestMethod]
         public void MovePackDamaged()

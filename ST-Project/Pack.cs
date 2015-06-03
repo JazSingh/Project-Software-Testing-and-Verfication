@@ -76,8 +76,12 @@ namespace ST_Project
         }
         
         // returns if pack needs to retreat, based on rule of >= 70% hp-drop
+        // except when the pack has an order, than it returns false
         public bool retreat()
         {
+            if (hunt || defend)
+                return false;
+
             int current_hp = 0;
             if (current != null)
                 current_hp += current.GetHP();
