@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Windows.Forms;
 
 namespace ST_Project
 {
@@ -14,6 +15,7 @@ namespace ST_Project
         private Gamescherm gs;
         public Hoofdscherm hs;
         private bool logging;
+        string logpath;
 
         public GameManager()
         {
@@ -28,8 +30,18 @@ namespace ST_Project
 
             if (logging)
             {
-                Oracle.DETERM = true;
-                Oracle.DETERMF = true;
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.DefaultExt = ".txt";
+                sfd.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    logpath = sfd.FileName;
+                }
+                else
+                {
+                    logpath = "log.txt";
+                }
             }
         }
 
@@ -45,16 +57,25 @@ namespace ST_Project
 
             if (logging)
             {
-                string[] dungeon = state.GetDungeon().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
-                string[] player = state.GetPlayer().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.DefaultExt = ".txt";
+                sfd.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
 
-                using (StreamWriter sw = File.AppendText("log.txt"))
+                if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    sw.WriteLine(Environment.NewLine);
-                    foreach (string line in dungeon)
-                        sw.WriteLine(line);
-                    foreach (string line in player)
-                        sw.WriteLine(line);
+                    logpath = sfd.FileName;
+                    
+                    string[] dungeon = state.GetDungeon().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+                    string[] player = state.GetPlayer().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+
+                    using (StreamWriter sw = File.AppendText(logpath))
+                    {
+                        sw.WriteLine(Environment.NewLine);
+                        foreach (string line in player)
+                            sw.WriteLine(line);
+                        foreach (string line in dungeon)
+                            sw.WriteLine(line);
+                    }
                 }
             }
         }
@@ -86,7 +107,7 @@ namespace ST_Project
 
                     if (logging)
                     {
-                        using (StreamWriter sw = File.AppendText("log.txt"))
+                        using (StreamWriter sw = File.AppendText(logpath))
                         {
                             sw.WriteLine("Moving to " + newNode);
                         }
@@ -100,7 +121,7 @@ namespace ST_Project
         {
             if (logging)
             {
-                using (StreamWriter sw = File.AppendText("log.txt"))
+                using (StreamWriter sw = File.AppendText(logpath))
                 {
                     sw.WriteLine("Fighting");
                 }
@@ -192,15 +213,16 @@ namespace ST_Project
                 string[] dungeon = state.GetDungeon().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
                 string[] player = state.GetPlayer().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
 
-                var v = File.Create("log.txt");
+                var v = File.Create(logpath);
                 v.Close();
 
-                using (StreamWriter sw = File.AppendText("log.txt"))
+                using (StreamWriter sw = File.AppendText(logpath))
                 {
                     foreach (string line in dungeon)
                         sw.WriteLine(line);
                     foreach (string line in player)
                         sw.WriteLine(line);
+                    sw.WriteLine("ACTIONS");
                 }
             }
         }
@@ -263,7 +285,7 @@ namespace ST_Project
 
             if (logging)
             {
-                using (StreamWriter sw = File.AppendText("log.txt"))
+                using (StreamWriter sw = File.AppendText(logpath))
                 {
                     sw.WriteLine("using potion");
                 }
@@ -276,7 +298,7 @@ namespace ST_Project
 
             if (logging)
             {
-                using (StreamWriter sw = File.AppendText("log.txt"))
+                using (StreamWriter sw = File.AppendText(logpath))
                 {
                     sw.WriteLine("using crystal");
                 }
@@ -289,9 +311,9 @@ namespace ST_Project
             {
                 if (logging)
                 {
-                    using (StreamWriter sw = File.AppendText("log.txt"))
+                    using (StreamWriter sw = File.AppendText(logpath))
                     {
-                        sw.WriteLine("using scroll");
+                        sw.WriteLine("using scroll, node explodes");
                     }
                 }
 
@@ -301,6 +323,16 @@ namespace ST_Project
                 {
                     //gs.locations =  new Dictionary<int, Tuple<int, int>>();
                     gs.Invalidate();
+                }
+            }
+            else
+            {
+                if (logging)
+                {
+                    using (StreamWriter sw = File.AppendText(logpath))
+                    {
+                        sw.WriteLine("using scroll");
+                    }
                 }
             }
         }
