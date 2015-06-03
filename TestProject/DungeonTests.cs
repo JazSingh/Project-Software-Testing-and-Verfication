@@ -393,8 +393,8 @@ namespace TestProject
                 Dungeon d = new Dungeon(i);
                 d.SpawnMonsters();
                 d.MovePacks(0, 0, 0);
-                Assert.IsTrue(som + 1 >= d.SumMonsterHealth() / 45 
-                    &&        som - 1 <= d.SumMonsterHealth() / 45);
+                Assert.IsTrue(som + 5 >= d.SumMonsterHealth() / 45 
+                    &&        som - 5 <= d.SumMonsterHealth() / 45);
             }
         }
 

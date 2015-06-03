@@ -564,6 +564,8 @@ namespace ST_Project
         {
             Console.WriteLine("DefendOrder received!!");
             if (bridgeLevel > difficulty) return;
+            foreach (Pack p in nodes[bridgeLevel * interval].getPacks())
+                p.SetDefend();
             int resCap = nodes[bridgeLevel * interval].GetCapacity() - nodes[bridgeLevel * interval].TotalMonsters();
             for (int i = 0; i < nodes.Length; i++)
             {
