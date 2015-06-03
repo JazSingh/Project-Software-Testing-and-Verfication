@@ -29,7 +29,6 @@ namespace ST_Project
             if (logging)
             {
                 Oracle.DETERM = true;
-                Oracle.DETERMF = true;
             }
         }
 
@@ -98,6 +97,7 @@ namespace ST_Project
 
         public bool Fight()
         {
+            state.UpdateLKP();
             if (logging)
             {
                 using (StreamWriter sw = File.AppendText("log.txt"))
@@ -139,6 +139,13 @@ namespace ST_Project
             Tuple<string, int> newhs = new Tuple<string, int>(name, sc);
             int index = NewHighscore();
             Tuple<string, int>[] hss = ReadHighscores();
+            //hss[index] = newhs;
+            int i = hss.Length;
+            while(i - index > 0)
+            {
+                hss[i] = hss[i - 1];
+                i--;
+            }
             hss[index] = newhs;
 
             WriteHighscoresToFile(hss);
@@ -260,6 +267,7 @@ namespace ST_Project
         public void UsePotion()
         {
             state.UsePotion();
+            state.UpdateLKP();
 
             if (logging)
             {
@@ -272,6 +280,7 @@ namespace ST_Project
 
         public void UseCrystal()
         {
+            state.UpdateLKP();
             state.UseCrystal();
 
             if (logging)
@@ -285,6 +294,7 @@ namespace ST_Project
 
         public void UseScroll()
         {
+            state.UpdateLKP();
             if (state.UseScroll())
             {
                 if (logging)
