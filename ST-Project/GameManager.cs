@@ -143,7 +143,7 @@ namespace ST_Project
             int i = hss.Length;
             while(i - index > 0)
             {
-                hss[i] = hss[i - 1]
+                hss[i] = hss[i - 1];
                 i--;
             }
             hss[index] = newhs;
