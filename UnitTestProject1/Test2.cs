@@ -7,8 +7,9 @@ namespace UnitTestProject1
     public class Test2
     {
         [TestMethod]
-        public void TestMethod1()
+        public void Test()
         {
+            // constraint: “The score is calculated correctly, and the highscores list is correctly updated (at the end of the game).”
         }
     }
 }
