@@ -453,9 +453,10 @@ namespace ST_Project
                     dropNodes.Add(i);
 
             int selected = dropNodes[Oracle.GiveNumber(dropNodes.Count-1)];
+
             Console.WriteLine("In " + selected + " wordt een Item gedropt.");
             if(parent != null)
-                parent.parent.unlogged.Enqueue("In " + selected + " wordt een Item gedropt.");
+                parent.parent.unlogged.Enqueue("In " + selected + " wordt een Item gedropt: " + k.ToString());
             nodes[selected].Add_Item(k);
         }
 

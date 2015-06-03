@@ -105,9 +105,9 @@ namespace ST_Project
                 Dungeon d = new Dungeon(nodes, difficulty, size, interval);
 
                 #endregion
-
                 // the Player p and Dungeon d together make a new GameState gs
-                GameState gs = new GameState(d, p);
+                GameState gs = new GameState(d, p, parent);
+                
 
                 parent.GameLoadNotify(gs, difficulty);
             }

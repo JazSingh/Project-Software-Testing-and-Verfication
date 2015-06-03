@@ -30,7 +30,7 @@ namespace ST_Project
         {
             Dungeon d = genDungeon();
             Player p = genPlayer();
-            GameState gmst = new GameState(d, p);
+            GameState gmst = new GameState(d, p, parent);
             
         }
 

@@ -15,10 +15,13 @@ namespace ST_Project
         public GameManager parent;
 
         // Constructor for creating a new game
-        public GameState(int i)
+        public GameState(int i, GameManager prt)
         {
+            parent = prt;
             d = new Dungeon(i);
             p = new Player();
+            if (parent.isLogging())
+                d.iAmYourFather(this);
             d.SpawnMonsters();
             DropItems();
             Console.WriteLine(d.ToString());
@@ -28,10 +31,14 @@ namespace ST_Project
         }
 
         // Constructor to load in a previous game
-        public GameState(Dungeon dungeon, Player player)
+        public GameState(Dungeon dungeon, Player player, GameManager gm)
         {
+            parent = gm;
             d = dungeon;
             p = player;
+            if (parent.isLogging())
+                d.iAmYourFather(this);
+
             d.SpawnMonsters();
             DropItems();
         }
@@ -99,6 +106,8 @@ namespace ST_Project
         public void NextLevel()
         {
             d = new Dungeon(d.difficulty == 5 ? 5 : d.difficulty + 1);
+            if(parent.isLogging())
+                d.iAmYourFather(this);
             d.SpawnMonsters();
             DropItems();
         }

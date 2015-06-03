@@ -55,6 +55,9 @@ namespace ST_Project
         //Methods called from View
         public void NotifyFinished()
         {
+            if (logging)
+                state.iAmYourFather(this);
+
             if (!gs.Save())
                 state.NextLevel();
             gs.Close();
@@ -230,7 +233,7 @@ namespace ST_Project
         //Hoofdscherm diff select
         public void DiffSelectNotify(int diff)
         {
-            state = new GameState(diff);
+            state = new GameState(diff, this);
             gs = new Gamescherm(diff, this);
             gs.Show();
             gs.Invalidate();
