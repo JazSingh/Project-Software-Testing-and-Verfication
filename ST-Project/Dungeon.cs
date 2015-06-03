@@ -240,8 +240,8 @@ namespace ST_Project
                                             {
                                                 p.Moved(true); // to prevent the system from moving the same pack again, later in this for-loop
                                                 nodes[z].pushPack(p);
-                                                if(parent.parent.isLogging())
-                                                    parent.parent.unlogged.Enqueue("Pack moves van " + t + " naar node " + z + " HP: " + p.GetPackHealth());
+                                                //if(parent.parent.isLogging())
+                                                //    parent.parent.unlogged.Enqueue("Pack moves van " + t + " naar node " + z + " HP: " + p.GetPackHealth());
                                                 Console.WriteLine("Pack moves van " + t + " naar node " + z + " HP: " + p.GetPackHealth());
                                             }
                                             else // if the node the pack wants to move to, is full
