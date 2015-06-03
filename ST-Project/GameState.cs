@@ -128,7 +128,7 @@ namespace ST_Project
             d = new Dungeon(d.difficulty == 5 ? 5 : d.difficulty + 1);
             d.SpawnMonsters();
             DropItems();
-            if (parent.isLogging())
+            if (parent != null && parent.isLogging())
                 d.iAmYourFather(this);
         }
 
