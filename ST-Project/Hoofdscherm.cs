@@ -139,5 +139,15 @@ namespace ST_Project
         {
             parent.Logging();
         }
+
+        private void loadlog_btn_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                string[] args = File.ReadAllLines(ofd.FileName);
+                Log l = new Log(args, parent);
+            }
+        }
     }
 }
