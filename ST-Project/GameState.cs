@@ -30,6 +30,18 @@ namespace ST_Project
             Console.WriteLine("Total hp player and pots: " + SumPlayerPotsHP());
         }
 
+        public GameState(int i)
+        {
+            d = new Dungeon(i);
+            p = new Player();
+            d.SpawnMonsters();
+            DropItems();
+            Console.WriteLine(d.ToString());
+            Console.WriteLine(p.ToString());
+            Console.WriteLine("Total hp monsters: " + d.SumMonsterHealth());
+            Console.WriteLine("Total hp player and pots: " + SumPlayerPotsHP());
+        }
+
         // Constructor to load in a previous game
         public GameState(Dungeon dungeon, Player player, GameManager gm)
         {
@@ -39,6 +51,14 @@ namespace ST_Project
             if (parent.isLogging())
                 d.iAmYourFather(this);
 
+            d.SpawnMonsters();
+            DropItems();
+        }
+
+        public GameState(Dungeon dungeon, Player player)
+        {
+            d = dungeon;
+            p = player;
             d.SpawnMonsters();
             DropItems();
         }
@@ -106,10 +126,10 @@ namespace ST_Project
         public void NextLevel()
         {
             d = new Dungeon(d.difficulty == 5 ? 5 : d.difficulty + 1);
-            if(parent.isLogging())
-                d.iAmYourFather(this);
             d.SpawnMonsters();
             DropItems();
+            if (parent.isLogging())
+                d.iAmYourFather(this);
         }
 
         // sets the player position and checks for loot in the current node

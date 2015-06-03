@@ -10,7 +10,7 @@ namespace TestProject
     public class Test1
     {
         [TestMethod]
-        void Test_A()
+        public void Test_A()
         {
             // constraint: “The node-capacity rule is never breached.”
             // use MBC, with base: (full, yes, 2)
@@ -27,6 +27,16 @@ namespace TestProject
                 z.next();
               }
              */
+
+            //KIJKEN OF REPLAY WERKT!
+            Replayer z = new Replayer("test.txt");
+            z.Play();
+            while (z.HasNext())
+            {
+                z.Step();
+            }
+            GameState q = z.QueryState();
+            Assert. AreEqual(z.QueryState().GetPlayer().get_position(), 7);
         }
 
         [TestMethod]

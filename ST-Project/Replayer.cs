@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Diagnostics;
 
 namespace ST_Project
 {
-    class Replayer
+    public class Replayer
     {
         string[] log;
         int index = -1;
@@ -24,14 +25,16 @@ namespace ST_Project
 
         public void Play()
         {
-            while (HasNext())
+            Debug.WriteLine("Play!");
+            bool done = false;
+            while (HasNext() && !done)
             {
                 string cur = GetNext();
-                switch(cur)
+                switch (cur)
                 {
                     case "DUNGEON": d = CreateDungeon(); break;
                     case "PLAYER": p = CreatePlayer(); break;
-                    case "ACTIONS": DoActions(); break;
+                    case "ACTIONS": DoActions(); done = true; break;
                     default: continue;
                 }
             }
@@ -45,24 +48,30 @@ namespace ST_Project
 
         public bool HasNext()
         {
-            return index + 1 < log.Length - 1;
+            return index + 1 < log.Length;
         }
 
         public void SeedState()
         {
             gm = new GameManager(true);
             st = new GameState(d, p, true);
+            Debug.WriteLine(st.GetDungeon().ToString());
+            Debug.WriteLine(st.GetPlayer().ToString());
             gm.state = st;
+            gm.replay = true;
         }
 
         private Dungeon CreateDungeon()
         {
             string cur = GetNext();
             int dSize = int.Parse(cur.Split()[1]);
+            Debug.WriteLine("dungeon size: " + dSize);
             cur = GetNext();
             int interval = int.Parse(cur.Split()[1]);
+            Debug.WriteLine("interval: " + dSize);
             cur = GetNext();
             int diff = int.Parse(cur.Split()[1]);
+            Debug.WriteLine("level: " + dSize);
 
             Node[] nodes = new Node[dSize];
 
@@ -70,6 +79,7 @@ namespace ST_Project
             {
                 Node node = ParseNode(cur);
                 nodes[node.ID] = node;
+                Debug.WriteLine("Parsed node: " + node.ID);
             }
 
             return new Dungeon(nodes, diff, dSize, interval);
@@ -97,7 +107,7 @@ namespace ST_Project
             int numTC = int.Parse(GetNext().Split()[1]);
             int numMS = int.Parse(GetNext().Split()[1]);
             List<Item> items = GetBagPack(numPots, numTC, numMS);
-
+            Debug.WriteLine("Player: " + hpmax + " " + hp + " " + dmg + " " + score + " " + item);
             //public Player(int hpmax, int hp, int dmg, int scr, Item item, List<Item> items)
             return new Player(hpmax, hp, dmg, score, item, items);
         }
@@ -137,33 +147,42 @@ namespace ST_Project
         public void DoActions()
         {
             SeedState();
-            string cur;
-            while((cur = GetNext()) != "End node")
+            Debug.WriteLine("State Seeded!");
+        }
+
+        public void Step()
+        {
+            string cur = GetNext();
+            string[] parts = cur.Split();
+            if (parts[0] == "Fighting")
+            { gm.Fight(); Debug.WriteLine("FIGHT"); }
+            if (parts[0] == "highscore")
+            { gm.WriteHighscore(parts[1]); Debug.WriteLine("HIGHSCORE"); }
+            if (parts[0] == "using" && parts[1] == "potion")
+            { gm.UsePotion(); Debug.WriteLine("potion used"); }
+            if (parts[0] == "using" && parts[1] == "crystal")
+            { gm.UseCrystal(); Debug.WriteLine("crystal used"); }
+            if (parts[0] == "using" && parts[1] == "scroll" && parts.Length == 2)
             {
-                string[] parts = cur.Split();
-                if(parts[0] == "Fighting")
-                    gm.Fight();
-                if (parts[0] == "using" && parts[1] == "potion")
-                    gm.UsePotion();
-                if (parts[0] == "using" && parts[1] == "crystal")
-                    gm.UseCrystal();
-                if(parts[0] == "using" && parts[1] == "scroll" && parts.Length == 2)
-                {
-                    Oracle.DETERMF = true;
-                    gm.UseScroll();
-                    Oracle.DETERMF = false;
-                }
-                if(parts[0] == "using" && parts[1] == "scroll" && parts.Length == 6)
-                    gm.UseScroll();
-
-                if(parts[0] == "Moving" && parts[1] == "to")
-                    gm.PlayerMoved(int.Parse(parts[2]));
-                if (parts[0] == "spawned" && parts[1] == "pack")
-                    gm.GetDungeon().nodes[int.Parse(parts[3])].pushPack(new Pack(GetItemVal(parts[5])));
-                if (parts[0] == "In" && parts[2] == "wordt" && parts[3] == "een" && parts[4] == "Item" && parts[5] == "gedropt:")
-                    gm.GetDungeon().nodes[int.Parse(parts[3])].Add_Item(GetItem("Item: " + parts[6]));
-
+                Oracle.DETERMF = true;
+                gm.UseScroll();
+                Debug.WriteLine("scroll with explosion used");
+                Oracle.DETERMF = false;
             }
+            if (parts[0] == "using" && parts[1] == "scroll" && parts.Length == 6)
+            { gm.UseScroll(); Debug.WriteLine("scroll without explosion used"); }
+            if (parts[0] == "Moving" && parts[1] == "to")
+            { gm.PlayerMoved(int.Parse(parts[2])); Debug.WriteLine("Player moved"); }
+            if (parts[0] == "spawned" && parts[1] == "pack")
+            { gm.GetDungeon().nodes[int.Parse(parts[3])].pushPack(new Pack(GetItemVal(parts[5]))); Debug.WriteLine("Pack spawned"); }
+            if (parts[0] == "In" && parts[2] == "wordt" && parts[3] == "een" && parts[4] == "Item" && parts[5] == "gedropt:")
+            { gm.GetDungeon().nodes[int.Parse(parts[1])].Add_Item(GetItem("Dropped Item: " + parts[6])); Debug.WriteLine("Item dropped"); }
+        }
+
+
+        public GameState QueryState()
+        {
+            return gm.GetState();
         }
     }
 }

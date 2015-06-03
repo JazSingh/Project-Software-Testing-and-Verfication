@@ -451,7 +451,7 @@ namespace ST_Project
             int selected = dropNodes[Oracle.GiveNumber(dropNodes.Count-1)];
 
             Console.WriteLine("In " + selected + " wordt een Item gedropt.");
-            if(parent.parent.isLogging() && k.ToString() != "MagicScroll")
+            if(parent != null && parent.parent.isLogging() && k.ToString() != "MagicScroll")
                 parent.parent.unlogged.Enqueue("In " + selected + " wordt een Item gedropt: " + k.ToString());
             nodes[selected].Add_Item(k);
         }
@@ -465,7 +465,7 @@ namespace ST_Project
             for (int i = 1; i <= difficulty; i++)
             {
                 nodes[i * interval].AddPack();
-                if (parent.parent.isLogging())
+                if (parent != null && parent.parent.isLogging())
                 {
                     Item itm = nodes[i * interval].getPacks().Peek().GetItem();
                     if (itm != null)
@@ -482,7 +482,7 @@ namespace ST_Project
                     && Oracle.Decide() && nodes[i].AddPack())
                 {
                     dropped++;
-                    if (parent.parent.isLogging())
+                    if (parent != null && parent.parent.isLogging())
                         parent.parent.unlogged.Enqueue("spawned pack on " + i);
                 }
             //fill bridges with amount that is left
@@ -492,7 +492,7 @@ namespace ST_Project
                 if (nodes[j * interval].AddPack())
                 {
                     dropped++;
-                    if (parent.parent.isLogging())
+                    if (parent != null && parent.parent.isLogging())
                         parent.parent.unlogged.Enqueue("spawned pack on " + j*interval);
                 }
                 j = j == 1 ? difficulty : j - 1;

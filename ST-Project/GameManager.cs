@@ -14,14 +14,13 @@ namespace ST_Project
         public GameState state;
         private Gamescherm gs;
         public Hoofdscherm hs;
-        private bool logging, replay;
+        public bool logging, replay;
         string logpath;
         public Queue<string> unlogged;
 
         public GameManager()
         {
             logging = false;
-            replay = false;
             Hoofdscherm hs = new Hoofdscherm(this);
             hs.Show();
         }
@@ -65,7 +64,7 @@ namespace ST_Project
             if (logging)
                 state.iAmYourFather(this);
 
-            if (!gs.Save())
+            if (!replay && !gs.Save())
                 state.NextLevel();
 
             if (!replay)
@@ -150,8 +149,7 @@ namespace ST_Project
                     }
                 }
             }
-            if (!replay)
-                gs.Invalidate();
+           if (!replay) { gs.Invalidate(); }
         }
 
         public bool Fight()
@@ -224,9 +222,12 @@ namespace ST_Project
             }
             hss[index] = newhs;
             WriteHighscoresToFile(hss);
-            gs.Close();
-            hs = new Hoofdscherm(this);
-            hs.Show();
+            if (!replay)
+            {
+                gs.Close();
+                hs = new Hoofdscherm(this);
+                hs.Show();
+            }
         }
 
         public void WriteHighscoresToFile(Tuple<string, int>[] hs)
