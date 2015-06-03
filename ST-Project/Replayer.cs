@@ -126,6 +126,13 @@ namespace ST_Project
             return l;
         }
 
+        private int GetItemVal(string item)
+        {
+            if (item == "MagicScroll") return 7;
+            if (item == "HealthPotion") return 1;
+            return 4;
+        }
+
 
         public void DoActions()
         {
@@ -140,19 +147,19 @@ namespace ST_Project
                     gm.UsePotion();
                 if (parts[0] == "using" && parts[1] == "crystal")
                     gm.UseCrystal();
-                if(parts[0] == "using" && parts[1] = "scroll" && parts.Length == 2)
+                if(parts[0] == "using" && parts[1] == "scroll" && parts.Length == 2)
                 {
                     Oracle.DETERMF = true;
-                    gm.UseScroll()
+                    gm.UseScroll();
                     Oracle.DETERMF = false;
                 }
-                if(parts[0] == "using" && parts[1] = "scroll" && parts.Length == 6)
+                if(parts[0] == "using" && parts[1] == "scroll" && parts.Length == 6)
                     gm.UseScroll();
 
                 if(parts[0] == "Moving" && parts[1] == "to")
                     gm.PlayerMoved(int.Parse(parts[2]));
                 if (parts[0] == "spawned" && parts[1] == "pack")
-                    gm.GetDungeon().nodes[int.Parse(parts[3])].AddPack();
+                    gm.GetDungeon().nodes[int.Parse(parts[3])].pushPack(new Pack(GetItemVal(parts[5])));
                 if (parts[0] == "In" && parts[2] == "wordt" && parts[3] == "een" && parts[4] == "Item" && parts[5] == "gedropt:")
                     gm.GetDungeon().nodes[int.Parse(parts[3])].Add_Item(GetItem("Item: " + parts[6]));
 
