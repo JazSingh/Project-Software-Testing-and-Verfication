@@ -286,6 +286,7 @@ namespace ST_Project
             else
             {
                 Stack<Node> path = ShortestPath(nodes[pos], nodes[LKP]);
+                path.Pop();
                 Node target = path.Pop(); // node the Pack needs to move to in this round
                 int total = target.TotalMonsters();
                 
@@ -309,6 +310,7 @@ namespace ST_Project
             else 
             {
                 Stack<Node> path = ShortestPath(nodes[pos], nodes[defend]);
+                path.Pop();
                 Node target = path.Pop(); // node the Pack needs to move to in this round
                 int total = target.TotalMonsters();
 

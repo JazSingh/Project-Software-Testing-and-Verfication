@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace ST_Project
 {
-    class Log
+    public class Log
     {
         string[] args;
         int currline;
@@ -26,7 +26,7 @@ namespace ST_Project
 
         }
 
-        void init()
+        public void init()
         {
             Dungeon d = genDungeon();
             Player p = genPlayer();
@@ -102,16 +102,16 @@ namespace ST_Project
             return p;
         }
 
-        bool hasNext()
+        public bool hasNext()
         {
             return false;
         }
 
-        void next()
+        public void next()
         {
 
         }
-        string getStep()
+        public string getStep()
         {
             return string.Empty;
         }
