@@ -328,7 +328,6 @@ namespace ST_Project
             parent = gm;
 
             d.iAmYourFather(this);
-            p.iAmYourFather(this);
         }
     }
 }

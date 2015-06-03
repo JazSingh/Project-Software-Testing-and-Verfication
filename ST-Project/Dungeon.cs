@@ -294,8 +294,6 @@ namespace ST_Project
                 {
                     p.Moved(true); // to prevent the system from moving the same pack again, later in this for-loop
                     nodes[target.ID].pushPack(p);
-                    if(parent.parent.isLogging())
-                        parent.parent.unlogged.Enqueue("HUNTER moves van " + pos + " naar node " + target.ID + " HP: " + p.GetPackHealth());
                     Console.WriteLine("HUNTER moves van " + pos + " naar node " + target.ID + " HP: " + p.GetPackHealth());
                     return true;
                 }
@@ -318,8 +316,6 @@ namespace ST_Project
                 {
                     p.Moved(true); // to prevent the system from moving the same pack again, later in this for-loop
                     nodes[target.ID].pushPack(p);
-                    if(parent.parent.isLogging())
-                        parent.parent.unlogged.Enqueue("DEFENDER moves van " + pos + " naar node " + target.ID + " HP: " + p.GetPackHealth());
                     Console.WriteLine("DEFENDER moves van " + pos + " naar node " + target.ID + " HP: " + p.GetPackHealth());
                     return true;
                 }
@@ -455,7 +451,7 @@ namespace ST_Project
             int selected = dropNodes[Oracle.GiveNumber(dropNodes.Count-1)];
 
             Console.WriteLine("In " + selected + " wordt een Item gedropt.");
-            if(parent.parent.isLogging())
+            if(parent.parent.isLogging() && k.ToString() != "MagicScroll")
                 parent.parent.unlogged.Enqueue("In " + selected + " wordt een Item gedropt: " + k.ToString());
             nodes[selected].Add_Item(k);
         }
@@ -470,7 +466,13 @@ namespace ST_Project
             {
                 nodes[i * interval].AddPack();
                 if (parent.parent.isLogging())
-                    parent.parent.unlogged.Enqueue("spawned pack on " + i * interval);
+                {
+                    Item itm = nodes[i * interval].getPacks().Peek().GetItem();
+                    if (itm != null)
+                        parent.parent.unlogged.Enqueue("spawned pack on " + i * interval + " met " + itm.ToString());
+                    else
+                        parent.parent.unlogged.Enqueue("spawned pack on " + i * interval);
+                }
             }
             dropped = difficulty;
                 //drop on random nodes
