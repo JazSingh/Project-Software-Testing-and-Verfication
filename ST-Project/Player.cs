@@ -13,7 +13,6 @@ namespace ST_Project
         private Item current; // current item of the player
         private List<Item> Items; // items in players' inventory
         private int LKP; // Last-Known-Position
-        public GameState parent;
 
         // constructor
         public Player()
@@ -145,9 +144,7 @@ namespace ST_Project
                     Item i = p.GetItem();
                     if (i != null)
                     {
-                        Console.WriteLine("Item gekregen van verslagen pack!");
-                        if(parent.parent.isLogging())
-                            parent.parent.unlogged.Enqueue("Item gedropt: " + i.ToString());
+                        Console.WriteLine("Item gekregen van verslagen pack!"); 
                         add(i);
                     }
                     return;
@@ -269,11 +266,6 @@ namespace ST_Project
         public int getScore()
         {
             return score;
-        }
-
-        public void iAmYourFather(GameState gs)
-        {
-            parent = gs;
         }
     }
 }
