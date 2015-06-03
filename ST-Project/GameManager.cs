@@ -11,18 +11,25 @@ namespace ST_Project
     //controller
     public class GameManager
     {
-        private GameState state;
+        public GameState state;
         private Gamescherm gs;
         public Hoofdscherm hs;
-        private bool logging;
+        private bool logging, replay;
         string logpath;
         public Queue<string> unlogged;
 
         public GameManager()
         {
             logging = false;
+            replay = false;
             Hoofdscherm hs = new Hoofdscherm(this);
             hs.Show();
+        }
+
+        public GameManager(bool replay)
+        {
+            logging = false;
+            replay = true;
         }
 
         public void Logging()
@@ -60,10 +67,14 @@ namespace ST_Project
 
             if (!gs.Save())
                 state.NextLevel();
-            gs.Close();
-            gs = new Gamescherm(state.GetDungeon().difficulty, this);
-            state.SetPosition(0);
-            gs.Show();
+
+            if (!replay)
+            {
+                gs.Close();
+                gs = new Gamescherm(state.GetDungeon().difficulty, this);
+                state.SetPosition(0);
+                gs.Show();
+            }
 
             if (logging)
             {
@@ -139,7 +150,8 @@ namespace ST_Project
                     }
                 }
             }
-            gs.Invalidate();
+            if (!replay)
+                gs.Invalidate();
         }
 
         public bool Fight()
@@ -168,11 +180,11 @@ namespace ST_Project
 
             if (state.Fight())
             {
-                if (state.PlayerDead())
+                if (state.PlayerDead() && !replay)
                     gs.GameOver();
                 return true;
             }
-            if (state.PlayerDead())
+            if (state.PlayerDead() && !replay)
                 gs.GameOver();
             return false;
         }
@@ -197,16 +209,20 @@ namespace ST_Project
             int sc = state.GetPlayer().getScore();
             Tuple<string, int> newhs = new Tuple<string, int>(name, sc);
             int index = NewHighscore();
+            if (index == -1) return;
+            using (StreamWriter sw = File.AppendText(logpath))
+            {
+                sw.WriteLine("highscore " + name);
+            }
             Tuple<string, int>[] hss = ReadHighscores();
             //hss[index] = newhs;
-            int i = hss.Length;
+            int i = hss.Length-1;
             while(i - index > 0)
             {
                 hss[i] = hss[i - 1];
                 i--;
             }
             hss[index] = newhs;
-
             WriteHighscoresToFile(hss);
             gs.Close();
             hs = new Hoofdscherm(this);
@@ -225,9 +241,12 @@ namespace ST_Project
 
         public void SetHighScore()
         {
-            gs.Close();
-            NewHighscore nhs = new NewHighscore(this);
-            nhs.Show();
+            if (!replay)
+            {
+                gs.Close();
+                NewHighscore nhs = new NewHighscore(this);
+                nhs.Show();
+            }
         }
 
         //Hoofdscherm diff select
@@ -244,11 +263,14 @@ namespace ST_Project
         public void GameLoadNotify(GameState st, int diff)
         {
             state = st;
-            gs = new Gamescherm(diff, this);
-            gs.Show();
-            gs.Invalidate();
+            if (!replay)
+            {
+                gs = new Gamescherm(diff, this);
+                gs.Show();
+                gs.Invalidate();
 
-            LoggingSetup();
+                LoggingSetup();
+            }
         }
 
         private void LoggingSetup()
@@ -321,9 +343,12 @@ namespace ST_Project
 
         public void ShowHighScores()
         {
-            Highscore hsc = new Highscore(this, ReadHighscores());
-            hsc.Show();
-            hsc.Invalidate();
+            if (!replay)
+            {
+                Highscore hsc = new Highscore(this, ReadHighscores());
+                hsc.Show();
+                hsc.Invalidate();
+            }
         }
 
 
@@ -363,6 +388,7 @@ namespace ST_Project
                 if (logging)
                 {
                     int pos = state.GetPlayer().get_position();
+                    state.UpdateLKP();
                     using (StreamWriter sw = File.AppendText(logpath))
                     {
                         sw.WriteLine("using scroll, explode, moving to " + pos);
@@ -374,7 +400,8 @@ namespace ST_Project
                 else
                 {
                     //gs.locations =  new Dictionary<int, Tuple<int, int>>();
-                    gs.Invalidate();
+                    if(!replay)
+                        gs.Invalidate();
                 }
             }
             else
