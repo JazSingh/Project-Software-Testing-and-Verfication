@@ -57,6 +57,11 @@ namespace ST_Project
 
             if (logging)
             {
+                using (StreamWriter sw = File.AppendText(logpath))
+                {
+                    sw.WriteLine("End node");
+                }
+
                 SaveFileDialog sfd = new SaveFileDialog();
                 sfd.DefaultExt = ".txt";
                 sfd.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
@@ -64,17 +69,17 @@ namespace ST_Project
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
                     logpath = sfd.FileName;
-                    
-                string[] dungeon = state.GetDungeon().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
-                string[] player = state.GetPlayer().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+
+                    string[] dungeon = state.GetDungeon().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+                    string[] player = state.GetPlayer().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
 
                     using (StreamWriter sw = File.AppendText(logpath))
-                {
-                    sw.WriteLine(Environment.NewLine);
+                    {
+                        foreach (string line in dungeon)
+                            sw.WriteLine(line);
                         foreach (string line in player)
                             sw.WriteLine(line);
-                    foreach (string line in dungeon)
-                        sw.WriteLine(line);
+                        sw.WriteLine("ACTIONS");
                     }
                 }
             }
@@ -220,9 +225,6 @@ namespace ST_Project
             {
                 string[] dungeon = state.GetDungeon().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
                 string[] player = state.GetPlayer().ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
-
-                var v = File.Create(logpath);
-                v.Close();
 
                 using (StreamWriter sw = File.AppendText(logpath))
                 {
