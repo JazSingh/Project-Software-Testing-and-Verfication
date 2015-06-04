@@ -192,6 +192,7 @@ namespace ST_Project
         public bool Fight()
         {
             int pos = p.get_position();
+            Console.WriteLine("P POS: " + pos);
             p.setLKP(pos); // refresh last-known-position
             Pack pack = d.nodes[pos].popPack();
 
