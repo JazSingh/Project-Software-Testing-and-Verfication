@@ -90,7 +90,6 @@ namespace ST_Project
         //Add a new pack to the node
         public bool AddPack()
         {
-            Random r = new Random();
             int val = Oracle.GiveNumber(0, 18);
             Pack p = new Pack(val);
             if (TotalMonsters() + p.GetNumMonsters() > MaxCapacity) return false;

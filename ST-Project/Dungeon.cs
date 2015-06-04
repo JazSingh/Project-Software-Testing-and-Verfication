@@ -183,7 +183,6 @@ namespace ST_Project
             if (n.Retreat())
             {
                 int[] adj = n.get_Adj();
-                Random r = new Random();
                 int next = adj[Oracle.GiveNumber(0, n.NumNeighbours-1)];
                 Pack p = nodes[pos].popPack();
 
