@@ -208,15 +208,14 @@ namespace ST_Project
             Tuple<string, int> newhs = new Tuple<string, int>(name, sc);
             int index = NewHighscore();
             if (index == -1) return;
-            if (logging)
-                using (StreamWriter sw = File.AppendText(logpath))
-                {
-                    sw.WriteLine("highscore " + name);
-                }
+            using (StreamWriter sw = File.AppendText(logpath))
+            {
+                sw.WriteLine("highscore " + name);
+            }
             Tuple<string, int>[] hss = ReadHighscores();
             //hss[index] = newhs;
-            int i = hss.Length - 1;
-            while (i - index > 0)
+            int i = hss.Length-1;
+            while(i - index > 0)
             {
                 hss[i] = hss[i - 1];
                 i--;
@@ -361,7 +360,6 @@ namespace ST_Project
         public void UsePotion()
         {
             state.UsePotion();
-            state.UpdateLKP();
 
             if (logging)
             {
@@ -374,7 +372,6 @@ namespace ST_Project
 
         public void UseCrystal()
         {
-            state.UpdateLKP();
             state.UseCrystal();
 
             if (logging)
@@ -388,7 +385,6 @@ namespace ST_Project
 
         public void UseScroll()
         {
-            state.UpdateLKP();
             if (state.UseScroll())
             {
                 if (logging)

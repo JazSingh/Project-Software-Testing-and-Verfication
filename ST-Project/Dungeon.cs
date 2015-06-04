@@ -597,6 +597,42 @@ namespace ST_Project
             return sum;
         }
 
+        public int GetNumHuntOrders()
+        {
+            int total = 0;
+            for (int t =0;t<nodes.Length;t++)
+            {
+                if (nodes[t] != null)
+                {
+                    Stack<Pack> packs = nodes[t].getPacks();
+                    foreach(Pack pack in packs)
+                    {
+                        if (pack.getHunt())
+                            total++;
+                    }
+                }
+            }
+            return total;
+        }
+
+        public int GetNumDefendOrders()
+        {
+            int total = 0;
+            for (int t = 0; t < nodes.Length; t++)
+            {
+                if (nodes[t] != null)
+                {
+                    Stack<Pack> packs = nodes[t].getPacks();
+                    foreach (Pack pack in packs)
+                    {
+                        if (pack.getDefend())
+                            total++;
+                    }
+                }
+            }
+            return total;
+        }
+
         public override string ToString()
         {
             string s = string.Empty;
