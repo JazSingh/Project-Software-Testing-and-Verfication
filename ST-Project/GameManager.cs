@@ -208,14 +208,15 @@ namespace ST_Project
             Tuple<string, int> newhs = new Tuple<string, int>(name, sc);
             int index = NewHighscore();
             if (index == -1) return;
-            using (StreamWriter sw = File.AppendText(logpath))
-            {
-                sw.WriteLine("highscore " + name);
-            }
+            if (logging)
+                using (StreamWriter sw = File.AppendText(logpath))
+                {
+                    sw.WriteLine("highscore " + name);
+                }
             Tuple<string, int>[] hss = ReadHighscores();
             //hss[index] = newhs;
-            int i = hss.Length-1;
-            while(i - index > 0)
+            int i = hss.Length - 1;
+            while (i - index > 0)
             {
                 hss[i] = hss[i - 1];
                 i--;
