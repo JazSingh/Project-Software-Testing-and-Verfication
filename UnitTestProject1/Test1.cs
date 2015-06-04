@@ -29,13 +29,13 @@ namespace TestProject
              */
 
             //KIJKEN OF REPLAY WERKT!
-            Replayer z = new Replayer("firstlog.txt");
+            Replayer z = new Replayer("test.txt");
             z.Init();
             while (z.HasNext())
             {
                z.Step();
             }
-            Dungeon d = z.d;
+            Dungeon d = z.QueryState().GetDungeon();
             Node[] nodes = d.nodes;
             //for (int t = 0; t < nodes.Length; t++)
             //{

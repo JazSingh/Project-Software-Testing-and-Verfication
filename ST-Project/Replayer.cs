@@ -12,35 +12,42 @@ namespace ST_Project
         string[] log;
         int index = -1;
 
-        public GameManager gm;
-        public GameState st;
-        public Dungeon d;
-        public Player p;
+        private GameManager gm;
+        private GameState st;
+        private Dungeon d;
+        private Player p;
 
         public Replayer(string filename)
         {
             Oracle.DETERM = true;
             log = File.ReadAllLines(filename);
+            foreach (string l in log)
+            {
+                Debug.WriteLine(l);
+            }
         }
 
         public void Init()
         {
             Debug.WriteLine("Play!");
             bool done = false;
+            Debug.WriteLine("done: " + done + " HasNext() " + HasNext());
             while (HasNext() && !done)
             {
                 string cur = GetNext();
+                Debug.WriteLine("line: " + cur);
                 switch (cur)
                 {
-                    case "DUNGEON": d = CreateDungeon(); break;
-                    case "PLAYER": p = CreatePlayer(); break;
-                    case "ACTIONS": DoActions(); done = true; break;
+                    case "DUNGEON": d = CreateDungeon(); Debug.WriteLine("Parse Dungeon");  break;
+                    case "PLAYER": p = CreatePlayer(); Debug.WriteLine("Parse Player"); break;
+                    case "ACTIONS": DoActions(); Debug.WriteLine("Seed State");  done = true; break;
                     default: continue;
                 }
             }
+            Debug.WriteLine("Init Finished");
         }
 
-        public string GetNext()
+        private string GetNext()
         {
             index++;
             return log[index].Trim();
@@ -48,13 +55,14 @@ namespace ST_Project
 
         public bool HasNext()
         {
-            return index + 1 < log.Length-100;
+            return index + 1 < log.Length;
         }
 
         public void SeedState()
         {
             gm = new GameManager(true);
             st = new GameState(d, p, true);
+            gm.replay = true;
             Debug.WriteLine(st.GetDungeon().ToString());
             Debug.WriteLine(st.GetPlayer().ToString());
             gm.SetState(st);
@@ -169,11 +177,11 @@ namespace ST_Project
             {
                 Oracle.DETERMF = true;
                 gm.UseScroll();
-                Debug.WriteLine("scroll with explosion used");
+                Debug.WriteLine("scroll without explosion used");
                 Oracle.DETERMF = false;
             }
             if (parts[0] == "using" && parts[1] == "scroll" && parts.Length == 6)
-            { gm.UseScroll(); Debug.WriteLine("scroll without explosion used"); }
+            { gm.UseScroll(); Debug.WriteLine("scroll with explosion used"); }
             if (parts[0] == "Moving" && parts[1] == "to")
             { gm.PlayerMoved(int.Parse(parts[2])); Debug.WriteLine("Player moved"); }
             if (parts[0] == "spawned" && parts[1] == "pack")
