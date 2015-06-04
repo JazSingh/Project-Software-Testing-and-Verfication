@@ -147,8 +147,9 @@ namespace ST_Project
         private int GetItemVal(string item)
         {
             if (item == "MagicScroll") return 7;
-            if (item == "HealthPotion") return 1;
-            return 4;
+            else if (item == "HealthPotion") return 1;
+            else if (item == "TimeCrystal") return 4;
+            return 10;
         }
 
 
@@ -161,10 +162,6 @@ namespace ST_Project
         public void Step()
         {
             string cur = GetNext();
-
-            if (cur == "" || cur == null)
-                return;
-
             string[] parts = cur.Split();
             if (parts[0] == "Fighting")
             { gm.Fight(); Debug.WriteLine("FIGHT"); }
@@ -186,8 +183,8 @@ namespace ST_Project
             if (parts[0] == "Moving" && parts[1] == "to")
             { gm.PlayerMoved(int.Parse(parts[2])); Debug.WriteLine("Player moved"); }
             if (parts[0] == "spawned" && parts[1] == "pack")
-            { 
-                gm.GetDungeon().nodes[int.Parse(parts[3])].pushPack(new Pack(2)); Debug.WriteLine("Pack spawned"); 
+            {
+                gm.GetDungeon().nodes[int.Parse(parts[3])].pushPack(new Pack(GetItemVal(parts[5]))); Debug.WriteLine("Pack spawned"); 
             }
             if (parts[0] == "In" && parts[2] == "wordt" && parts[3] == "een" && parts[4] == "Item" && parts[5] == "gedropt:")
             { gm.GetDungeon().nodes[int.Parse(parts[1])].Add_Item(GetItem("Dropped Item: " + parts[6])); Debug.WriteLine("Item dropped"); }

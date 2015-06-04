@@ -88,9 +88,13 @@ namespace ST_Project
         }
 
         //Add a new pack to the node
-        public bool AddPack()
+        public bool AddPack(bool HP_property)
         {
-            int val = Oracle.GiveNumber(0, 18);
+            int val = 18;
+            if (HP_property)
+                val = Oracle.GiveNumber(0, 18);
+            else
+                val = Oracle.GiveNumber(3, 18);
             Pack p = new Pack(val);
             if (TotalMonsters() + p.GetNumMonsters() > MaxCapacity) return false;
             packs.Push(p);
