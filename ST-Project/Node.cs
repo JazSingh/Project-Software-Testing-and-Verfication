@@ -91,7 +91,7 @@ namespace ST_Project
         public bool AddPack()
         {
             Random r = new Random();
-            int val = r.Next(0, 19);
+            int val = Oracle.GiveNumber(0, 18);
             Pack p = new Pack(val);
             if (TotalMonsters() + p.GetNumMonsters() > MaxCapacity) return false;
             packs.Push(p);

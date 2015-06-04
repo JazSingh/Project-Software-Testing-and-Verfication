@@ -184,7 +184,7 @@ namespace ST_Project
             {
                 int[] adj = n.get_Adj();
                 Random r = new Random();
-                int next = adj[r.Next(0, n.NumNeighbours)];
+                int next = adj[Oracle.GiveNumber(0, n.NumNeighbours-1)];
                 Pack p = nodes[pos].popPack();
 
                 nodes[next].pushPack(p);

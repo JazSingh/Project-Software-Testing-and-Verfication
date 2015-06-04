@@ -29,14 +29,22 @@ namespace TestProject
              */
 
             //KIJKEN OF REPLAY WERKT!
-            Replayer z = new Replayer("test.txt");
-            z.Play();
+            Replayer z = new Replayer("firstlog.txt");
+            z.Init();
             while (z.HasNext())
             {
-                z.Step();
+               z.Step();
             }
-            GameState q = z.QueryState();
-            Assert. AreEqual(z.QueryState().GetPlayer().get_position(), 7);
+            Dungeon d = z.d;
+            Node[] nodes = d.nodes;
+            //for (int t = 0; t < nodes.Length; t++)
+            //{
+            //    Stack<Pack> packs = nodes[t].getPacks();
+            //    int cap = 0;
+            //    foreach (Pack p in packs)
+            //        cap += p.GetNumMonsters();
+            //    Assert.IsTrue(cap <= nodes[t].GetCapacity()); 
+            //}
         }
 
         [TestMethod]

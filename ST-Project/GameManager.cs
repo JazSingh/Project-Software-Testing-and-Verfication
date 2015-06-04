@@ -309,6 +309,10 @@ namespace ST_Project
             return state;
         }
 
+        public void SetState(GameState s)
+        {
+            state = s;
+        }
         public Player GetPlayer()
         {
             return state.GetPlayer();
