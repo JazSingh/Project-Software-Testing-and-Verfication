@@ -139,6 +139,32 @@ namespace UnitTestProject1
             }
         }
 
+        [TestMethod]
+        public void Test2_hs_6()
+        {
+            //Tester has score of 999, Highscores are half full with score 999 
+            DeleteHS();
+            CreateHS_Half999();
+
+            Replayer z = new Replayer("2_1c.txt");
+            z.Init();
+            while (z.HasNext())
+            {
+                z.Step();
+            }
+            string[] hscr = System.IO.File.ReadAllLines("highscores.txt");
+            string expected = "Pro 999";
+            string actual;
+            for (int i = 0; i < 5; i++)
+            {
+                 actual = hscr[i];
+                Assert.AreEqual(expected, actual);
+            }
+            expected = "Tester 999";
+            actual = hscr[5];
+            Assert.AreEqual(expected, actual);
+        }
+
         public void DeleteHS()
         {
             if (System.IO.File.Exists("highscores.txt"))
@@ -166,6 +192,19 @@ namespace UnitTestProject1
             {
                 for (int i = 0; i < 10; i++)
                     sw.WriteLine("Pro 999");
+            }
+        }
+
+        public void CreateHS_Half999()
+        {
+            System.IO.File.Create("highscores.txt").Close();
+
+            using (System.IO.StreamWriter sw = System.IO.File.AppendText("highscores.txt"))
+            {
+                for (int i = 0; i < 5; i++)
+                    sw.WriteLine("Pro 999");
+                for (int i = 5; i < 10; i++)
+                    sw.WriteLine("Empty 0");
             }
         }
 
