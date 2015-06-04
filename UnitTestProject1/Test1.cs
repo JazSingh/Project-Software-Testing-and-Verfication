@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ST_Project;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 
 namespace TestProject
@@ -248,7 +249,7 @@ namespace TestProject
                                     cur_amount++;
                             }
                         }
-                        catch(NullReferenceException e){}
+                        catch(NullReferenceException e){ Debug.WriteLine(e.Message);}
 
                         try{
                         Stack<Pack> packs = nodes[t].getPacks();
@@ -259,7 +260,7 @@ namespace TestProject
                             monsterhp+= p.GetPackHealth();
                         }
                         }
-                        catch (NullReferenceException e) { }
+                        catch (NullReferenceException e) { Debug.WriteLine(e.Message); }
                     }
                 }
 

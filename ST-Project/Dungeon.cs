@@ -503,7 +503,7 @@ namespace ST_Project
             try{
                 return parent.GetPlayer().GetHP() + num_potions() * 25 <= hpMonsters();
             }
-            catch (Exception e) { }
+            catch (Exception e) { Console.WriteLine(e.Message); }
             return false;
         }
 

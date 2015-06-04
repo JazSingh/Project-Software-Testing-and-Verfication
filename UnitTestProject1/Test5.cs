@@ -82,7 +82,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void NoOrdL30FullNeighs()
         {
-            Replayer z = new Replayer("NoOrdL30.txt");
+            Replayer z = new Replayer("NoOrdL30FN.txt");
             z.Init();
             while (z.HasNext())
                 z.Step();
