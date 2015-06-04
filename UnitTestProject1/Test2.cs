@@ -10,13 +10,13 @@ namespace UnitTestProject1
     public class Test2
     {
         [TestMethod]
-        public void Test2_1()
+        public void Test2_hs_1()
         {
             //player Tester gets highscore with 999 points, highscores are still descending, Tester is in the highscore list
             DeleteHS();
             CreateHS_Descending();
 
-            Replayer z = new Replayer("2_1.txt");
+            Replayer z = new Replayer("2_1a.txt");
             z.Init();
             while (z.HasNext())
             {
@@ -42,13 +42,13 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
-        public void Test2_2()
+        public void Test2_hs_2()
         {
             //Highscores are empty, player Tester gets first place with 999 points
             DeleteHS();
             CreateHS_All0();
 
-            Replayer z = new Replayer("2_1.txt");
+            Replayer z = new Replayer("2_1a.txt");
             z.Init();
             while (z.HasNext())
             {
@@ -68,13 +68,13 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
-        public void Test2_3()
+        public void Test2_hs_3()
         {
             //Highscores are descending with Pro0 t/m Pro9, Tester gets place 10 and removes pro9 from the list 
             DeleteHS();
             CreateHS_Descending();
 
-            Replayer z = new Replayer("2_2.txt");
+            Replayer z = new Replayer("2_1b.txt");
             z.Init();
             while (z.HasNext())
             {
@@ -113,16 +113,6 @@ namespace UnitTestProject1
             }
         }
 
-        public void CreateHS_All999()
-        {
-            System.IO.File.Create("highscores.txt").Close();
-            using (System.IO.StreamWriter sw = System.IO.File.AppendText("highscores.txt"))
-            {
-                for (int i = 0; i < 10; i++)
-                    sw.WriteLine("Pro" + i + " 999");
-            }
-        }
-
         public void CreateHS_Descending()
         {
             System.IO.File.Create("highscores.txt").Close();
@@ -135,6 +125,101 @@ namespace UnitTestProject1
                     score -= 111;
                 } 
             }
+        }
+
+        [TestMethod]
+        public void Test2_sc_a()
+        {
+            //null node score
+            DeleteHS();
+            CreateHS_Descending();
+
+            Replayer z = new Replayer("2_2a.txt");
+            z.Init();
+            while (z.HasNext())
+            {
+                z.Step();
+            }
+            int expected = 9;
+            int actual = z.QueryState().GetPlayer().getScore();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Test2_sc_b()
+        {
+            //non bridge score
+            DeleteHS();
+            CreateHS_Descending();
+
+            Replayer z = new Replayer("2_2b.txt");
+            z.Init();
+            while (z.HasNext())
+            {
+                z.Step();
+            }
+            int expected = 9;
+            int actual = z.QueryState().GetPlayer().getScore();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Test2_sc_c()
+        {
+            //bridge lvl 1
+            DeleteHS();
+            CreateHS_Descending();
+
+            Replayer z = new Replayer("2_2c.txt");
+            z.Init();
+            while (z.HasNext())
+            {
+                z.Step();
+            }
+            int expected = 9;
+            int actual = z.QueryState().GetPlayer().getScore();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Test2_sc_d()
+        {
+            //bridge lvl 2
+            DeleteHS();
+            CreateHS_Descending();
+
+            Replayer z = new Replayer("2_2d.txt");
+            z.Init();
+            while (z.HasNext())
+            {
+                z.Step();
+            }
+            int expected = 18;
+            int actual = z.QueryState().GetPlayer().getScore();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Test2_sc_e()
+        {
+            //bridge lvl 2, player has already 9 points
+            DeleteHS();
+            CreateHS_Descending();
+
+            Replayer z = new Replayer("2_2e.txt");
+            z.Init();
+            while (z.HasNext())
+            {
+                z.Step();
+            }
+            int expected = 27;
+            int actual = z.QueryState().GetPlayer().getScore();
+
+            Assert.AreEqual(expected, actual);
         }
     }
 }
