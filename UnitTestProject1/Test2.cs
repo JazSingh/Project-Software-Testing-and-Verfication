@@ -93,6 +93,51 @@ namespace UnitTestProject1
             }
         }
 
+        [TestMethod]
+        public void Test2_hs_4()
+        {
+            //no highscore, Highscores are full with score 999 
+            DeleteHS();
+            CreateHS_All999();
+
+            Replayer z = new Replayer("2_1b.txt");
+            z.Init();
+            while (z.HasNext())
+            {
+                z.Step();
+            }
+            string[] hscr = System.IO.File.ReadAllLines("highscores.txt");
+            string expected = "Pro 999";
+
+            for (int i = 0; i < 9; i++)
+            {
+                string actual = hscr[i];
+                Assert.AreEqual(expected, actual);
+            }
+        }
+
+        [TestMethod]
+        public void Test2_hs_5()
+        {
+            //Tester has score of 999, Highscores are full with score 999 
+            DeleteHS();
+            CreateHS_All999();
+
+            Replayer z = new Replayer("2_1c.txt");
+            z.Init();
+            while (z.HasNext())
+            {
+                z.Step();
+            }
+            string[] hscr = System.IO.File.ReadAllLines("highscores.txt");
+            string expected = "Pro 999";
+
+            for (int i = 0; i < 9; i++)
+            {
+                string actual = hscr[i];
+                Assert.AreEqual(expected, actual);
+            }
+        }
 
         public void DeleteHS()
         {
@@ -110,6 +155,17 @@ namespace UnitTestProject1
             {
                 for (int i = 0; i < 10; i++ )
                     sw.WriteLine("Empty 0");
+            }
+        }
+
+        public void CreateHS_All999()
+        {
+            System.IO.File.Create("highscores.txt").Close();
+
+            using (System.IO.StreamWriter sw = System.IO.File.AppendText("highscores.txt"))
+            {
+                for (int i = 0; i < 10; i++)
+                    sw.WriteLine("Pro 999");
             }
         }
 
