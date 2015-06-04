@@ -30,6 +30,9 @@ namespace TestProject
 
             A_1();
             A_2();
+            A_3();
+            A_4();
+            A_5();
         }
 
         [TestMethod]
@@ -54,9 +57,7 @@ namespace TestProject
                         Assert.IsTrue(cap <= nodes[t].GetCapacity());
                     }
                 }
-            }
-            
-            
+            } 
         }
 
         [TestMethod]
@@ -160,9 +161,47 @@ namespace TestProject
         }
 
         [TestMethod]
-        void Test_B()
+        public void Test_B()
         {
             // constraint: “The exit is always reachable from the player’s current node.”
+            B_1();
+            B_2();
+        }
+
+        [TestMethod]
+        public void B_1()
+        {
+            // default movement
+            Replayer z = new Replayer("1b-1.txt");
+            z.Init();
+            while (z.HasNext())
+            {
+                z.Step();
+                GameState st = z.QueryState();
+                Player p = st.GetPlayer();
+                int pos = p.get_position();
+                Dungeon d = st.GetDungeon();
+                Stack<Node> path = d.ShortestPath(d.nodes[pos], d.nodes[d.nodes.Length-1]);
+                Assert.IsTrue(path.Count > 0);
+            }
+        }
+
+        [TestMethod]
+        public void B_2()
+        {
+            // moving and causing explosion
+            Replayer z = new Replayer("1b-2.txt");
+            z.Init();
+            while (z.HasNext())
+            {
+                z.Step();
+                GameState st = z.QueryState();
+                Player p = st.GetPlayer();
+                int pos = p.get_position();
+                Dungeon d = st.GetDungeon();
+                Stack<Node> path = d.ShortestPath(d.nodes[pos], d.nodes[d.nodes.Length - 1]);
+                Assert.IsTrue(path.Count > 0);
+            }
         }
 
         [TestMethod]
