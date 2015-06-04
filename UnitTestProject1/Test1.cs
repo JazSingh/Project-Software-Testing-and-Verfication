@@ -10,31 +10,8 @@ namespace TestProject
     [TestClass]
     public class Test1
     {
-        [TestMethod]
-        public void Test_A()
-        {
-            // constraint: “The node-capacity rule is never breached.”
-            // use MBC, with base: (full, yes, 2)
-
-            /*
-              Pseudo-code
-              Log z = Load(...);
-              z.init();
-              while (z.hasNext()) 
-              {
-                GameState q = z.queryState() ;
-                foreach Node n
-                    Assert... n.capacity <= max_capacity
-                z.next();
-              }
-             */
-
-            A_1();
-            A_2();
-            A_3();
-            A_4();
-            A_5();
-        }
+        // 1a. constraint: “The node-capacity rule is never breached.”
+        // use MBC, with base: (full, yes, 2)
 
         [TestMethod]
         public void A_1()
@@ -161,13 +138,7 @@ namespace TestProject
             }
         }
 
-        [TestMethod]
-        public void Test_B()
-        {
-            // constraint: “The exit is always reachable from the player’s current node.”
-            B_1();
-            B_2();
-        }
+        // 1b. constraint: “The exit is always reachable from the player’s current node.”
 
         [TestMethod]
         public void B_1()
@@ -205,6 +176,8 @@ namespace TestProject
             }
         }
 
+        // 1c. constraint: “Dropping healing potions never breaks the HP-restriction rule.”
+
         [TestMethod]
         public void Test_C()
         {
@@ -217,7 +190,6 @@ namespace TestProject
             // these two logs are made in one run, to show the invariant works when moving to the next-lvl
             C_1("1c-first_lvl.txt"); 
             C_1("1c-next_lvl.txt");
-
         }
 
         [TestMethod]
