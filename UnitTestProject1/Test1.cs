@@ -205,9 +205,75 @@ namespace TestProject
         }
 
         [TestMethod]
-        void Test_C()
+        public void Test_C()
         {
             // constraint: “Dropping healing potions never breaks the HP-restriction rule.”
+
+            C_1("1c-1.txt");
+            C_1("1c-2.txt");
+            C_1("1c-3.txt"); // After killing a pack?!??!
+
+
+        }
+
+        [TestMethod]
+        private void C_1(string path)
+        {
+            // when there are no monsters in the game
+            // no potions will be dropped when it will break the HP-property
+
+            Replayer z = new Replayer(path);
+            z.Init();
+            while (z.HasNext())
+            {
+                z.Step();
+                GameState st = z.QueryState();
+                Node[] nodes = st.GetDungeon().nodes;
+                int cur_amount = 0;               // # potions in the game
+                int prev_amount = 0;    // # potions before the last action
+                int monsterhp = 0;
+                for(int t =0;t<nodes.Length;t++)
+                {
+                    if (nodes[t] != null)
+                    {
+                        try
+                        {
+                            List<Item> items = nodes[t].get_Items();
+                            foreach (Item i in items)
+                            {
+                                if (i.type == ItemType.HealthPotion)
+                                    cur_amount++;
+                            }
+                        }
+                        catch(NullReferenceException e){}
+
+                        try{
+                        Stack<Pack> packs = nodes[t].getPacks();
+                        foreach(Pack p in packs)
+                        {
+                            if (p.GetItem().type == ItemType.HealthPotion)
+                                cur_amount++;
+                            monsterhp+= p.GetPackHealth();
+                        }
+                        }
+                        catch (NullReferenceException e) { }
+                    }
+                }
+
+                List<Item> item = st.GetPlayer().getItems();
+                foreach(Item i in item)
+                {
+                    if (i.type == ItemType.HealthPotion)
+                        cur_amount++;
+                }
+
+                if (cur_amount > prev_amount) 
+                {
+                    Assert.IsTrue((st.GetPlayer().GetHP() + (cur_amount * 25)) <= monsterhp); // when # potions is changed, check if HP-property isn't broken
+                    prev_amount = cur_amount; cur_amount = 0; monsterhp = 0;
+                }
+                
+            }
         }
     }
 }

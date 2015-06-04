@@ -463,7 +463,7 @@ namespace ST_Project
             int dropped = 0;
             for (int i = 1; i <= difficulty; i++)
             {
-                nodes[i * interval].AddPack();
+                nodes[i * interval].AddPack(AddPotionCheck());
                 if (parent != null && parent.parent.isLogging())
                 {
                     Item itm = nodes[i * interval].getPacks().Peek().GetItem();
@@ -478,7 +478,7 @@ namespace ST_Project
             for (int i = 1; i < dungeonSize - 2; i++)
                 if (initialPackDrops - dropped > 0
                     && nodes[i] != null
-                    && Oracle.Decide() && nodes[i].AddPack())
+                    && Oracle.Decide() && nodes[i].AddPack(AddPotionCheck()))
                 {
                     dropped++;
                     if (parent != null && parent.parent.isLogging())
@@ -488,7 +488,7 @@ namespace ST_Project
             int j = difficulty;
             while(initialPackDrops - dropped > 0)
             {
-                if (nodes[j * interval].AddPack())
+                if (nodes[j * interval].AddPack(AddPotionCheck()))
                 {
                     dropped++;
                     if (parent != null && parent.parent.isLogging())
@@ -496,6 +496,78 @@ namespace ST_Project
                 }
                 j = j == 1 ? difficulty : j - 1;
             }
+        }
+
+        private bool AddPotionCheck()
+        {
+            try{
+                return parent.GetPlayer().GetHP() + num_potions() * 25 <= hpMonsters();
+            }
+            catch (Exception e) { }
+            return false;
+        }
+
+        private int hpMonsters()
+        {
+            int total = 0;
+
+            for (int t =0;t<nodes.Length;t++)
+            {
+                if (nodes[t] != null)
+                {
+                    Stack<Pack> packs = nodes[t].getPacks();
+                    foreach(Pack p in packs)
+                    {
+                        total += p.GetPackHealth();
+                    }
+                }
+            }
+            return total;
+        }
+
+        private int num_potions()
+        {
+            int total = 0;
+
+            for (int t = 0; t < nodes.Length; t++)
+            {
+                if (nodes[t] != null)
+                {
+                    List<Item> items = nodes[t].get_Items();
+                    try
+                    {
+                        foreach (Item i in items)
+                        {
+                            if (i.type == ItemType.HealthPotion)
+                                total++;
+                        }
+                    }
+                    catch (Exception e) { }
+
+                    try
+                    {
+                        Stack<Pack> packs = nodes[t].getPacks();
+                        foreach (Pack p in packs)
+                        {
+                            if (p.GetItem().type == ItemType.HealthPotion)
+                                total++;
+                        }
+                    }
+                    catch (Exception e) { }
+                }
+            }
+
+            List<Item> iis = parent.GetPlayer().getItems();
+            try
+            {
+                foreach (Item i in iis)
+                {
+                    if (i.type == ItemType.HealthPotion)
+                        total++;
+                }
+            }
+            catch (Exception e) { }
+            return total;
         }
 
         public Node GetNode(int i)
