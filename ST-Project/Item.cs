@@ -28,7 +28,6 @@ namespace ST_Project
             s += type.ToString("F");
             return s;
         }
-
     }
 
     public class Health_Potion : Item

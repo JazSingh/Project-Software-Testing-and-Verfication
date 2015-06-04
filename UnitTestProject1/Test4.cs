@@ -69,7 +69,7 @@ namespace UnitTestProject1
             z.Step();
             int dmg2 = z.QueryState().GetDungeon().nodes[0].getPacks().Peek().GetPackHealth();
 
-            Assert.IsTrue(dmg < dmg1);
+            Assert.IsTrue(dmg1 < dmg2);
         }
 
         [TestMethod]
