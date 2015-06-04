@@ -86,6 +86,7 @@ namespace ST_Project
             {
                 Node node = ParseNode(cur);
                 nodes[node.ID] = node;
+                if (node.ID % interval == 0) nodes[node.ID].SetCapacity(node.ID / interval);
                 Debug.WriteLine("Parsed node: " + node.ID);
             }
 
