@@ -28,12 +28,40 @@ namespace TestProject
               }
              */
 
+            A_1();
+            A_2();
+        }
+
+        [TestMethod]
+        public void A_1()
+        {
             //KIJKEN OF REPLAY WERKT!
-            Replayer z = new Replayer("firstlog.txt");
+            Replayer z = new Replayer("1a-1.txt");
             z.Init();
             while (z.HasNext())
             {
-               z.Step();
+                z.Step();
+            }
+            Dungeon d = z.QueryState().GetDungeon();
+            Node[] nodes = d.nodes;
+            for (int t = 0; t < nodes.Length; t++)
+            {
+                Stack<Pack> packs = nodes[t].getPacks();
+                int cap = 0;
+                foreach (Pack p in packs)
+                    cap += p.GetNumMonsters();
+                Assert.IsTrue(cap <= nodes[t].GetCapacity()); 
+            }
+        }
+
+        [TestMethod]
+        public void A_2()
+        {
+            Replayer z = new Replayer("1a-2.txt");
+            z.Init();
+            while (z.HasNext())
+            {
+                z.Step();
             }
             Dungeon d = z.d;
             Node[] nodes = d.nodes;

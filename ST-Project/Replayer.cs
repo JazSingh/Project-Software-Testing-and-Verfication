@@ -48,7 +48,7 @@ namespace ST_Project
 
         public bool HasNext()
         {
-            return index + 1 < log.Length-100;
+            return index + 1 < log.Length;
         }
 
         public void SeedState()
