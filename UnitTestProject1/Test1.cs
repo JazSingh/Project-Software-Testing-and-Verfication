@@ -212,8 +212,11 @@ namespace TestProject
 
             C_1("1c-1.txt");
             C_1("1c-2.txt");
-            C_1("1c-3.txt"); // After killing a pack?!??!
-
+            //C_1("1c-3.txt"); // After killing a pack?!??!
+            
+            // these two logs are made in one run, to show the invariant works when moving to the next-lvl
+            C_1("1c-first_lvl.txt"); 
+            C_1("1c-next_lvl.txt");
 
         }
 

@@ -220,8 +220,8 @@ namespace TestProject
             int dsize = 7;
             Node[] ns = new Node[dsize];
             ns[1] = new Node(1);
-            ns[1].AddPack();
-            ns[1].AddPack();
+            ns[1].AddPack(true);
+            ns[1].AddPack(true);
             ns[2] = new Node(2);
 
             ns[3] = new Node(3);
@@ -249,8 +249,8 @@ namespace TestProject
             int dsize = 7;
             Node[] ns = new Node[dsize];
             ns[1] = new Node(1);
-            ns[1].AddPack();
-            ns[1].AddPack();
+            ns[1].AddPack(true);
+            ns[1].AddPack(true);
             ns[2] = new Node(2);
 
             ns[1].AddNeighbour(2);
@@ -274,8 +274,8 @@ namespace TestProject
             int dsize = 7;
             Node[] ns = new Node[dsize];
             ns[1] = new Node(1);
-            ns[1].AddPack();
-            ns[1].AddPack();
+            ns[1].AddPack(true);
+            ns[1].AddPack(true);
             Dungeon d = new Dungeon(ns, diff, dsize, 2);
 
             Assert.IsFalse(d.CheckRetreat(1));
@@ -289,7 +289,7 @@ namespace TestProject
             int dsize = 3;
             Node[] ns = new Node[dsize];
             ns[0] = new Node(0);
-            ns[0].AddPack();
+            ns[0].AddPack(true);
             ns[1] = new Node(1);
             ns[2] = new Node(2);
 
@@ -309,7 +309,7 @@ namespace TestProject
             int dsize = 3;
             Node[] ns = new Node[dsize];
             ns[0] = new Node(0);
-            ns[0].AddPack();
+            ns[0].AddPack(true);
             ns[1] = new Node(1);
             ns[2] = new Node(2);
 
@@ -330,7 +330,7 @@ namespace TestProject
             Node[] ns = new Node[dsize];
             ns[0] = new Node(0);
             ns[1] = new Node(1);
-            ns[1].AddPack();
+            ns[1].AddPack(true);
 
             ns[0].AddNeighbour(1);
             ns[1].AddNeighbour(0);
@@ -621,7 +621,7 @@ namespace TestProject
         public void SumMonstHealthDamaged()
         {
             Dungeon d = new Dungeon(10);
-            d.nodes[0].AddPack();
+            d.nodes[0].AddPack(true);
             Pack p = d.nodes[0].popPack();
             p.hit_pack(10);
             d.nodes[0].pushPack(p);

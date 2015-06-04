@@ -502,8 +502,8 @@ namespace TestProject
             int position = 2;
             p.set_position(position);
             Node n = new Node(position);
-            n.AddPack();
-            n.AddPack();
+            n.AddPack(true);
+            n.AddPack(true);
             Dungeon d = gst.GetDungeon();
             d.nodes[position] = n;
             bool actual = gst.Fight();
@@ -568,8 +568,8 @@ namespace TestProject
             int dsize = 7;
             Node[] ns = new Node[dsize];
             ns[1] = new Node(1);
-            ns[1].AddPack();
-            ns[1].AddPack();
+            ns[1].AddPack(true);
+            ns[1].AddPack(true);
             ns[2] = new Node(2);
 
             ns[3] = new Node(3);
@@ -752,7 +752,7 @@ namespace TestProject
 
             int position = 2;
             Node n = new Node(position);
-            n.AddPack();
+            n.AddPack(true);
             Pack pack = n.popPack();
             pack.hit_pack(16);
             pack.hit_pack(16);
@@ -786,7 +786,7 @@ namespace TestProject
 
             int position = 2;
             Node n = new Node(position);
-            n.AddPack();    //Allen leven nog, hp == init
+            n.AddPack(true);    //Allen leven nog, hp == init
 
             d.nodes[position] = n;
 

@@ -129,7 +129,7 @@ namespace TestProject
         public void AddPack()
         {
             Node n = new Node(0);
-            n.AddPack();
+            n.AddPack(true);
             Assert.IsTrue(n.hasPack());
         }
 
@@ -147,8 +147,8 @@ namespace TestProject
         public void CapacityNotFull()
         {
             Node n = new Node(0);
-            n.AddPack();
-            Assert.IsTrue(n.AddPack());
+            n.AddPack(true);
+            Assert.IsTrue(n.AddPack(true));
         }
 
         //Check if capacity if full when it should be
@@ -156,10 +156,10 @@ namespace TestProject
         public void CapacityFull()
         {
             Node n = new Node(0);
-            n.AddPack();
+            n.AddPack(true);
             n.pushPack(new Pack(0));
             n.pushPack(new Pack(0));
-            Assert.IsFalse(n.AddPack());
+            Assert.IsFalse(n.AddPack(true));
         }
 
         //Check if a node with no monsters yields the right some of monsters
@@ -175,7 +175,7 @@ namespace TestProject
         public void OnePack()
         {
             Node n = new Node(1);
-            n.AddPack();
+            n.AddPack(true);
             Assert.AreEqual(3, n.TotalMonsters());
         }
 
@@ -184,9 +184,9 @@ namespace TestProject
         public void MaxCapacity()
         {
             Node n = new Node(1);
-            n.AddPack();
-            n.AddPack();
-            n.AddPack();
+            n.AddPack(true);
+            n.AddPack(true);
+            n.AddPack(true);
             Assert.AreEqual(9, n.maxCap());
             Assert.AreEqual(9, n.TotalMonsters());
         }
@@ -196,10 +196,10 @@ namespace TestProject
         public void MaxCapacityRestriction()
         {
             Node n = new Node(1);
-            n.AddPack();
-            n.AddPack();
-            n.AddPack();
-            n.AddPack();
+            n.AddPack(true);
+            n.AddPack(true);
+            n.AddPack(true);
+            n.AddPack(true);
             Assert.AreEqual(9, n.TotalMonsters());
         }
 
@@ -326,7 +326,7 @@ namespace TestProject
         public void SumMonstersDamaged()
         {
             Node n = new Node(0);
-            n.AddPack();
+            n.AddPack(true);
             int init = n.SumMonsterHealth();
             Pack p = n.popPack();
             p.hit_pack(10);
@@ -416,8 +416,8 @@ namespace TestProject
         public void NoRetreat()
         {
             Node n = new Node(901);
-            n.AddPack();
-            n.AddPack();
+            n.AddPack(true);
+            n.AddPack(true);
             Assert.IsFalse(n.Retreat());
             Assert.AreEqual(6, n.TotalMonsters());
         }
@@ -427,8 +427,8 @@ namespace TestProject
         public void Retreat()
         {
             Node n = new Node(901);
-            n.AddPack();
-            n.AddPack();
+            n.AddPack(true);
+            n.AddPack(true);
             Pack p = n.popPack();
             p.hit_pack(45);
             p.hit_pack(45);
