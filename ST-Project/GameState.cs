@@ -70,6 +70,16 @@ namespace ST_Project
             this.p = p;
         }
 
+        public int getLKP()
+        {
+            return LKP;
+        }
+
+        public int getDefend()
+        {
+            return defend;
+        }
+
         // Called after finishing a dungeon. Create a new dungeon and save the state with the new dungeon
         // the new dungeon does NOT contain any monsters or items yet, these will be spawned afterwards
         public void Save(string filename)

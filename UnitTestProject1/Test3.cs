@@ -22,9 +22,9 @@ namespace TestProject
         [TestMethod]
         public void A_Defend()
         {
-            Defend_NoOrders("3a-1.txt"); // test constraint when moving and using a Health Potion/Magic Scroll
+            Defend_NoOrders("3a-6.txt"); // test constraint when moving and using items
             Defend_NoOrders("3a-2.txt"); // test constraint when fighting
-            Defend_Orders("3a-4.txt");   // test constraint after using a Time Crystal
+            Defend_Orders("3a-4.txt");   // test constraint after reaching a new bridge
         }
 
         public void Defend_Orders(string p)
@@ -91,6 +91,63 @@ namespace TestProject
             // to finish its order (it didn’t eliminated along the way, it is not 
             // continously blocked by a full node), then it will reach its destination node, 
             // as specified by the order.”
+
+            Check_Hunt("3b-1.txt");   // check hunt-part of the constraint
+            Check_Defend("3b-2.txt"); // check defend-part of the constraint
+        }
+
+        private void Check_Defend(string p)
+        {
+            Replayer z = new Replayer(p);
+            z.Init();
+            while (z.HasNext())
+            {
+                z.Step();
+            }
+
+            GameState st = z.QueryState();
+            Node[] nodes = st.GetDungeon().nodes;
+            for (int t = 0; t < nodes.Length; t++)
+            {
+                if (nodes[t] != null)
+                {
+                    Stack<Pack> packs = nodes[t].getPacks();
+                    foreach (Pack pa in packs)
+                    {
+                        if (pa.getDefend())
+                        {
+                            Assert.AreEqual(st.getDefend(), t); // every Hunt-pack reached it's destination point eventually
+                        }
+                    }
+                }
+            }
+        }
+
+        private void Check_Hunt(string p)
+        {
+            Replayer z = new Replayer(p);
+            z.Init();
+            while (z.HasNext())
+            {
+                z.Step();
+            }
+
+            GameState st = z.QueryState();
+            Node[] nodes = st.GetDungeon().nodes;
+            for (int t = 0; t < nodes.Length; t++)
+            {
+                if (nodes[t] != null)
+                {
+                    Stack<Pack> packs = nodes[t].getPacks();
+                    foreach(Pack pa in packs)
+                    {
+                        if (pa.getHunt())
+                        {
+                            Assert.AreEqual(st.getLKP(), t); // every Hunt-pack reached it's destination point eventually
+                        }
+                    }
+                }
+            }
         }
     }
 }
