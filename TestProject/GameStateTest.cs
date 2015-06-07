@@ -734,6 +734,7 @@ namespace TestProject
         [TestMethod]
         public void CheckRetreat()
         {
+            Oracle.DETERM = false;
             CheckRetreat_False();
             CheckRetreat_True();
         }
