@@ -178,13 +178,17 @@ namespace ST_Project
                 Debug.WriteLine("scroll without explosion used");
                 Oracle.DETERMF = false;
             }
-            if (parts[0] == "using" && parts[1] == "scroll" && parts.Length == 6)
+            if (parts[0] == "using" && parts[1] == "scroll," && parts.Length == 6)
             { gm.UseScroll(); Debug.WriteLine("scroll with explosion used"); }
             if (parts[0] == "Moving" && parts[1] == "to")
             { gm.PlayerMoved(int.Parse(parts[2])); Debug.WriteLine("Player moved"); }
-            if (parts[0] == "spawned" && parts[1] == "pack")
+            if (parts[0] == "spawned" && parts[1] == "pack" && parts.Length < 5)
             {
-                gm.GetDungeon().nodes[int.Parse(parts[3])].pushPack(new Pack(GetItemVal(parts[5]))); Debug.WriteLine("Pack spawned"); 
+                gm.GetDungeon().nodes[int.Parse(parts[3])].pushPack(new Pack(300)); Debug.WriteLine("Pack spawned no item"); 
+            }
+            if (parts[0] == "spawned" && parts[1] == "pack" && parts.Length >= 5)
+            {
+                gm.GetDungeon().nodes[int.Parse(parts[3])].pushPack(new Pack(GetItemVal(parts[5]))); Debug.WriteLine("Pack spawned item");
             }
             if (parts[0] == "In" && parts[2] == "wordt" && parts[3] == "een" && parts[4] == "Item" && parts[5] == "gedropt:")
             { gm.GetDungeon().nodes[int.Parse(parts[1])].Add_Item(GetItem("Dropped Item: " + parts[6])); Debug.WriteLine("Item dropped"); }

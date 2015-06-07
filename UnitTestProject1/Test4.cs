@@ -51,7 +51,7 @@ namespace UnitTestProject1
             while (z.HasNext())
                 z.Step();
             GameState s = z.QueryState();
-            Assert.IsTrue(0 != s.GetPlayer().get_position());
+            Assert.AreEqual(4, s.GetPlayer().get_position());
         }
 
         [TestMethod]
@@ -59,15 +59,13 @@ namespace UnitTestProject1
         {
             Replayer z = new Replayer("ScrollAttack.txt");
             z.Init();
-            GameState s = z.QueryState();
             z.Step();
-            int dmg1 = z.QueryState().GetDungeon().nodes[0].getPacks().Peek().GetPackHealth();
+            int inithp = z.QueryState().GetDungeon().nodes[0].getPacks().Peek().GetPackHealth();
             z.Step();
-            z.Step();
-            z.Step();
+            int dmg1 = inithp - z.QueryState().GetDungeon().nodes[0].getPacks().Peek().GetPackHealth();
             z.Step();
             z.Step();
-            int dmg2 = z.QueryState().GetDungeon().nodes[0].getPacks().Peek().GetPackHealth();
+            int dmg2 = (inithp + dmg1) - z.QueryState().GetDungeon().nodes[0].getPacks().Peek().GetPackHealth();
 
             Assert.IsTrue(dmg1 < dmg2);
         }
@@ -80,7 +78,7 @@ namespace UnitTestProject1
             while (z.HasNext())
                 z.Step();
             GameState s = z.QueryState();
-            Assert.IsTrue(0 != s.GetPlayer().get_position());
+            Assert.AreEqual(0, s.GetDungeon().SumMonsterHealth());
         }
 
         [TestMethod]
@@ -91,7 +89,7 @@ namespace UnitTestProject1
             while (z.HasNext())
                 z.Step();
             GameState s = z.QueryState();
-            Assert.IsTrue(0 != s.GetPlayer().get_position());
+            foreach (Monster m in s.GetDungeon().nodes[0].getPacks().Pop().getMonsters()) Assert.AreEqual(7, m.GetHP());
         }
 
         [TestMethod]
@@ -102,7 +100,7 @@ namespace UnitTestProject1
             while (z.HasNext())
                 z.Step();
             GameState s = z.QueryState();
-            Assert.IsTrue(0 != s.GetPlayer().get_position());
+            Assert.AreEqual(0, s.GetDungeon().SumMonsterHealth());
         }
 
         [TestMethod]
@@ -113,19 +111,24 @@ namespace UnitTestProject1
             while (z.HasNext())
                 z.Step();
             GameState s = z.QueryState();
-            Assert.IsTrue(0 != s.GetPlayer().get_position());
+            Assert.AreEqual("TimeCrystal",s.GetPlayer().getCurrentItem().ToString());
         }
 
         [TestMethod]
         public void ItemNextLevel()
         {
             Replayer z = new Replayer("Itemnlvl1.txt");
-            Replayer zn = new Replayer("Itemnlvl2.txt");
             z.Init();
             while (z.HasNext())
                 z.Step();
+
+            Replayer zn = new Replayer("Itemnlvl2.txt");
+            zn.Init();
+            while (zn.HasNext())
+                zn.Step();
+            GameState s2 = zn.QueryState();
             GameState s = z.QueryState();
-            Assert.IsTrue(0 != s.GetPlayer().get_position());
+            Assert.AreEqual(s.GetPlayer().getCurrentItem().ToString(), s2.GetPlayer().getCurrentItem().ToString());
         }
 
     }
