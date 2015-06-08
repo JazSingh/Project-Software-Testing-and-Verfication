@@ -11,14 +11,14 @@ The project and test project are situated in the same solution.
 
 The game can be found in the ST-Project folder.
 
-The Unit Tests for iteration 1 can be found in the TestProject folder.
+The Unit Tests for **iteration 1** can be found in the *TestProject folder*.
 
-The System Tests for iteration 2 can be found in the UniTestProject1 folder.
+The System Tests for **iteration 2** can be found in the *UniTestProject1 folder*.
 
-The logs from which we tested in iteration 2 can be found in the UniTestProject1/bin/Debug folder in the zip file.
+The **logs** from which we tested in **iteration 2** can be found in the *UniTestProject1/bin/Debug* folder in the **zip** file.
 
 The executables have been tested on 64-bit machines exclusively.
 
-An URL to download the executables: https://github.com/JazSingh/ST-Project-Iteration2/blob/master/ST-Project-Iteration2.zip?raw=true
+An URL to download the **executables** (ST-Project-Iteration2\ST-Project\bin\Debug): https://github.com/JazSingh/ST-Project-Iteration2/blob/master/ST-Project-Iteration2.zip?raw=true
 
 Download and unzip the file. Run the ST-Project.exe file to play.
